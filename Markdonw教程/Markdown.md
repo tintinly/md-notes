@@ -250,7 +250,7 @@ Markdown 制作表格使用 **|** 来分隔不同的单元格，使用 **-** 来
 
 # 图片
 
-测试本地图片：![tintin1](Markdown/tintin3.jpg)
+测试本地图片：![tintin1](assets/tintin3.jpg)
 
 测试网络图片：![tintin1](https://img.sj33.cn/uploads/allimg/201208/20120806104604445.jpg)
 
