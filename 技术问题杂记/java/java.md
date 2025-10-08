@@ -1,3 +1,9 @@
+# Java面试问题
+
+* ArrayList 和 LinkedList 有什么区别？
+
+
+
 ## stream API
 
 ### flatMap
