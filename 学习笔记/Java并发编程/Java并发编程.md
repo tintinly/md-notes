@@ -250,6 +250,24 @@ private static final int INTERRUPTED  = 6;
 
 ### 3.1 线程组(ThreadGroup)
 
+每个Thread必然存在于一个ThreadGroup中，Thread不能独立于ThreadGroup存在。
+
+执行main() 方法线程和线程组的名字都是main。
+
+如果在new Thread时没有显式指定，那么默认将父线程 （当前执行new Thread的线程）线程组设置为自己的线程组。这样形成了一个标准的**向下引用**的树状结构，不会产生相互引用的问题，导致GC回收相互引用的线程失效，
+
+### 3.2  线程的优先级
+
+线程的优先级会在线程被调用之前设定。Java中线程优先级范围是1~10，默认的线程优先级为5。Java只是给操作系统一个优先级的参考值，线程最终在操作系统的**优先级是多少还是由操作系统决定**。
+
+通常情况下，高优先级的线程将会比低优先级的线程有更高的几率得到执行。
+
+某个线程优先级大于线程所在线程组的优先级，那么该线程的优先级将会失效，取而代之的是**线程组的优先级**。
+
+### 3.3  线程组的常用方法及数据结构
+
+常用方法
+
 ```java
 public static void main(String[] args) {
         ThreadGroup threadGroup = Thread.currentThread().getThreadGroup();
@@ -281,7 +299,69 @@ public static void main(String[] args) {
 // Thread-0: 测试异常
 ```
 
+数据结构
 
+```java
+public class ThreadGroup implements Thread.UncaughtExceptionHandler { 
+	private final ThreadGroup parent; // 父亲ThreadGroup 
+    String name; // ThreadGroupr 的名称 
+    int maxPriority; // 线程最大优先级 
+    boolean destroyed; // 是否被销毁 
+    boolean daemon; // 是否守护线程 
+    boolean vmAllowSuspension; // 是否可以中断 
+    int nUnstartedThreads = 0; // 还未启动的线程 
+    int nthreads; // ThreadGroup中线程数目 
+    Thread threads[]; // ThreadGroup中的线程 
+    int ngroups; // 线程组数目 
+    ThreadGroup groups[]; // 线程组数组 
+}
+```
+
+总结来说，线程组是一个树状的结构，每个线程组下面可以有多个线程或者线程组。线程组可以起到统一控制线程的优先级和检查线程的权限的作用。
+
+## 4 Java 线程的状态及主要转化方法
+
+### 4.1  操作系统中的线程状态转换
+
+操作系统线程主要有以下三个状态： 
+
+* 就绪状态(ready)：线程正在等待使用CPU，经调度程序调用之后可进入 running状态。
+* 执行状态(running)：线程正在使用CPU。 
+* 等待状态(waiting): 线程经过等待事件的调用或者正在等待其他资源（如 I/O）。
+
+![image-20251129121120091](assets/image-20251129121120091.png)
+
+### 4.2 Java 线程的6 个状态
+
+```java
+// Thread.State 源码
+public enum State { 
+    NEW, // 创建了线程而并没有调用start()方法，重复调用start()抛出异常
+    RUNNABLE, // 当前线程正在运行中。处于RUNNABLE状态的线程在Java虚拟机中运行，也有可能在等待CPU分配资源。
+    BLOCKED, // 阻塞状态。处于BLOCKED状态的线程正等待锁的释放以进入同步区。
+    WAITING, // 等待状态。处于等待状态的线程变成RUNNABLE状态需要其他线程唤醒。
+    TIMED_WAITING, // 超时等待状态。线程等待一个具体的时间，时间到后会被自动唤醒。
+    TERMINATED; // 终止状态。此时线程已执行完毕。
+} 
+```
+
+#### 4.3 线程状态的转换
+
+![image-20251129123039057](assets/image-20251129123039057.png)
+
+`Thread.sleep(long)`：使当前线程睡眠指定时间。需要注意这里的“睡眠”只是暂时使线程停止执行，并不会释放锁。时间到后，线程会重新进入RUNNABLE状态。
+
+`Object.wait()`/`Object.wait(long)`：调用wait()方法前线程必须持有对象的锁。调用wait()方法时，会释放当前的锁，直到有其他线程调用 notify()/notifyAll()方法唤醒等待锁的线程。
+
+`Thread.join()`/`Thread.join(long)`：调用join()方法，会一直等待这个线程执行完毕。
+
+#### 4.3.4 线程中断
+
+线程中断机制是一种协作机制。需要注意，通过中断操作并不能直接终止一 个线程，而是通知需要被中断的线程自行处理。
+
+* Thread.interrupt()：中断线程。这里的中断线程并不会立即停止线程，而是设 置线程的中断状态为true（默认是flase）
+* Thread.currentThread().isInterrupted()：测试当前线程是否被中断。线程的中 断状态受这个方法的影响，意思是调用一次使线程中断状态设置为true，连续 调用两次会使得这个线程的中断状态重新转为false；
+* Thread.isInterrupted()：测试当前线程是否被中断。与上面方法不同的是调用 这个方法并不会影响线程的中断状态。
 
 # 原理部分
 
