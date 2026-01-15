@@ -61,7 +61,8 @@ ln                  创建链接文件
 chmod 
 	754  				数字模式指定
 	(ugoa)(+-=)(rwx)    符号模式指定
-	若用 chmod 4755 filename 可使此程序具有 root 的权限。
+	若用 chmod 4755 filename 可使此程序具有 root 的权限。 
+	chmod 4755与chmod 755 的区别在于开头多了一位，这个4表示其他用户执行文件时，具有与所有者相当的权限。
 
 more、less  分页显示文本文件内容
 
