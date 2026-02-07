@@ -595,3 +595,40 @@ ${str##*c}
 ${str%c*}
 
 ${str%%c*}
+
+## Linux扫描硬盘坏道
+
+```shell
+##### 使用以下命令安装smartmontools #####
+$ sudo apt-get install smartmontools
+```
+
+```shell
+##### 查看它的帮助 #####
+$ man smartctl
+$ smartctl -h
+```
+
+```shell
+##### 查看整体健康自我评估 #####
+# 参数 -H 或 --health
+$ smartctl -H /dev/sda
+```
+
+![image-20260107210024261](assets/image-20260107210024261.png)
+
+```shell
+##### 显示你的所有磁盘或闪存的信息以及它们的分区信息 #####
+$ fdisk -l
+```
+
+![image-20260107210113581](assets/image-20260107210113581.png)
+
+```shell
+##### 查你的 Linux 硬盘上的坏道/坏块 #####
+#### -n 指定非破坏性读写模式，意味更长时间，默认非破坏性读写模式， -s 显示进度 -v 详细模式
+$ sudo badblocks -nsv /dev/sda > badsectors.txt  
+```
+
+![image-20260107231142388](assets/image-20260107231142388.png)
+
