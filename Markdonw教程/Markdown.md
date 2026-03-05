@@ -336,5 +336,20 @@ graph TD
     开始 --> 结束
 ```
 
+# 通用格式
+
+## 文献引用
+
+- [1] [百度学术](http://xueshu.baidu.com/)
+- [2] [Wikipedia](https://en.wikipedia.org/wiki/Main_Page)
+
+
+
+
+
+
+
+
+
 
 

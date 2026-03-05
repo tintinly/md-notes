@@ -285,13 +285,19 @@ docker system df 查看镜像/容器/数据卷所占的空间
 
 ![image-20220219234010987](assets/image-20220219234010987.png)
 
-docker rmi 某个XXX镜像名字ID 删除镜像
+docker rmi 某个XXX镜像名字或ID 删除镜像
+
+docker rmi -f 某个XXX镜像名字或ID 强制删除（可能会删除正在使用的镜像）
 
 docker rmi -f $(docker images -qa) 删除全部
 
 面试题：谈谈docker虚悬镜像是什么？ 仓库名、标签都是<none>的镜像，俗称虚悬镜像dangling image
 
 ![image-20220219235224999](assets/image-20220219235224999.png)
+
+docker rmi $(docker images -f "dangling=true" -q) 删除空悬镜像
+
+docker image prune 删除未使用的镜像
 
 ## 3.3 容器命令
 
@@ -526,6 +532,27 @@ $ docker run -d -p 5000:5000  -v /zzyyuse/myregistry/:/tmp/registry --privileged
 
 ![image-20220222124039738](assets/image-20220222124039738.png)
 
+**Docker Compose 方式部署**
+
+```yaml
+services:
+  registry:
+    image: registry:2
+    container_name: docker-registry
+    restart: unless-stopped
+    ports:
+      - "35000:5000"
+    environment:
+      # 可选：配置存储路径（默认使用容器内的 /var/lib/registry）
+      REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data
+    volumes:
+      # 将主机目录挂载到容器内，持久化镜像数据
+      - ./registry-data:/data
+      - /vol1/1000/dockerImage:/var/lib/registry
+```
+
+
+
 ```
 curl验证私服库上有什么镜像 curl -XGET http://192.168.111.162:5000/v2/_catalog
 ```
@@ -721,3 +748,121 @@ character_set_server = utf8
 ```bash
 $ docker run  -p 6379:6379 --name myr3 --privileged=true -v /app/redis/redis.conf:/etc/redis/redis.conf -v /app/redis/data:/data -d redis:6.0.8 redis-server /etc/redis/redis.conf
 ```
+
+# 9 制作镜像
+
+## 9.1 使用 docker commit（从运行中的容器创建镜像）
+
+步骤 1：拉取基础镜像并启动容器
+
+```shell
+docker pull ubuntu:22.04
+docker run -it --name my_container ubuntu:22.04 /bin/bash
+```
+
+步骤 2：在容器内做修改（比如安装软件）
+
+```shell
+apt update
+apt install -y nginx
+nginx -v
+```
+
+步骤3：在主机上封装整个容器为新镜像
+
+```shell
+docker ps -a
+docker commit my_container my_nginx_image:v1
+
+```
+
+步骤 4：验证新镜像
+
+```shell
+docker images
+docker run -it my_nginx_image:v1 /bin/bash
+```
+
+## 9.2 使用 Dockerfile
+
+编写Dockerfile
+
+```dockerfile
+# 使用官方 Ubuntu 22.04 作为基础镜像
+FROM ubuntu:22.04
+
+# 设置环境变量，避免 apt 弹出交互提示
+ENV DEBIAN_FRONTEND=noninteractive
+
+# 更新系统并安装 nginx
+RUN apt update && \
+    apt install -y nginx && \
+    rm -rf /var/lib/apt/lists/*
+
+# 暴露 80 端口（文档说明用途，实际运行需配合 -p）
+EXPOSE 80
+
+# 启动 nginx（前台运行，否则容器会退出）
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+构建镜像并清理构筑缓存
+
+```bash
+docker build -t my_nginx_image_from_dockerfile:v1 .
+docker builder prune -a --force
+```
+
+运行镜像
+
+```shell
+# 后台运行，并映射 8080 主机端口到容器 80 端口
+docker run -d -p 8080:80 --name my_web my_nginx_image_from_dockerfile:v1
+```
+
+Dockerfile优化方式（多阶段构建、减小体积等）
+
+* 使用 .dockerignore 忽略无关文件
+* 合并 RUN 命令减少层数
+* 使用更小的基础镜像（如 alpine）
+* 多阶段构建（适用于编译型语言如 Go、Java）
+
+# 10 Docker 磁盘优化
+
+**清理未使用的容器、镜像和网络**
+
+```shell
+# 删除所有已停止的容器
+docker container prune
+# 删除未被任何容器使用的镜像
+docker image prune
+# 删除未被使用的网络
+docker network prune
+# 删除所有未使用的容器、镜像、网络和数据卷：
+docker system prune
+```
+
+**清理构建缓存**
+
+```shell
+# 清理所有未使用的构建缓存
+docker builder prune
+# 包括中间层缓存
+docker builder prune --all
+```
+
+**清理未使用的数据卷**
+
+```shell
+# 查看哪些数据卷可以清理：
+docker volume ls -f dangling=true
+#  删除所有未被容器引用的数据卷
+docker volume prune
+```
+
+**查看磁盘占用情况**
+
+```shell
+docker system df
+```
+

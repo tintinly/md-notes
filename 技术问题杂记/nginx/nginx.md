@@ -42,3 +42,59 @@ server {
 }
 ```
 
+## 添加CROS头解决不支持跨域访问问题
+
+```nginx
+http {
+    server {
+		#反向代理
+        location / {
+            proxy_pass  http://172.17.1.1:10000/;
+			
+			#CORS 配置
+            add_header 'Access-Control-Allow-Origin' '*';
+			add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS, PUT, DELETE';
+			#是否允许cookie传输
+            add_header 'Access-Control-Allow-Credentials' 'true';
+			add_header 'Access-Control-Allow-Headers' 'Authorization,Content-Type,Accept,Origin,User-Agent,DNT,Cache-Control,X-Mx-ReqToken,X-Data-Type,X-Requested-With,X-Data-Type,X-Auth-Token';
+            
+            #针对浏览器的options预请求直接返回200，否则会被403 forbidden--invalie CORS request
+            if ( $request_method = 'OPTIONS' ) { 
+								return 200;
+						} 
+        }
+    }
+}
+```
+或
+
+```nginx
+http {
+    server {
+		#反向代理
+        location / {
+            proxy_pass  http://172.17.1.1:10000/;
+			
+			# 处理预检 OPTIONS 请求
+            if ($request_method = 'OPTIONS') {
+                add_header 'Access-Control-Allow-Origin' '*';
+                add_header 'Access-Control-Allow-Methods' 'GET, POST, DELETE, HEAD, OPTIONS';
+                add_header 'Access-Control-Allow-Headers' 'Authorization, Accept, Content-Type, Docker-Content-Digest';
+                add_header 'Access-Control-Expose-Headers' 'Docker-Content-Digest';
+                add_header 'Access-Control-Allow-Credentials' 'true';
+                add_header 'Content-Length' 0;
+                add_header 'Content-Type' 'text/plain';
+                return 204;
+            }
+
+            # 添加 CORS 响应头
+            add_header 'Access-Control-Allow-Origin' '*' always;
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, DELETE, HEAD, OPTIONS' always;
+            add_header 'Access-Control-Allow-Headers' 'Authorization, Accept, Content-Type, Docker-Content-Digest' always;
+            add_header 'Access-Control-Expose-Headers' 'Docker-Content-Digest' always;
+            add_header 'Access-Control-Allow-Credentials' 'true' always;
+        }
+    }
+}
+```
+
