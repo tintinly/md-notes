@@ -271,6 +271,8 @@ interface Hello {
 
 * CGLIB动态代理
 
+如果要实现类的代理，可以使用 cglib（一个开源的 Code Generation Library）。
+
 ## Java中==和equals()有哪些区别
 
 `==`：如果比较的是基本数据类型，则比较数值是否相等。如果比较的是引用数据类型，则比较引用的地址值是否相等。

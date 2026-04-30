@@ -1,383 +1,387 @@
-# Linux 发行版
+# Linux
 
-**带用户界面**
+Linux 内核最初只是由芬兰人 **林纳斯·托瓦兹（Linus Torvalds）** 在赫尔辛基大学上学时出于个人爱好而编写的。
 
-Ubuntu、CentOS（开源的 RedHat）、Mint、elementary OS、MX Linux、Zorin OS
+Linux 是一套免费使用和自由传播的类 Unix 操作系统，是一个基于 POSIX 和 UNIX 的多用户、多任务、支持多线程和多 CPU 的操作系统。
+
+Linux 能运行主要的 UNIX 工具软件、应用程序和网络协议。它支持 32 位和 64 位硬件。Linux 继承了 Unix 以网络为核心的设计思想，是一个性能稳定的多用户网络操作系统。
+
+## Linux 发行版
+
+### 按使用场景
+
+**桌面**
+
+Ubuntu、Cent OS（开源的 RedHat）、Mint、elementary OS、MX Linux、Zorin OS
 
 **服务器**
 
 * Ubuntu Server：基于 Debian 架构，使用 dpkg (Debian Package)管理工具/APT 包管理器。侧重于个人，注重功能与更新。
 * Red Hat Enterprise Linux：基于 RHEL 架构，使用 RPM 包管理器。侧重于企业，注重稳定与轻便
 
-# Linux 常用综合操作
+### 主流发行版
 
-## 查看Linux内核信息
+* Red Hat 系：企业级的“稳定
+  * RHEL：付费
+  * Rocky/Alma Linux：RHEL 的免费替代品
+  * CentOS Stream：RHEL 的上游开发版
+* Debian/Ubuntu 系：开发者友好型
+  * Debian：稳定，更新周期长
+  * Ubuntu：基于 Debian，桌面和云市场
+* SUSE 系：欧洲市场
+  * openSUSE：社区版
+  * SUSE Linux Enterprise： 企业版
+* 国产系统
+  * openEuler：华为开源
+  * 银河麒麟：适配国产 CPU
+  * 龙蜥：阿里云主导
+  
+  ![img](assets/1511849829609658.jpg)
+
+## Linux 安装
+
+**安装 Linux**
+
+[Download - The CentOS Project](https://www.centos.org/download/)
+
+[Ubuntu 系统下载 | Ubuntu](https://cn.ubuntu.com/download)
+
+**购买云服务**
+
+云服务器(Elastic Compute Service, ECS)是一种简单高效、安全可靠、处理能力可弹性伸缩的计算服务。可迅速创建或删除发行版本可选的 Linux 实例。
+
+**使用 WSL** 
+
+WSL（Windows Subsystem for Linux） 是微软为 Windows 用户提供的一个子系统，它允许你在 Windows 上原生运行 Linux（不是虚拟机，不是双系统），直接使用 Bash、apt、gcc、Python、Node.js 等 Linux 工具。
+
+## Linux 系统启动过程
+
+![img](assets/v2-3983452dd0c2697de7669bbf85c98c7e_1440w.jpg)
+
+### 开机自检（BIOS/UEFI）
+
+按下开机按钮时，计算机的硬件并不会立刻开始运行操作系统，而是先进行一系列的自我检查。这一阶段由 BIOS（基本输入输出系统） 或 UEFI（统一扩展固件接口） 负责。
+
+1. 自检（POST）：启动时，BIOS/UEFI 会对硬件进行初步检查，确保硬件设备如 CPU、内存、硬盘等能够正常工作。
+2. 启动设备选择：完成硬件自检后，BIOS/UEFI 会查找引导设备（如硬盘、U 盘、光盘等）。它会根据预设的顺序选择一个设备，查找上面是否有操作系统。
+
+> 寻找可启动设备的流程：
+>
+> * 传统 BIOS：以设备是硬盘/USB 为例，读取其 0 号扇区（MBR）。检查第 511、512 字节：若等于 `0x55 0xAA` 则认为“可启动”。若不是则跳过此设备。
+> * 现代 UEFI：传统的 BIOS 无法识别 EFI 分区，而现代 UEFI 不依赖 MBR，而是识别 FAT 格式的 EFI 系统分区（ESP） 中的 可执行文件（通常是 .efi 文件）。
+
+### 引导加载程序（Bootloader）
+
+自检完成以及可启动设备找到后, 以 Legacy BIOS 为例，会去该设备的第一个扇区中读取 MBR，并跳转执行 MBR 中的引导代码，这段代码通常是加载引导加载程序（Boot loader，常用的有 GRUB 和 LILO 两种，现在常用的是 GRUB），它负责加载操作系统的内核，并将控制权交给内核。
+
+1. 加载内核：GRUB 会从硬盘上的 /boot 分区加载 Linux 内核（通常是 vmlinuz 文件），并将其载入内存。
+
+   ![image-20260424213900576](assets/image-20260424213900576.png)
+
+2. 加载初始内存盘：除了内核映像，GRUB 还会加载 initramfs，这是一个包含启动时所需的最小操作环境的压缩文件系统。initramfs 包含了必要的驱动程序和工具，能帮助系统在启动阶段挂载根文件系统。
+
+### 内核初始化
+
+内核被加载到内存后，开始接管系统
+
+- 探测与初始化硬件、加载硬件所需驱动
+- 挂载临时根文件系统：内核会使用 initramfs 作为临时根文件系统，挂载到 / 目录，这时，根文件系统中的程序和文件还没有完全加载。
+
+### 第一个进程（init）
+
+内核启动后，它会创建一个进程号为 1 的进程，这个进程通常是 init（在现代 Linux 系统中，init 通常是由 systemd 取代的）。init 是 Linux 系统中的第一个用户空间进程，它是所有其他用户空间进程的祖先，负责整个系统的初始化和管理。
+
+> 如果 initramfs 被使用，它会将根文件系统切换到实际的磁盘分区。
+
+### 启动系统服务
+
+init 进程的一大任务，是去启动多个重要的系统服务和守护进程。init 是根据 "运行级别"，确定要运行哪些程序的。
+
+查看运行级别
 
 ```shell
-cat /proc/version # 内核与发行版信息
-uname -a # 内核与发行版信息
-cat /etc/*-release # 查看发行版信息
+runlevel
+# N 5 
+# N 表示自系统启动后，运行级别尚未更改。
+# 5 表示系统的当前运行级别。
 ```
 
+Linux 系统有 7 个运行级别(runlevel)：
 
+- 运行级别 0：系统停机状态，系统默认运行级别不能设为 0，否则不能正常启动
+- 运行级别 1：单用户工作状态，root 权限，用于系统维护，禁止远程登录
+- 运行级别 2：多用户状态(没有 NFS)
+- 运行级别 3：完全的多用户状态(有 NFS)，登录后进入控制台命令行模式
+- 运行级别 4：系统未使用，保留
+- 运行级别 5：X11 控制台，登录后进入图形 GUI 模式
+- 运行级别 6：系统正常关闭并重启，默认运行级别不能设为 6，否则不能正常启动
 
-## 安装 SSH 服务
+常见启动的服务包括：
 
-```shell
-# 更新软件包列表
-sudo apt update
+- 网络服务：配置网络接口，分配 IP 地址，启动 DNS 等服务，确保系统可以访问网络。
+- 系统日志：启动日志服务（如 rsyslog），收集并保存系统日志，方便后续查看。
+- SSH 服务：如果系统允许远程访问，sshd 服务会被启动，允许用户通过 SSH 登录到系统。
+- 定时任务：启动定时任务管理器（如 cron），执行预定的自动化任务。
 
-# 安装OpenSSH服务器
-sudo apt install openssh-server
+### 登录提示符
 
-# 启动SSH服务
-sudo systemctl start ssh
+ 系统初始化完成后，init 给出用户登 录提示符（login）或者图形化登录界面
 
-# 设置开机自动启动
-sudo systemctl enable ssh
+## Linux 系统目录结构
 
-# 检查服务状态
-sudo systemctl status ssh
+linux 目录：一切从“根”即“／”开始，“／”下面的目录是一个有层次的树状结构
 
-# 备份原始配置文件
-sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
+树状目录结构：
 
-# 编辑配置文件
-sudo nano /etc/ssh/sshd_config
+![img](assets/d0c50-linux2bfile2bsystem2bhierarchy-17762414739765.jpg)
+
+### 一切皆文件
+
+Linux 继承了 Unix "一切皆文件" 的设计理念。这意味着在 Linux 中，不仅普通文件和目录是文件，硬件设备、进程信息、网络连接等都被抽象为文件。这种统一的抽象让系统管理变得异常优雅。
+
+例，查看 CPU 信息
+
+```bash
+cat /proc/cpuinfo
 ```
 
-## 启用/禁用 root 登录
+例，向串口设备发送数据
 
-```shell
-# 使用sudo权限设置root密码
-sudo passwd root
-
-# 设置root密码后，修改SSH配置允许root登录
-sudo nano /etc/ssh/sshd_config
-
-PermitRootLogin yes
-# 或者
-PermitRootLogin prohibit-password  # 推荐，只允许密钥登录
-
-# 重启SSH服务
-sudo systemctl restart ssh
-
-# 推荐
-如果需要长时间以root身份操作，使用sudo -i或sudo su
+```bash
+echo "Hello" > /dev/ttyS0
 ```
 
-## 设置代理
+### FHS 标准
+
+在 Linux 中，根目录下的目录内容都会相对固定的，而且，每个目录放置什么内容都是有规定约束的。这个标准称为 FHS（Filesystem Hierarchy Standard）。
+
+文件系统层次化标准（FHS）就是 Linux 目录结构的行业标准。
+
+FHS 的核心在于确定每个特定的目录下应该放什么内容的文件和数据，并希望 Linux 用户能够遵循该准则。遵循 FHS 标准来放置文件，有利于用户自己能够判断安装和存放文件的位置。
+
+FHS 定义了两层规范：
+
+* 第一层：规定根目录下各目录的功能。例如/etc 应该要放置设置文件，/bin 与/sbin 则应该要放置可执行文件等等。
+* 第二层：规定/usr 和/var 的子目录用途。例如/var/log 放置系统登录文件、/usr/share 放置共享数据等等。
+
+### 目录详解
+
+**根目录**
+
+* `/` 是根文件系统，所有挂载点与路径的起点。包含系统必须的子目录与入口结构。无具体数据文件。
+
+**系统指令区**
+
+* `/bin`（Binary）存放着所有用户都能使用的基本命令，如 `ls`、`cp`、`mv` 等。这些命令在系统启动和单用户模式下必须可用。
+* `/sbin`（System Binary）则存放系统管理员使用的命令，如 `fdisk`、`reboot` 、`shutdown` 等。普通用户通常无法执行这些命令。
+
+> 在现代 Linux 系统中，/bin 实际上是/usr/bin 的符号链接，/sbin 是/usr/sbin 的符号链接。这种改变简化了系统结构，但理解传统划分仍然很重要。
+
+**配置中心**
+
+* `/etc` 统一存放所有服务和系统配置。如 `firewalld`、`nginx`
+  * `/etc/profile`：全局环境变量)
+  * `/etc/hosts`：ip 与域名
+  * /`etc/resolv.conf`：DNS 的配置文件，网卡配置文件优先 resolv.conf
+  * `/etc/systemd`：systemd 服务配置（现代 Linux 的标配）
+  * `/etc/nginx`：Nginx 配置文件
+  * `/etc/ssh`：SSH 服务配置
+  * `/etc/cron.d`：定时任务配置
+  * `/etc/sysconfig`：系统服务的配置文件（Red Hat 系）
+
+
+**用户目录**
+
+* `/home` 内每个普通用户都有自己工作空间的目录。用户的个人文件、配置、桌面环境设置都存储在这里。
+* `/root` 是 root 用户的家目录。出于安全考虑，它没有放在/home 下，而是直接位于根目录下。这里通常存放着系统管理脚本和 root 用户的配置文件。
+
+**启动**
+
+* `/boot` 包含 Linux 内核及系统引导程序所需的文件目录。
+
+**设备**
+
+* `/dev` 包含所有设备文件。在 Linux 中，硬件设备被抽象为文件，通过读写这些文件来控制硬件。
+  * `/dev/sd*`：硬盘设备
+  * `/dev/nvme*`：硬盘设备
+  * `/dev/null`： 黑洞设备，丢弃所有写入的数据 
+  * `/dev/zero`：零设备，提供无限的零字节 
+  * `/dev/random` ：随机数生成器 
+  * `/dev/tty*`：终端设备
+
+
+**内核**
+
+皆为虚拟文件系统，不占用磁盘空间，提供了内核和进程的运行时信息。
+
+* `/proc`：系统与进程的实时信息。
+  * `/proc/cpuinfo`：CPU 信息
+  * `/proc/meminfo`：内存信息
+  * `/proc/[PID]/status`：某个进程的详细信息
+  * `/proc/version`：内核版本
+  * `/proc/mounts`：系统挂载信息
+  * `/proc/interrupts`：中断信息
+* `/sys`：设备、驱动、内核子系统的状态接口。
+
+**第三方软件**
+
+* `/opt`（option）用于安装第三方软件包。许多商业软件倾向于安装在这里，保持与系统软件的隔离。
+
+**临时中转**
+
+* `/tmp` 存放临时文件，有时用户运行程序的时候，会产生临时文件。/tmp 就用来存放临时文件的，权限比较特殊。`/var/tmp` 目录和这个目录相似。
+
+**挂载**
+
+* `/mnt` 一般用于临时挂载存储设备的挂载目录，比如，cdrom，u 盘等目录。直接插入光驱无法使用，要先挂载后使用
+* `/media` 是自动挂载外接设备的默认位置。
+
+### FHS 第二层
+
+**Unix 系统资源**
+
+* `/usr` 在历史上最初是 用户家目录（user 的缩写），但随着 /home 的引入，其功能逐渐转变为 *Unix System Resource*（Unix 系统资源）存放地。是 Linux 系统中最大的目录之一，包含了大量的程序和文件。
+  * `/usr/bin`：用户命令或常规用户程序
+  * `/usr/sbin`：系统管理命令或系统管理工具
+  * `/usr/lib`：程序所依赖的动态库与模块，如各类 `.so` 动态库
+  * `/usr/local`：本地安装的软件（编译安装的默认位置）
+  * `/usr/share`：架构无关的共享数据
+  * `/usr/include`：C/C++ 等编译所需的头文件。
+  * `/usr/src`：内核源代码及相关文件，/usr/src/linux 常用于内核编译。
+
+**动态信息**
+
+* `/var`（Variable）存放经常变化的文件，如日志、缓存、邮件队列等。这是运维工程师最常打交道的目录之一。
+  * `/var/log`：日志文件中心
+  * `/var/lib`：服务的持久化状态数据。
+  * `/var/cache`：应用和包管理器缓存。
+
+## 磁盘/目录管理
+
+### mkdir 命令
 
 ```shell
-# 临时设置代理
-export http_proxy="http://192.168.1.117:7890"
-export https_proxy="http://192.168.1.117:7890"
-export ftp_proxy="http://192.168.1.117:7890"
-export no_proxy="localhost,127.0.0.1,::1"
-echo $http_proxy
-
-# 永久设置代理
-sudo vim /etc/profile
-
-export http_proxy="http://192.168.1.117:7890"
-export https_proxy="http://192.168.1.117:7890"
-export ftp_proxy="http://192.168.1.117:7890"
-export no_proxy="localhost,127.0.0.1,::1"
-
-source /etc/profile
-```
-
-## 安装 Node.js
-
-```shell
-######### 默认仓库安装 可能版本较低
-# 安装 Node.js
-sudo apt install nodejs
-# 安装 npm（Node.js 包管理器）
-sudo apt install npm
-
-######## 使用 Apt 使用 NodeSource PPA 安装 Node.js
-
-
-
-######## 使用 nvm（Node Version Manager）安装 适合需要管理多个 Node.js 版本的开发者。
-# Download and install nvm:
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-# in lieu of restarting the shell
-\. "$HOME/.nvm/nvm.sh"
-# Download and install Node.js:
-nvm install 24
-# Verify the Node.js version:
-node -v # Should print "v24.13.0".
-# Verify npm version:
-npm -v # Should print "11.6.2".
-
-```
-
-# Linux 命令大全
-
-## 常用命令
-
-```shell
-ls　　        显示文件或目录
-
-     -l           列出文件详细信息l(list)
-
-     -a          列出当前目录下所有文件及目录，包括隐藏的a(all)
-
-mkdir         创建目录
-
-     -p           创建目录，若无父目录，则创建p(parent)
-
-cd               切换目录
-
-touch          创建空文件
-
-echo            创建带有内容的文件。
-
-cat              查看文件内容
-
-cp                拷贝
-
-mv               移动或重命名
-
-rm               删除文件
-
-     -r            递归删除，可删除子目录及文件
-
-     -f            强制删除
-
-find              在文件系统中搜索某文件
-
-wc                统计文本中行数、字数、字符数
-
-grep             在文本文件中查找某个字符串
-
-rmdir           删除空目录
-
-tree             树形结构显示目录，需要安装tree包
-
-pwd              显示当前目录
-
-ln                  创建链接文件
-
-chmod 
-	754  				数字模式指定
-	(ugoa)(+-=)(rwx)    符号模式指定
-	若用 chmod 4755 filename 可使此程序具有 root 的权限。 
-	chmod 4755与chmod 755 的区别在于开头多了一位，这个4表示其他用户执行文件时，具有与所有者相当的权限。
-
-more、less  分页显示文本文件内容
-
-head、tail    显示文件头、尾内容
-
-ctrl+alt+F1  命令行全屏模式
-运行项目并下载源码
-```
-
-## 系统管理命令
-
-```shell
-stat              显示指定文件的详细信息，比ls更详细
-
-who               显示在线登陆用户
-
-whoami          显示当前操作用户
-
-hostname      显示主机名
-
-uname           显示系统信息
-
-top                动态显示当前耗费资源最多进程信息
-
-ps                  显示瞬间进程状态 ps -aux
-
-du                  查看目录大小 du -h /home带有单位显示目录信息
-
-df                  查看磁盘大小 df -h 带有单位显示磁盘信息
-
-ifconfig          查看网络情况
-
-ping                测试网络连通
-
-netstat          显示网络状态信息
-
-man                命令不会用了，找男人  如：man ls
-
-clear              清屏
-
-alias               对命令重命名 如：alias showmeit="ps -aux" ，另外解除使用unaliax showmeit
-
-kill                 杀死进程，可以先用ps 或 top命令查看进程的id，然后再用kill命令杀死进程。
-
-shutdown
-
-     -r             关机重启
-
-     -h             关机不重启
-
-     now          立刻关机
-
-halt               关机
-
-reboot          重启
-```
-
-## 打包压缩相关
-
-```shell
-gzip：				压缩工具，压缩后的文件默认以 .gz 为扩展名
-
-bzip2：				压缩工具，压缩后的文件默认以 .bz2 为扩展名
-
-tar:                将多个文件或目录合并为一个独立的归档文件（归档）的工具，但本身不具备压缩能力，归档后的文件默认以 .tar 为扩展名
-
-     -c              归档操作
-
-     -x              提取归档操作
-     
-     -t              查看归档内容操作
-
-     -z              调用gzip
-
-     -j              调用bzip2
-
-     -v              显示操作过程 v(view)
-
-     -f              指定文件名
-
-例：
-
-tar -cvf /home/abc.tar /home/abc              只归档，不压缩
-
-tar -czvf /home/abc.tar.gz /home/abc        归档，并用gzip压缩
-
-tar -cjvf /home/abc.tar.bz2 /home/abc      归档，并用bzip2压缩
-
-解压缩就直接替换上面的命令中的“c” 换成“x”
-
-```
-
-## 管道
-
-```shell
-将一个命令的标准输出作为另一个命令的标准输入。也就是把几个命令组合起来使用，后一个命令除以前一个命令的结果。
-
-例：grep -r "close" /home/* | more       在home目录下所有文件中查找，包括close的文件，并分页输出。
-netstat -a | grep "3306"  查找3306端口的网络状况
+# 建立目录
+mkdir testdir
+# 
+mkdir -p testdir/testdir2
 ```
 
 ## 软件包管理
 
+### apt-get 命令
+
+`apt-get` 是 Debian 和 Ubuntu 等基于 Debian 的 Linux 发行版中用于管理软件包的核心命令行工具，用于处理 `.deb` 格式的软件包。它能够自动解决软件包之间的依赖关系，简化了 Linux 系统的软件管理。
+
+目前还没有任何 Linux 发行版官方放出 apt-get 将被停用的消息，至少它还有比 apt 更多、更细化的操作功能。对于低级操作，仍然需要 apt-get。
+
+### apt 命令
+
+apt（Advanced Packaging Tool）是一个在 Debian 和 Ubuntu 中的 Shell 前端软件包管理器。
+
+apt 命令执行需要超级管理员权限(root)。
+
 ```shell
-dpkg (Debian Package)管理工具，软件包名以.deb后缀。这种方法适合系统不能联网的情况下。
+# 连接到配置的软件源，检查更新
+sudo apt update
+# 常与update搭配 列出可更新的软件包
+apt list --upgradeable
+# 升级安装包
+sudo apt upgrade 
+# 一键升级 -y表示当安装过程提示选择全部为"yes"
+sudo apt update && sudo apt upgrade -y
 
-比如安装tree命令的安装包，先将tree.deb传到Linux系统中。再使用如下命令安装。
 
-sudo dpkg -i tree_1.5.3-1_i386.deb         安装软件
+# 安装  包名不完整，按下Tab 键，会列出相关的包名
+sudo apt install xxx
+# 仅升级，不存在不安装
+sudo apt install xxx --only-upgrade
+# 仅安装，存在不升级
+sudo apt install xxx --no-upgrade
+# 安装某版本
+sudo apt install xxx=<version_number>
 
-sudo dpkg -r tree                                     卸载软件
+# 查找存在的包
+apt search xxx
+# 获取包的详细信息
+apt show xxx
 
- 
-
-注：将tree.deb传到Linux系统中，有多种方式。VMwareTool，使用挂载方式；使用winSCP工具等；
-
-APT（Advanced Packaging Tool）高级软件工具。这种方法适合系统能够连接互联网的情况。
-
-依然以tree为例
-
-sudo apt-get install tree                         安装tree
-
-sudo apt-get remove tree                       卸载tree
-
-sudo apt-get update                                 更新软件
-
-sudo apt-get upgrade        
-
- 
-
-将.rpm文件转为.deb文件
-
-.rpm为RedHat使用的软件格式。在Ubuntu下不能直接使用，所以需要转换一下。
-
-sudo alien abc.rpm
+# 移除包
+sudo apt remove xxx
+# 清理不再使用的依赖和库文件
+sudo apt autoremove
 
 ```
 
-## 用户及用户组管理
+选项包括 `-h`（帮助），`-y`（当安装过程提示选择全部为 "yes"），`-q`（不显示安装的过程）等等。
 
-```shell
-/etc/passwd    存储用户账号
+### yum 命令
 
-/etc/group       存储组账号
+yum（ Yellow dog Updater, Modified）是一个在 Fedora 和 RedHat 以及 SUSE 中的 Shell 前端软件包管理器。
 
-/etc/shadow    存储用户账号的密码
+基于 RPM 包管理，能够从指定的服务器自动下载 RPM 包并且安装，可以 **自动处理依赖性关系**，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装。
 
-/etc/gshadow  存储用户组账号的密码
+## 文件操作
 
-useradd 用户名
+### more less 命令
 
-userdel 用户名
+Linux more 命令类似 cat ，不过会以一页一页的形式显示，更方便使用者逐页阅读，而最基本的指令就是按空白键（space）就往下一页显示，按 b 键就会往回（back）一页显示，而且还有搜寻字串的功能（与 vi 相似），使用中的说明文件，请按 h 。
 
-adduser 用户名
+- -s 当遇到有连续两行以上的空白行，就代换为一行的空白行
 
-groupadd 组名
+less 与 more 类似，less 可以随意浏览文件，支持翻页和搜索，支持向上翻页和向下翻页。
 
-groupdel 组名
+## 文档编辑
 
-passwd root     给root设置密码
+### vi / vim 使用
 
-su root
+vi  是几乎所有的 Unix Like 系统都会内建的文书编辑器，而 Vim 是从 vi 发展出来的一个文本编辑器。代码补全、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用。
 
-su - root 
+简单的来说， vi 是老式的字处理器，不过功能已经很齐全了，但是还是有可以进步的地方。 vim 则可以说是程序开发者的一项很好用的工具。
 
-/etc/profile     系统环境变量
+基本上 vi/vim 共分为三种模式，**命令模式（Command Mode）、输入模式（Insert Mode）和命令行模式（Command-Line Mode）**。
 
-bash_profile     用户环境变量
+![img](assets/vim-vi-workmodel.png)
 
-.bashrc              用户环境变量
+命令模式：
 
-su user              切换用户，加载配置文件.bashrc
+- `i`：切换到输入模式，在光标当前位置开始输入文本。
+- `x`：删除当前光标所在处的字符。
+- `:`：切换到底线命令模式，以在最底一行输入命令。
+- `a`：进入插入模式，在光标下一个位置开始输入文本。
+- `o`：在当前行的下方插入一个新行，并进入插入模式。
+- `O` ：在当前行的上方插入一个新行，并进入插入模式。
+- `dd`：剪切当前行。
+- `yy`：复制当前行。
+- `p`：粘贴剪贴板内容到光标下方。
+- `P`：粘贴剪贴板内容到光标上方。
+- `u` ：撤销上一次操作。
+- `Ctrl + r` ：重做上一次撤销的操作。
+- `/`：向光标之下寻找一个字符串
+- `?`：向光标之上寻找一个字符串
 
-su - user            切换用户，加载配置文件/etc/profile ，加载bash_profile
+输入模式：使用 `Esc` 键可以返回到普通模式。
 
-sudo chown [-R] owner[:group] {File|Directory} 		更改文件的用户及用户组
+底线命令模式：
 
-例如：还以jdk-7u21-linux-i586.tar.gz为例。属于用户hadoop，组hadoop
+- `:w`：保存文件。
+- `:q`：退出 Vim 编辑器。
+- `:wq`：保存文件并退出 Vim 编辑器。
+- `:q!`：强制退出 Vim 编辑器，不保存修改。
 
-要想切换此文件所属的用户及组。可以使用命令。
+键位：
 
-sudo chown root:root jdk-7u21-linux-i586.tar.gz
-```
+![vi-vim-cheat-sheet-sch](assets/vi-vim-cheat-sheet-sch-17775635295258.gif)
 
+### sed 命令
 
-
-## vim 使用
-
-```shell
-vim三种模式：命令模式、插入模式、编辑模式。使用ESC或i或：来切换模式。
-
-命令模式下：
-
-:q                      退出
-
-:q!                     强制退出
-
-:wq                   保存并退出
-
-:set number     显示行号
-
-:set nonumber  隐藏行号
-
-/apache            在文档中查找apache 按n跳到下一个，shift+n上一个
-
-yyp                   复制光标所在行，并粘贴
-
-h(左移一个字符←)、j(下一行↓)、k(上一行↑)、l(右移一个字符→)
-
-```
+Linux sed 命令是利用脚本来处理文本文件。sed 可依照脚本的指令来处理、编辑文本文件。
 
 # 环境变量
+
+在大多数 Linux 发行版bash环境中，用户的环境文件通常是 `~/.bashrc` 或 `~/.bash_profile`
+
+bash 在每次启动时都会加载 `.bashrc` 文件的内容
 
 | 加载阶段    | 对应配置文件                  | 说明                       |
 | :---------- | :---------------------------- | :------------------------- |
@@ -455,8 +459,8 @@ service iptables restart
 
 ```bash
 systemctl status firewalld
-出现 Active: active (running)切高亮显示则表示是启动状态。
-出现 Active: inactive (dead)灰色表示停止，看单词也行。
+# 出现 Active: active (running)切高亮显示则表示是启动状态。
+# 出现 Active: inactive (dead)灰色表示停止，看单词也行。
 ```
 
 查看 firewall 的状态
@@ -495,49 +499,130 @@ firewall-cmd --permanent --remove-port=8080/tcp
 firewall-cmd --reload
    ```
 
-# Linux 命令大全
+# Linux 服务管理
 
-## apt 命令
+## service 命令
 
-apt（Advanced Packaging Tool）是一个在 Debian 和 Ubuntu 中的 Shell 前端软件包管理器。
-
-apt 命令执行需要超级管理员权限(root)。
-
-```shell
-# 连接到配置的软件源，检查更新
-sudo apt update
-# 常与update搭配 列出可更新的软件包
-apt list --upgradeable
-# 升级安装包
-sudo apt upgrade 
-# 一键升级 -y表示当安装过程提示选择全部为"yes"
-sudo apt update && sudo apt upgrade -y
-
-
-# 安装  包名不完整，按下Tab 键，会列出相关的包名
-sudo apt install xxx
-# 仅升级，不存在不安装
-sudo apt install xxx --only-upgrade
-# 仅安装，存在不升级
-sudo apt install xxx --no-upgrade
-# 安装某版本
-sudo apt install xxx=<version_number>
-
-# 查找存在的包
-apt search xxx
-# 获取包的详细信息
-apt show xxx
-
-# 移除包
-sudo apt remove xxx
-# 清理不再使用的依赖和库文件
-sudo apt autoremove
+`service` 是 Linux 系统中用于管理系统服务的命令行工具。它提供了一种标准化的方式来启动、停止、重启和检查系统服务的状态。
 
 ```
+service [服务名] [操作指令]
+```
 
-## apt-get 命令
+**服务管理命令**
 
-目前还没有任何 Linux 发行版官方放出 apt-get 将被停用的消息，至少它还有比 apt 更多、更细化的操作功能。对于低级操作，仍然需要 apt-get。
+```shell
+service [服务名] start # 启动服务
+service [服务名] stop # 停止服务
+service [服务名] restart # 重启服务
+service [服务名] reload # 重新加载配置文件(不重启服务)
+service [服务名] status # 查看服务状态
+service --status-all # 列出所有服务状态
+```
+
+## systemctl 命令
+
+systemctl 是 Linux 系统中用于控制 systemd 系统和服务管理器的命令行工具。作为现代 Linux 发行版的核心组件，它取代了传统的 init 系统和 service 命令。
+
+```
+systemctl [选项] [命令] [单元名称]
+```
+
+**服务管理命令**
+
+```shell
+# 启动服务
+sudo systemctl start [服务名]
+# 停止服务
+sudo systemctl stop [服务名]
+# 重启服务
+sudo systemctl restart [服务名]
+# 重新加载配置（不重启服务）
+sudo systemctl reload [服务名]
+
+# 查看单个服务状态
+systemctl status [服务名]
+# 查看所有运行中的服务
+systemctl list-units --type=service --state=running
+# 查看失败的服务
+systemctl --failed
+
+# 启用服务（开机自启）
+sudo systemctl enable [服务名]
+# 禁用服务（取消开机自启）
+sudo systemctl disable [服务名]
+# 查看服务是否启用
+systemctl is-enabled [服务名]
+```
+
+**服务资源 Unit**
+
+单元文件位置：
+
+* 系统单元：`/usr/lib/systemd/system/`
+* 管理员自定义单元：`/etc/systemd/system/`
+
+主要有四种类型文件 `.mount`, `.service`, `.target`, `.wants`
+
+* `.mount` 文件定义了一个挂载点，[Mount] 节点里配置了 What, Where, Type 三个数据项
+
+* `.service` 文件定义了一个服务，分为 [Unit]，[Service]，[Install] 三个小节
+
+```ini
+[Unit]
+Description:描述，
+
+After：在network.target,auditd.service启动后才启动
+
+ConditionPathExists: 执行条件
+
+[Service]
+
+EnvironmentFile:变量所在文件
+
+ExecStart: 执行启动脚本
+
+Restart: fail时重启
+
+[Install]
+
+Alias:服务别名
+
+WangtedBy: 多用户模式下需要的
+```
+
+* `.target` 定义了一些基础的组件，供 `.service` 文件调用
+* `.wants` 文件定义了要执行的文件集合，每次执行，`.wants` 文件夹里面的文件都会执行
+
+**单元文件操作命令**
+
+```shell
+# 重新加载所有单元文件（修改配置后需要执行）
+sudo systemctl daemon-reload
+
+# 显示单元文件内容
+systemctl cat [单元名]
+
+# 编辑单元文件（会创建覆盖文件）
+sudo systemctl edit [单元名] --full
+```
+
+主要用于创建自定义服务
+
+**系统状态管理命令**
+
+```shell
+# 关机
+systemctl poweroff
+# 重启
+systemctl reboot
+# 挂起
+systemctl suspend
+# 休眠
+systemctl hibernate
+```
+
+# Linux 命令大全
 
 ## curl 命令
 
@@ -659,7 +744,6 @@ f1 f2 f3 f4 f5 program
    . ~/.bash_profile
    ```
 
-   
 
 ## date 命令
 
@@ -763,13 +847,181 @@ G = gigas
 T = teras
 ```
 
+# Linux 常用综合操作
 
-## mkdir 命令
+## 查看 Linux 内核信息
 
 ```shell
-# 建立目录
-mkdir testdir
-# 
-mkdir -p testdir/testdir2
+cat /proc/version # 内核与发行版信息
+uname -a # 内核与发行版信息
+cat /etc/*-release # 查看发行版信息
 ```
+
+
+
+## 安装 SSH 服务
+
+```shell
+# 更新软件包列表
+sudo apt update
+
+# 安装OpenSSH服务器
+sudo apt install openssh-server
+
+# 启动SSH服务
+sudo systemctl start ssh
+
+# 设置开机自动启动
+sudo systemctl enable ssh
+
+# 检查服务状态
+sudo systemctl status ssh
+
+# 备份原始配置文件
+sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
+
+# 编辑配置文件
+sudo nano /etc/ssh/sshd_config
+```
+
+### 免密登录 SSH 连接
+
+```shell
+ssh -V # 查看版本 使用不同的命令
+# openssh（SSH）： ssh-keygen   或者   ssh-keygen -t rsa
+# SSH2 ： ssh-keygen2 -t rsa
+
+# 当前主机
+ssh-keygen # 创建公钥和密钥。
+# 接着 把本地主机的公钥复制到远程主机的authorized_keys文件上。
+
+# 远程主机
+mv .ssh/id_rsa.pub .ssh/authorized_keys
+chmod 600 .ssh/authorized_keys
+chmod 700 .ssh
+sudo vim /etc/ssh/sshd_config # 修改ssh配置文件
+# vim↓↓↓↓
+RSAAuthentication yes 
+PubkeyAuthentication yes 
+AuthorizedKeysFile .ssh/authorized_keys
+# vim↑↑↑↑
+
+
+# 重启 SSH 服务
+service sshd restart
+```
+
+## 启用/禁用 root 登录
+
+```shell
+# 使用sudo权限设置root密码
+sudo passwd root
+
+# 设置root密码后，修改SSH配置允许root登录
+sudo nano /etc/ssh/sshd_config
+
+PermitRootLogin yes
+# 或者
+PermitRootLogin prohibit-password  # 推荐，只允许密钥登录
+
+# 重启SSH服务
+sudo systemctl restart ssh
+
+# 推荐
+如果需要长时间以root身份操作，使用sudo -i或sudo su
+```
+
+## 设置代理
+
+```shell
+# 临时设置代理
+export http_proxy="http://192.168.1.117:7890"
+export https_proxy="http://192.168.1.117:7890"
+export ftp_proxy="http://192.168.1.117:7890"
+export no_proxy="localhost,127.0.0.1,::1"
+echo $http_proxy
+
+# 永久设置代理
+sudo vim /etc/profile
+
+export http_proxy="http://192.168.1.117:7890"
+export https_proxy="http://192.168.1.117:7890"
+export ftp_proxy="http://192.168.1.117:7890"
+export no_proxy="localhost,127.0.0.1,::1"
+
+source /etc/profile
+```
+
+## 安装 Node.js
+
+```shell
+######### 默认仓库安装 可能版本较低
+# 安装 Node.js
+sudo apt install nodejs
+# 安装 npm（Node.js 包管理器）
+sudo apt install npm
+
+######## 使用 Apt 使用 NodeSource PPA 安装 Node.js
+
+
+
+######## 使用 nvm（Node Version Manager）安装 适合需要管理多个 Node.js 版本的开发者。
+# Download and install nvm:
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+# in lieu of restarting the shell
+\. "$HOME/.nvm/nvm.sh"
+# Download and install Node.js:
+nvm install 24
+# Verify the Node.js version:
+node -v # Should print "v24.13.0".
+# Verify npm version:
+npm -v # Should print "11.6.2".
+
+```
+
+## 扫描硬盘坏道
+
+```shell
+##### 使用以下命令安装smartmontools #####
+$ sudo apt-get install smartmontools
+```
+
+```shell
+##### 查看它的帮助 #####
+$ man smartctl
+$ smartctl -h
+```
+
+```shell
+##### 查看整体健康自我评估 #####
+# 参数 -H 或 --health
+$ smartctl -H /dev/sda
+```
+
+![image-20260107210024261](assets/image-20260107210024261.png)
+
+```shell
+##### 显示你的所有磁盘或闪存的信息以及它们的分区信息 #####
+$ fdisk -l
+```
+
+![image-20260107210113581](assets/image-20260107210113581.png)
+
+```shell
+##### 查你的 Linux 硬盘上的坏道/坏块 #####
+#### -n 指定非破坏性读写模式，意味更长时间，默认非破坏性读写模式， -s 显示进度 -v 详细模式
+$ sudo badblocks -nsv /dev/sda > badsectors.txt  
+```
+
+![image-20260107231142388](assets/image-20260107231142388.png)
+
+
+
+# 参考资料
+
+* [1] [Linux 教程 | 菜鸟教程](https://www.runoob.com/linux/linux-tutorial.html)
+
+* [2] [Linux 系统目录结构全解析：基础到大神必读！ - 书读百遍, 奇迹自现 - 博客园](https://www.cnblogs.com/it-coder/p/19082023)
+
+* [3] [Linux 启动过程详解：面试必备的理论知识 - 知乎](https://zhuanlan.zhihu.com/p/25628298036)
 

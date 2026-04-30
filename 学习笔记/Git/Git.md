@@ -117,7 +117,7 @@ Git 的设置文件为 `.gitconfig`，它可以在用户主目录下（全局配
 
 ```bash
 # 显示当前的Git配置
-git config --list
+git config --list [--global]
 
 # 编辑Git配置文件
 git config -e [--global]
@@ -125,6 +125,12 @@ git config -e [--global]
 # 设置提交代码时的用户信息
 git config [--global] user.name "[name]"
 git config [--global] user.email "[email address]"
+
+# 设置 HTTP 代理
+git config [--global] http.proxy http://127.0.0.1:你的代理端口号
+
+# 设置 HTTPS 代理
+git config [--global] https://127.0.0.1:你的代理端口号
 ```
 
 说明： 用户信息的作用是区分不同操作者身份。用户的签名信息在每一个版本的提交信息中能够看到, 以此确认本次提交是谁做的。Git 首次安裝必须设置一下用户签名, 否则无法提交代码。
@@ -654,15 +660,17 @@ origin  https://github.com/TintinLY/test2.git (push)
 
 ### SSH 免登录
 
-![image-20211105151638340](assets/image-20211105151638340.png)
+生成本地.ssh
 
-[磁盘下的 ssh 密钥路径](C:\Users\82129\.ssh)
+```shell
+ssh-keygen -t rsa -C "你的github登录邮箱"
+```
+
+打开GitHub或码云上的设置，创建ssh公钥，将C:\Users\你的用户名\.ssh\id_rsa.pub 复制粘贴
 
 ![image-20211105151759262](assets/image-20211105151759262.png)
 
-复制公钥内容粘贴到 github 上
-
-![image-20211105152041270](assets/image-20211105152041270.png)
+![image-20250830131705604](assets/image-20250830131705604.png)
 
 利用 ssh 链接可以拉取或推送文件
 

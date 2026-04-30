@@ -157,5 +157,3 @@ window.onload：等待页面中的所有内容加载完毕之后才会执行。 
 
 $(document).ready()：页面中所有 DOM 结构绘制完毕之后就能够执行。
 `window.onload 与 $(document).ready() / $(function(){})相当于下载 body 内最靠后的<script>代码`
-
-###
