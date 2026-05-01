@@ -210,25 +210,21 @@ $(document).ready(function () {
 
 # 图片
 
-Markdown 图片语法格式如下：
+本地图片：
 
-![alt 属性文本](图片地址)
+![typora](assets/typora-icon-17776266853743.png)
 
-![alt 属性文本](图片地址 "可选标题")
+网络图片（图床图片）：
 
-![RUNOOB 图标](http://static.runoob.com/images/runoob-logo.png)
+![typora](https://raw.giteeusercontent.com/lytintin/image-bed/raw/master/images/typora-icon.png)
 
-![RUNOOB 图标](http://static.runoob.com/images/runoob-logo.png "RUNOOB")
-
-当然，你也可以像网址那样对图片网址使用变量:
-
-这个链接用 [a] 作为网址变量 [picture][a]
-
-[a]: https://www.runoob.com/wp-content/uploads/2019/03/75AA6EBF-CC57-44A6-A585-5EE3DD94E42A.jpg
+当然，你也可以像网址那样对图片网址使用变量  [picture](https://www.runoob.com/wp-content/uploads/2019/03/75AA6EBF-CC57-44A6-A585-5EE3DD94E42A.jpg )
 
 Markdown 还没有办法指定图片的高度与宽度，如果你需要的话，你可以使用普通的 <img> 标签。
 
-<img src="http://static.runoob.com/images/runoob-logo.png" width="50%">
+<img src="assets/tintin3.jpg" style="zoom:33%;">
+
+<img src="https://raw.giteeusercontent.com/lytintin/image-bed/raw/master/images/tintin1.jpg" style="zoom:33%;">
 
 # 表格
 
@@ -247,14 +243,6 @@ Markdown 制作表格使用 **|** 来分隔不同的单元格，使用 **-** 来
 |单元格|单元格|单元格|
 |单元格|单元格|单元格|
 |单元格|单元格|单元格|
-
-# 图片
-
-测试本地图片：![tintin1](assets/tintin3.jpg)
-
-测试网络图片：![tintin1](https://img.sj33.cn/uploads/allimg/201208/20120806104604445.jpg)
-
-图床图片：![tintin1](https://gitee.com/lytintin/image-bed/raw/master/images/tintin1.jpg)
 
 # 高级技巧
 

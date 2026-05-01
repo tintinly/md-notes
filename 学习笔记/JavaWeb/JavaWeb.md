@@ -241,8 +241,8 @@ HTML 元素可以相互嵌套，形成树状结构：
 * `title` 属性：鼠标悬停时的文章
 * `Alt` 属性：图片加载失败时显示的提示文本
 
-<img src="https://www.runoob.com/wp-content/themes/runoob/assets/img/runoob-logo.png" alt="failed_text">
-
+<img src="https://raw.giteeusercontent.com/lytintin/image-bed/raw/master/images/tintin1.jpg" alt="failed_text">
+<img src="https://raw.giteeusercontent.com/lytintin/image-bed/raw/master/images/tintin4.jpg" alt="failed_text">
 
 
 ### 列表

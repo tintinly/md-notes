@@ -2290,4 +2290,4 @@ mappedHandler.triggerAfterCompletion(request, response, null);
       8)  渲染视图完毕执行拦截器的 afterCompletion(…)方法【逆向】。
       9) 将渲染结果返回给客户端。
 
-![img](https://img2022.cnblogs.com/blog/1981845/202203/1981845-20220322120500411-405018778.png)
+![img](assets/image.png)

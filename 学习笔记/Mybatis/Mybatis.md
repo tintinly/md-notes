@@ -1110,7 +1110,9 @@ Refactoring actions (lombok and delombok)
 
 # 10 多对一处理
 
-![image-20211026002257598](assets/image-20211026002257598.png)![image-20211026002313115](assets/image-20211026002313115.png)
+![image-20211026002257598](assets/image-20211026002257598.png)
+
+![image-20211026002313115](assets/image-20211026002313115.png)
 
 
 

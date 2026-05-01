@@ -631,7 +631,7 @@ symbols_count_time:
 
 效果如下图：
 
-![img](https://pic2.zhimg.com/80/v2-6691afc39f011c010bd0d9e054b50e75_720w.jpg)
+![img](assets/v2-6691afc39f011c010bd0d9e054b50e75_720w.jpg)
 
 ## 15 显示站点文章总字数（另一种统计站点总字数的方法）
 
@@ -674,7 +674,7 @@ npm install hexo-wordcount --save
 
 具体位置如下图：
 
-![img](https://pic4.zhimg.com/80/v2-a449da45307774c93857b03b6585a0b7_720w.jpg)
+![img](assets/v2-a449da45307774c93857b03b6585a0b7_720w.jpg)
 
 然后打开**主题配置文件**（_config.yml)，在末尾添加：
 
@@ -700,7 +700,7 @@ creative_commons:
 
 效果图：
 
-![img](https://pic2.zhimg.com/80/v2-8539d1dd82bbb3b295b631402ffeeb49_720w.jpg)
+![img](assets/v2-8539d1dd82bbb3b295b631402ffeeb49_720w.jpg)
 
 ## 18 添加访问量统计
 
@@ -777,9 +777,9 @@ valine:
 
 有两种，分别是：
 
-![img](https://pic2.zhimg.com/80/v2-0b21691ed6309ea63de8913dd235310d_720w.jpg)
+![img](assets/v2-0b21691ed6309ea63de8913dd235310d_720w.jpg)
 
-![img](https://pic4.zhimg.com/80/v2-4ed720c24acbae939eaf72bb236b478b_720w.jpg)
+![img](assets/v2-4ed720c24acbae939eaf72bb236b478b_720w.jpg)
 
 选择你喜欢的类型，打开[小猫](https://link.zhihu.com/?target=http%3A//tholman.com/github-corners/)或者[字](https://link.zhihu.com/?target=https%3A//github.blog/2008-12-19-github-ribbons/)，复制代码添加到themes/next/layout/_layout.swig文件中，放在<div class="headband"></div>后面：
 
@@ -827,7 +827,7 @@ follow_me:
 
 效果如图：
 
-![img](https://pic4.zhimg.com/80/v2-e31964bed191136716e02326589e15c3_720w.jpg)
+![img](assets/v2-e31964bed191136716e02326589e15c3_720w.jpg)
 
 ## 21 博文置顶
 
@@ -867,7 +867,7 @@ top: true
 
 效果如图：
 
-![img](https://pic1.zhimg.com/80/v2-9ab04ff8d13761343e6b12057d0288ec_720w.jpg)
+![img](assets/v2-9ab04ff8d13761343e6b12057d0288ec_720w.jpg)
 
 ## 22 图片可点击放大查看，放大后可关闭（fancybox可能有点问题，暂时未实现）
 
@@ -907,7 +907,7 @@ code {
 
 效果图：
 
-![img](https://pic3.zhimg.com/80/v2-551527018a7813118ca9074691fab82a_720w.jpg)
+![img](assets/v2-551527018a7813118ca9074691fab82a_720w.jpg)
 
 ## 24 本地搜索
 
