@@ -2978,7 +2978,7 @@ chcp 65001
 
 ## Tomcat 配置
 
-`conf/server.xml` 
+**`conf/server.xml`** 
 
 Server 实例：即一个 JVM，它监听在 8005 端口以接收 shutdown 命令。同物理机中，多个 Server 实例需要配置它们使用不同的端口
 
@@ -3021,9 +3021,7 @@ Context ：代表指定一个 Web 应用，每个 Web 应用都是一个 WAR 文
 </Host>
 ```
 
-
-
-`conf/tomcat-user.xml`
+**`conf/tomcat-user.xml`**
 
  首先 ，在 `conf/server.xml` 配置加载 tomcat-user.xml
 
@@ -3053,6 +3051,12 @@ role 元素 和 user 元素 位于 tomcat-user 元素下
 ```
 
 添加了角色与用户以后，可以访问默认的虚拟主机管理应用 `host-manager` 和应用管理应用 `manager`
+
+**`conf/web.xml`**
+
+mime-mapping ：记录了返回的文件类型和应该设置的 MIME 类型
+
+servlet：配置了一些默认的 servlet，例如  org.apache.catalina.servlets.DefaultServlet 处理所有其他 servlet 没有映射到的请求，特别用于提供静态资源（HTML、CSS、JS、图片等）和目录列表（如果启用）。
 
 ## Tomcat 项目部署
 
@@ -3093,6 +3097,12 @@ Web 应用程序：编译好的项目或打包成 war 的项目
 
 ![image-20260430212655404](assets/image-20260430212655404.png)
 
+![image-20260506003128872](assets/image-20260506003128872.png)
+
+Artifacts 表示某个 module 要如何打包，可以简单地理解为一个 module 有了 Artifacts 就可以部署到应用服务器中了。
+
+
+
 编译构建
 
 ![image-20260430212742846](assets/image-20260430212742846.png)
@@ -3119,7 +3129,836 @@ IDEA 根据关联的 Tomcat，创建了一个 Tomcat 副本（类似，`C:/Users
 
 # HTTP 协议
 
-参考
+[参考计算机网络](../计算机网络/计算机网络.md#HTTP)
+
+# Servlet
+
+## Servlet 简介
+
+> 静态资源&动态资源
+>
+> 静态资源：无需程序运行生成的资源，在程序运行之前就有的资源。例如 html、css、图像文件、音频文件、视频文件。
+>
+> 动态资源：需要程序运行时通过代码生成的的资源，运行前无法确定，运行时动态生成。例如 Servlet、Thymeleaf。
+
+Servlet （server applet）类似于运行在服务端（Tomcat）的 Java 小程序，是 sun 公司提供一套定义 **动态资源规范**；代码层面上 Servlet 就是一个 **接口**。
+
+Servlet 可以用来接收、处理客户端请求、响应给浏览器的动态资源。在整个 Web 应用中，Servlet 主要负责接收处理请求、协同调度功能以及响应数据。我们可以把 Servlet 称为 Web 应用中的 **控制器**。
+
+不是所有的 JAVA 类都能用于处理客户端请求，能处理客户端请求并做出响应的一套技术标准就是 Servlet。
+
+Servlet 是运行在服务端的，所以 Servlet 必须在 WEB 项目中开发且在 Tomcat 这样的服务容器中运行。它们的分工类似于餐厅中的服务员与厨师如下图：
+
+![image-20260505222859601](assets/image-20260505222859601.png)
+
+## Tomcat 与 Servlet 的搭配工作原理
+
+1. Tomcat 接收到请求后，会将请求报文的信息转换一个 **HttpServletRequest 对象**，该对象中包含了请求中的请求行、请求头、请求体。
+2. Tomcat 同时创建了一个 **HttpServletResponse 对象**，该对象用于承装要响应给客户端的信息，后面该对象会被转换成响应的报文响应行、响应头、响应体
+3. 开发者事先创建了一个 Servlet 接口的实现类，主要重写 `service(ServletRequest servletRequest, ServletResponse servletResponse)` 方法，它将负责接收请求对象和处理响应。
+   1. Servlet 从 ServletRequest 对象中获取请求的所有信息（参数）
+   2. Servlet 根据参数生成要响应给客户端的数据
+   3. Servlet 将响应的数据放入 ServletResponse 对象
+
+4. Tomcat 根据请求中的资源路径找到对应的 servlet，将 servlet 实例化，调用 service 方法，同时将 HttpServletRequest 和 HttpServletResponse 对象作为参数传入。
+
+5. 等待 servlet 执行完，从 HttpServletResponse 对象中取出数据，组装成 HTTP 响应报文，发送给客户端。
+
+
+![image-20260505223317601](assets/image-20260505223317601.png)
+
+Tomcat + Servlet 架构的核心分工就是 Tomcat 负责接收请求，Servlet 负责处理请求，起到承前启后的作用。
+
+## Servlet 实战
+
+创建页面
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="checkUser" method="post">
+        用户名：<input type="text" name="username">
+        <input type="submit" value="校验"/>
+    </form>
+</body>
+</html>
+```
+
+自定义一个类，继承 HttpServlet 类；重写 service 方法，该方法主要就是用于处理用户请求的服务方法。
+
+> 总之要实现 Servlet 接口，而 HttpServlet 也是 Servlet 接口实现类， 存在于 Tomcat 的 jar 包中，可以从 Maven 导入或手动导入。
+>
+> ![image-20260506144657080](assets/image-20260506144657080.png)
+>
+> ![image-20260506144728954](assets/image-20260506144728954.png)
+>
+> 但不管怎么引入，只是为了开发使用，而 Tomcat 服务运行时，由 Tomcat 自身提供依赖。
+>
+> ![image-20260506145512550](assets/image-20260506145512550.png)
+>
+> 我们开发时只需确保两者版本一致就行，因此建议把依赖生命周期设置为 Provided。
+>
+> ![image-20260506145636198](assets/image-20260506145636198.png)
+
+* HttpServletRequest 代表请求对象，是有请求报文经过 Tomcat 转换而来的，通过该对象可以获取请求中的信息；
+* HttpServletResponse 代表响应对象，该对象会被 Tomcat 转换为响应的报文，通过该对象可以设置响应中的信息；
+
+Servlet 对象的生命周期（创建、初始化、处理服务、销毁）是由 Tomcat 管理的，无需自己 new；HttpServletRequest 和 HttpServletResponse 两个对象也是由 Tomcat 负责转换，在调用 service 方法时传入给我们用的；
+
+```java
+public class UserServlet extends HttpServlet {
+
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // 从请求对象中获取参数
+        String username = req.getParameter("username");
+        // 处理业务的代码
+        String info = "no";
+        if ("tintinly".equals(username)) {
+            info = "yes";
+        }
+        resp.setHeader("Content-Type", "text/html");
+        // 响应数据放入响应对象中
+        PrintWriter writer = resp.getWriter();
+        writer.write(info);
+    }
+}
+
+```
+
+配置 web.xml。Servlet 并不是文件系统中实际存在的文件或者目录，所以为了能够请求到该资源，需要为其配置映射路径;
+Servlet 的请求映射路径配置在 web.xml 中；
+
+`<url-pattern>` 中可以使用一些通配写法：
+
+* `/` 表示通配所有资源，不包括 jsp 文件；
+* `/*` 表示通配所有资源，包括 jsp 文件；
+* `/a/*` 匹配所有以 a 目录为前缀的映射路径；
+* `*.action` 匹配所有以 action 为后缀的映射路径
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+    <!-- 配置Servlet类 -->
+    <servlet>
+        <servlet-name>userServlet</servlet-name> <!-- 用于关联请求的映射路径 随意定义，见名知意就好-->
+        <servlet-class>com.tintin.demoservlet.UserServlet</servlet-class> <!-- 告诉Tomcat需要实例化的类 -->
+    </servlet>
+    <!--  配置某个Servlet的映射路径 -->
+    <servlet-mapping>
+        <servlet-name>userServlet</servlet-name>
+        <url-pattern>/checkUser</url-pattern>
+    </servlet-mapping>
+    
+    <servlet> <!-- 可以 一对多 servlet-mapping-->
+        <servlet-name>servlet1</servlet-name>
+        <servlet-class>com.tintin.demoservlet.Servlet1</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>servlet1</servlet-name> <!-- 可以 一对多 url-pattern -->
+        <url-pattern>/s1</url-pattern> <!-- 精确匹配-->
+        <url-pattern>/ss1</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>servlet1</servlet-name>
+        <!--<url-pattern>/</url-pattern>--> <!-- 匹配全部 不可匹配 jsp 文件 例如 访问 /sss1/index.jsp 返回的是jsp文件 -->
+        <!--<url-pattern>/*</url-pattern>--> <!-- 匹配全部 且可匹配 jsp 文件 例如 访问 /sss1/index.jsp 执行Servlet-->
+        <!--<url-pattern>/sss1/*</url-pattern>--> <!-- 模糊匹配 匹配所有以 sss1 目录为前缀的映射路径；-->
+        <!--<url-pattern>*.sss1</url-pattern>--> <!-- 匹配所有以 .sss1 为后缀的映射路径-->
+    </servlet-mapping>
+</web-app>
+```
+
+![image-20260506153521945](assets/image-20260506153521945.png)
+
+## Servlet 注解方式配置
+
+### @WebServlet
+
+```
+// @WebServlet("/s2")
+// @WebServlet(value="/s2")
+// @WebServlet(value={"/s2"})
+// @WebServlet(urlPatterns={"/s2"})
+@WebServlet(name = "servlet2", urlPatterns = {"/ss2", "sss2"})
+public class Servlet2 extends HttpServlet {
+
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        System.out.println("Servlet2 执行了");
+        resp.getWriter().write("Servlet2");
+    }
+}
+```
+
+## Servlet 生命周期
+
+**生命周期**
+
+应用程序中的对象不仅在空间上有层次结构的关系，在时间上也会因为处于程序运行过程中的不同阶段而表现出不同状态和不同行为，这就是对象的生命周期。简单来说，生命周期就是对象在容器中从开始创建到销毁的过程。
+
+**Servlet 容器**
+
+Servlet 对象是 Servlet 容器创建的，生命周期方法都是由容器（目前我们使用的是 Tomcat)调用的）。这一点和我们之前所编写的代码有很大不同。在今后的学习中我们会看到，越来越多的对象交给容器或框架来创建，越来越多的方法由容器或框架来调用，开发人员要尽可能多的将精力放在业务逻辑的实现上。
+
+ **Servlet 生命周期测试**
+
+Tomcat 创建 Servlet 对象 采取单例模式，操作成员变量会存在线程安全问题
+
+```java
+/**
+ * loadOnStartup 默认值是-1含义是tomcat启动时不会实例化该servLet 正整数含义是tomcat在启动时，实例化该servLet的顺序
+ * <servlet>
+ *     <load-on-startup>-1</load-on-startup>
+ * </servlet>
+ * 不建议写1~5 因为这是tomcat的web.xml配置的servlet使用了的
+ * 例如 servlet default 的load-on-startup是1
+ * 任何没被自定义servlet匹配的请求路径 都会到 org.apache.catalina.servlets.DefaultServlet， 其作用基本上把找到的文件输出给浏览器
+ */
+@WebServlet(urlPatterns = "/life-circle-servlet", loadOnStartup = 1)
+public class LifeCircleServlet extends HttpServlet {
+
+    /**
+     * 1 实例化——第一次请求
+     * 2 初始化——构造完毕
+     * 3接收请求，处理请求服务—每一次请求
+     * 4销毁——关闭请求
+     *
+     * ServLet在Tomcat中是单例的
+     * Servlet的成员变量在多个线程栈之中是共享的
+     * 不建议在service方法中修改成员变量在并发请求时，会引发线程安全问题
+     */
+
+    public LifeCircleServlet() {
+        System.out.println("实例化");
+    }
+
+    @Override
+    public void init() throws ServletException {
+        System.out.println("初始化");
+    }
+
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("执行了服务");
+    }
+
+    @Override
+    public void destroy() {
+        System.out.println("销毁");
+    }
+}
+
+/*
+实例化
+初始化
+执行了服务
+执行了服务
+执行了服务
+执行了服务
+执行了服务
+销毁
+*/
+```
+
+## Servlet 继承结构
+
+### Servlet 接口
+
+```java
+public interface Servlet {
+    // 构造完毕后，由 调用初始化方法
+    void init(ServletConfig var1) throws ServletException;
+
+    // 获得 ServletConfig对象的方法
+    ServletConfig getServletConfig();
+
+    // 接收用户请求，响应信息的方法
+    void service(ServletRequest var1, ServletResponse var2) throws ServletException, IOException;
+
+    // 返回Servlet字符串形式描述信息
+    String getServletInfo();
+
+    // 销毁，资源释放
+    void destroy();
+}
+```
+
+### GenericServlet 抽象类
+
+实现了 Servlet 接口，对大部分方法进行平庸实现的重写，即无具体代码
+
+```java
+public abstract class GenericServlet implements Servlet, ServletConfig, Serializable {
+    private static final long serialVersionUID = -8592279577370996712L;
+    private transient ServletConfig config;
+
+    /* 仅看 Servlet的实现部分 */
+    public void destroy() {
+        //平庸实现，无具体代码
+    }
+
+    public ServletConfig getServletConfig() { // 简单返回已有的ServletConfig
+        return this.config;
+    }
+
+    public String getServletInfo() { // 简单返回空字符串
+        return "";
+    }
+
+    public void init(ServletConfig config) throws ServletException {
+        this.config = config; // 存储 传过来的ServletConfig
+        this.init(); // 执行 init()
+    }
+
+    public void init() throws ServletException { 
+    }
+
+  
+	// 未重写的抽象方法
+    public abstract void service(ServletRequest var1, ServletResponse var2) throws ServletException, IOException;
+
+    
+}
+```
+
+### HttpServlet 抽象类
+
+继承了 GenericServlet 抽象类，虽然是抽象类但是没有抽象方法，它禁止了直接被实例化，同时提供了默认实现，让子类按需覆盖。
+
+```java
+public abstract class HttpServlet extends GenericServlet {
+    public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+        // 主要用于参数类型父转子，即向下转型，然后调用
+        if (req instanceof HttpServletRequest && res instanceof HttpServletResponse) {
+            HttpServletRequest request = (HttpServletRequest)req;
+            HttpServletResponse response = (HttpServletResponse)res;
+            this.service(request, response); // 调用重载的service方法
+        } else {
+            throw new ServletException("non-HTTP request or response");
+        }
+    }
+    
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String method = req.getMethod(); // 获取请求方式
+        long lastModified;
+        // 根据请求方式分发调用具体的处理逻辑 doxxx()
+        if (method.equals("GET")) {
+            lastModified = this.getLastModified(req);
+            // 判断是否需要用缓存
+            if (lastModified == -1L) {
+                this.doGet(req, resp);
+            } else {
+                long ifModifiedSince = req.getDateHeader("If-Modified-Since");
+                if (ifModifiedSince < lastModified) {
+                    this.maybeSetLastModified(resp, lastModified);
+                    this.doGet(req, resp);
+                } else {
+                    resp.setStatus(304);
+                }
+            }
+        } else if (method.equals("HEAD")) {
+            lastModified = this.getLastModified(req);
+            this.maybeSetLastModified(resp, lastModified);
+            this.doHead(req, resp);
+        } else if (method.equals("POST")) {
+            this.doPost(req, resp);
+        } else if (method.equals("PUT")) {
+            this.doPut(req, resp);
+        } else if (method.equals("DELETE")) {
+            this.doDelete(req, resp);
+        } else if (method.equals("OPTIONS")) {
+            this.doOptions(req, resp);
+        } else if (method.equals("TRACE")) {
+            this.doTrace(req, resp);
+        } else {
+            String errMsg = lStrings.getString("http.method_not_implemented");
+            Object[] errArgs = new Object[]{method};
+            errMsg = MessageFormat.format(errMsg, errArgs);
+            resp.sendError(501, errMsg);
+        }
+
+    }
+    
+    // 响应405，请求方式不允许
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String protocol = req.getProtocol();
+        String msg = lStrings.getString("http.method_get_not_supported");
+        resp.sendError(this.getMethodNotSupportedCode(protocol), msg);
+    }
+}
+
+```
+
+### 自定义 Servlet
+
+```java
+@WebServlet("/do")
+public class DoServlet extends HttpServlet {
+
+	
+    // 自定义Servlet中，必须要对处理请求的方法进行重写：
+    // 要么重写service方法;
+    // 要么重写doXXX方法;
+        
+    // doGet 定义处理get请求的逻辑
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.getWriter().write("处理 get 请求");
+    }
+
+    // doPost 定义处理post请求的逻辑
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.getWriter().write("处理 post 请求");
+    }
+    
+    // 其他请求方式未定义处理逻辑，则默认响应405
+
+}
+```
+
+> 后续使用 SpringMVC 框架，则无需继承 HttpServlet
+
+## ServletConfig
+
+### ServletConfig 是什么
+
+为 Servlet 提供初始配置参数的一种对象，每个 Servlet 都有自己独立唯一的 ServletConfig 对象
+
+Tomcat 的 Servlet 容器会为每个 Servlet 实例化一个 ServletConfig 对象，并通过 Servlet 生命周期的 init 方法传入给 Servlet 作为属性
+
+```java
+public interface ServletConfig {
+    String getServletName();
+
+    ServletContext getServletContext();
+
+    String getInitParameter(String var1);
+
+    Enumeration<String> getInitParameterNames();
+}
+```
+
+![image-20260506181649535](assets/image-20260506181649535.png)
+
+### ServletConfig 使用
+
+例，定义初始参数
+
+```xml
+<web-app >
+    <servlet>
+        <servlet-name>servlet2</servlet-name>
+        <servlet-class>com.tintin.demoservlet.Servlet1</servlet-class>
+        <!--配置Servlet的初始参数 对应ServletConfig的对象信息-->
+        <init-param>
+            <param-name>keyA</param-name>
+            <param-value>valueA</param-value>
+        </init-param>
+        <init-param>
+            <param-name>keyB</param-name>
+            <param-value>valueB</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>servlet2</servlet-name>
+        <url-pattern>/s2</url-pattern>
+    </servlet-mapping>
+</web-app>
+```
+
+或
+
+```java
+@WebServlet(
+        value = "/s2",
+        initParams = {
+                @WebInitParam(name = "k1", value = "v1"),
+                @WebInitParam(name = "k1", value = "v1")
+        })
+```
+
+Tomcat 会将这些初始参数等配置成 ServletConfig 对象，并作为方法参数传入 init 方法中。
+
+![image-20260506180601135](assets/image-20260506180601135.png)
+
+获取 Servlet 中 ServletConfig 的属性值
+
+```java
+public class Servlet2 extends HttpServlet {
+
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        System.out.println("Servlet2 执行了");
+
+        String servletName = getServletConfig().getServletName();
+        resp.getWriter().println(servletName);
+
+        ServletContext servletContext = getServletConfig().getServletContext();
+        resp.getWriter().println(servletContext);
+
+        Enumeration<String> initParameterNames = getServletConfig().getInitParameterNames();
+        while (initParameterNames.hasMoreElements()) {
+            String initParameter = getServletConfig().getInitParameter(initParameterNames.nextElement());
+            resp.getWriter().println(initParameter);
+        }
+    }
+}
+```
+
+## ServletContext
+
+### ServletContext 是什么
+
+ServletContext 对象有称呼为上下文对象，或者叫应用域对象; 容器会为每个 app 创建一个独立的唯一的 ServletContext 对象;
+
+ServletContext 对象为所有的 Servlet 所共享；
+
+ServletContext 可以为所有的 Servlet 提供初始配置参数；
+
+![image-20260506182034712](assets/image-20260506182034712.png)
+
+### ServletContext 使用
+
+配置 ServletContext  参数
+
+```xml
+<web-app>
+	<context-param>
+        <param-name>encoding</param-name>
+        <param-value>utf-8</param-value>
+    </context-param>
+    <context-param>
+        <param-name>projectName</param-name>
+        <param-value>demo-servlet</param-value>
+    </context-param>
+</web-app>
+```
+
+* 获取 ServletContext  的参数
+* 获取资源的磁盘路径
+* 获取项目的上下文路径
+* 获取域对象
+
+```java
+public class Servlet2 extends HttpServlet {
+
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        System.out.println("Servlet2 执行了");
+
+        ServletContext servletContext1 = getServletContext();
+        ServletContext servletContext2 = getServletConfig().getServletContext();
+        ServletContext servletContext3 = req.getServletContext();
+        System.out.println(servletContext1 == servletContext2);
+        System.out.println(servletContext1 == servletContext3);
+        // 获取初始参数
+        Enumeration<String> names = servletContext1.getInitParameterNames();
+        while (names.hasMoreElements()) {
+            String paramName = names.nextElement();
+            resp.getWriter().println(servletContext1.getInitParameter(paramName));
+        }
+    }
+}
+
+```
+
+域对象是一些用于在一些特定的范围内存储数据和传递数据的对象，不同的范围称为不同的“域”，不同的域对象代表不同的域，共享数据的范围也不同；ServletContext 代表应用，所以 ServletContext 域也叫作应用域，是 webapp 中最大的域，可以在本应用内实现数据的共享和传递；webapp 中的三大域对象，分别是应用域，会话域，请求域。
+
+```java
+@Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ServletContext servletContext = getServletContext();
+        PrintWriter writer = resp.getWriter();
+        // 获取资源在项目部署位置的磁盘路径
+        String upload = servletContext.getRealPath("upload");
+        writer.println(upload); // D:\demo-servlet\demo-servlet\target\demo-servlet-1.0-SNAPSHOT\upload
+
+        // 获取项目的上下文
+        String contextPath = servletContext.getContextPath();
+        writer.println(contextPath); // /demo_servlet
+
+        // 域对象 API
+        servletContext.setAttribute("key", "value");
+        Object key = servletContext.getAttribute("key");
+        writer.println(key); // value
+        servletContext.removeAttribute("key");
+        Object k = servletContext.getAttribute("key");
+        writer.println(k); // null
+    }
+```
+
+## HttpServletRequest
+
+HttpServletRequest 是一个接口，其父接口是 ServletRequest；HttpServletRequest 是 Tomcat 将请求报文转换封装而来的对象，在 Tomcat 调用 service 方法时传入；HttpServletRequest 代表客户端发来的请求，请求中的所有信息都可以通过该对象获得;
+
+* 获取请求行信息
+* 获取请求头信息
+* 获取请求参数信息
+* 获取 servlet 隐射路径、servletcontext、cookie、session 等
+* 设置请求体字符集
+
+```java
+@WebServlet("/s4")
+public class Servlet4 extends HttpServlet {
+
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        PrintWriter writer = resp.getWriter();
+
+        // 请求行相关
+        writer.println("请求行：");
+        writer.println(req.getMethod()); // 请求方式
+        writer.println(req.getScheme()); // 请求协议
+        writer.println(req.getProtocol()); // 请求协议版本
+        writer.println(req.getRequestURI()); // 请求的URI 项目内的资源路径
+        writer.println(req.getRequestURL()); // 请求的URL 项目内的资源的完整路径
+
+        writer.println(req.getLocalPort()); // 本应用的端口
+        writer.println(req.getServerPort()); // 客户端（浏览器）发送请求时使用的端口 与应用实际端口不一样，因为可能存在代理
+        writer.println(req.getRemotePort()); // 客户端（浏览器）的端口
+
+
+        // 请求头相关
+        writer.println("请求头：");
+        Enumeration<String> headerNames = req.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            writer.println(headerName + ":" + req.getHeader(headerName));
+        }
+
+        // 请求参数相关
+        writer.println("请求参数：");
+        // 获取键值对形式的参数 无论这些参数是查询参数还是请求体参数
+        writer.println("username=" + req.getParameter("username")); // 根据参数名获取单个参数值
+        writer.println("password=" + req.getParameter("password"));
+        writer.println("hobby=" + Arrays.toString(req.getParameterValues("hobby"))); // 根据参数名获取多个参数值
+
+        // 获取所有参数名
+        Enumeration<String> parameterNames = req.getParameterNames();
+        while (parameterNames.hasMoreElements()) {
+            String parameterName = parameterNames.nextElement();
+            String[] parameterValues = req.getParameterValues(parameterName);
+            if (parameterValues.length == 1) {
+                writer.println(parameterName + ":" + parameterValues[0]);
+            } else {
+                writer.println(parameterName + ":" + Arrays.toString(parameterValues));
+            }
+        }
+
+        // 获取所有参数的map集合
+        Map<String, String[]> parameterMap = req.getParameterMap();
+        Set<Map.Entry<String, String[]>> entries = parameterMap.entrySet();
+        entries.forEach(entry -> {
+            if (entry.getValue().length == 1) {
+                writer.println(entry.getKey() + ":" + entry.getValue()[0]);
+            } else {
+                writer.println(entry.getKey() + ":" + Arrays.toString(entry.getValue()));
+            }
+        });
+
+        // 获取非键值对形式的参数 如 json串 文件
+//        BufferedReader reader = req.getReader(); // 字符流
+//        ServletInputStream inputStream = req.getInputStream();// 文件流
+
+        // 其他相关
+        ServletContext servletContext = req.getServletContext();
+        String servletPath = req.getServletPath();
+        Cookie[] cookies = req.getCookies();
+        HttpSession session = req.getSession();
+        req.setCharacterEncoding("utf-8");
+    }
+}
+```
+
+
+
+## HttpServletResponse
+
+HttpServletResponse 是一个接口，其父接口是 ServletResponse；HttpServletResponse 是 Tomcat 预先创建的，在 Tomcat 调用 service 方法时传入；HttpServletResponse 代表对客户端的响应，该对象会被转换成响应的报文发送给客户端，通过该对象我们可以设置响应信息；
+
+* 设置响应行（状态码）
+* 设置响应头
+* 设置响应体（字符流输出或字节流输出）
+* 设置 Cookie、响应错误、指定响应体字符集
+
+```java
+@WebServlet("/s5")
+public class Servlet5 extends HttpServlet {
+
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // 响应行相关
+        resp.setStatus(666);
+
+        String info = ("<h1>hello world</h1>");
+        // 响应头相关
+        resp.setHeader("h1", "v1");
+//        resp.setHeader("Content-Type", "text/html");
+//        resp.setHeader("Content-Length", info.length());
+        resp.setContentType("text/html");
+        resp.setContentLength(info.length());
+
+        // 响应体相关
+        PrintWriter writer = resp.getWriter(); // 获取向响应体中的输入文本的字符输出流
+        writer.write(info);
+//        writer.println("...");
+//        ServletOutputStream outputStream = resp.getOutputStream(); // 获取向响应体中的输入字节的二进制输出流
+        
+        // 其他相关
+        resp.sendError(404, "error");
+        resp.addCookie(new Cookie("key", "value"));
+        resp.setCharacterEncoding("utf-8");
+    }
+}
+```
+
+## 请求转发和响应重定向
+
+请求转发和响应重定向是 web 应用中间接访问项目资源的两种手段，也是 Servlet 控制页面跳转的两种手段
+
+请求转发通过 HttpServletRequest 实现，响应重定向通过 HttpServletResponse 实现
+
+### 请求转发
+
+**流程**
+
+![image-20260506231910826](assets/image-20260506231910826.png)
+
+**特点**
+
+* 请求转发通过 HttpServletRequest 对象获取请求转发器实现；
+* 请求转发是服务器 **内部的行为**，对客户端是屏蔽的；
+* 客户端只发送了一次请求，客户端地址栏不变；
+* 服务端只产生了一对请求和响应对象，这一对请求和响应对象会继续传递给下一个资源；
+* 因为全程只有一个 HttpServletRequset 对象，所以请求参数可以传递, 请求域中的数据也可以传递；
+* 请求转发可以转发给其他 Servlet 动态资源，也可以转发给一些静态资源以实现页面跳转；
+* 请求转发可以转发给 WEB-INF 下受保护的资源；
+* 请求转发不能转发到本项目以外的外部资源；
+
+**使用**
+
+```java
+@WebServlet("/forward")
+public class ForwardServlet extends HttpServlet {
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) {
+        // 请求转发
+        try {
+            // 获取请求转发器
+//            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/final"); // 转发至Servlet
+//            RequestDispatcher requestDispatcher = req.getRequestDispatcher("ssss1/index.html"); // 转发至资源页面
+//            RequestDispatcher requestDispatcher = req.getRequestDispatcher("upload/a.txt"); // 转发至资源文件
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("WEB-INF/web.xml"); // 可以访问WEB-INF下的文件
+            // 做出转发动作
+            requestDispatcher.forward(req, resp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### 响应重定向
+
+**流程**
+
+![image-20260506233628005](assets/image-20260506233628005.png)
+
+**特点**
+
+* 响应重定向通过 HttpServletResponse 对象的 sendRedirect 方法实现；
+* 响应重定向是服务端通过 302 响应码和路径，告诉客户端自己去找其他资源，是在服务端提示下的客户端的行为；
+* 客户端至少发送了两次请求，客户端地址栏是要变化的；
+* 服务端产生了多对请求和响应对象，且请求和响应对象不会传递给下一个资源; 
+* 因为全程产生了多个 HttpServletRequset 对象，所以请求参数不可以传递，请求域中的数据也不可以传递；
+* 重定向可以是其他 servlet 动态资源，也可以是一些静态资源以实现页面跳转； 
+* 重定向不可以到给 WEB-INF 下受保护的资源；
+* 重定向可以到本项目以外的外部资源；
+
+**使用**
+
+```java
+@WebServlet("/redirect")
+public class RedirectServlet extends HttpServlet {
+
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        // 重定向
+        System.out.println("redirectServlet 准备做响应重定向");
+        // 设置header 的方式
+//        resp.setStatus(302);
+//        resp.setHeader("Location", "final");
+
+        // 使用sendRedirect
+        resp.sendRedirect("final"); // 重定向到其他servlet
+//        resp.sendRedirect("sss1/index.html"); // 重定向到其他资源
+//        resp.sendRedirect("https://www.baidu.com"); // 重定向到外部链接
+//        resp.sendRedirect("WEB-INF/web.xml"); // 无法访问WEB-INF
+    }
+}
+```
+
+![image-20260506234313674](assets/image-20260506234313674.png)
+
+## 乱码问题和路径问题
+
+### 乱码问题
+
+**根本原因**
+
+1. 数据的编码和解码使用的不是同一个字符集
+2. 使用了不支持某个语言文字的字符集
+
+**各字符集兼容性**
+
+![image-20260507000147257](assets/image-20260507000147257.png)
+
+**HTML 乱码**
+
+解决
+
+![image-20260507000523842](assets/image-20260507000523842.png)
+
+建议设置项目文件的字符集要使用一个支持中文的字符集。将 Global Encoding 全局字符集，Project Encoding 项目字符集，PropertiesFiles 属性配置文件字符集设置为 UTF-8。
+
+![image-20260507000550564](assets/image-20260507000550564.png)
+
+**Tomcat 控制台输出乱码**
+
+![image-20260507000750072](assets/image-20260507000750072.png)
+
+解决
+
+在 tomcat10.1.7 这个版本中，修改 Tomcat/conf/logging.properties 中，所有的 uTF-8 为 GBK 即可。因为大多数 windows 电脑环境都是 GBK，除非改过。
+
+![image-20260507001042729](assets/image-20260507001042729.png)
+
+**Java 程序控制台输出乱码**
+
+解决：确保 JVM 加载.class 文件时和编译时的字符集一致，通常为 UTF-8。
+
+**get 请求乱码问题**
+
+**post 请求乱码问题**
+
+**响应乱码问题**
+
+### 路径问题
+
+
 
 # 参考资料
 

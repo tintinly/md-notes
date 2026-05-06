@@ -38,6 +38,21 @@ Ubuntu、Cent OS（开源的 RedHat）、Mint、elementary OS、MX Linux、Zorin
   
   ![img](assets/1511849829609658.jpg)
 
+### 查看发行版
+
+```shell
+uname -a              # 查看当前操作系统内核信息
+cat /proc/version     # 正在运行的内核的信息
+
+# 查看当前操作系统发行版信息
+cat /etc/issue 
+cat /etc/redhat-release
+cat /etc/os-release
+
+```
+
+
+
 ## Linux 安装
 
 **安装 Linux**
@@ -267,6 +282,22 @@ mkdir testdir
 mkdir -p testdir/testdir2
 ```
 
+### df 命令
+
+df（display free disk space） 命令用于显示文件系统的磁盘空间使用情况，包括总容量、已用空间、可用空间和挂载点等信息。
+
+| 参数                          | 说明                                                     |
+| :---------------------------- | :------------------------------------------------------- |
+| **`-a`**, `--all`             | 显示所有文件系统，包括虚拟文件系统（如 `proc`, `sysfs`） |
+| **`-B`**, `--block-size=SIZE` | 指定显示单位（如 `-BK` = KB，`-BM` = MB，`-BG` = GB）          |
+| **`-h`**, `--human-readable`  | 以易读格式显示（自动转换单位：K, M, G, T，基于 1024）    |
+| **`-H`**, `--si`              | 类似 `-h`，但以 1000 为换算单位（符合 SI 标准）          |
+| **`-i`**, `--inodes`          | 显示 inode 使用情况（而非磁盘空间）                      |
+| **`-k`**                      | 以 1KB 为单位显示（默认单位）                            |
+| **`-m`**                      | 以 1MB 为单位显示（部分系统支持）                        |
+| **`-l`**, `--local`           | 仅显示本地文件系统（排除网络文件系统如 NFS）             |
+| **`--total`**                 | 显示总计信息                                             |
+
 ## 软件包管理
 
 ### apt-get 命令
@@ -274,6 +305,16 @@ mkdir -p testdir/testdir2
 `apt-get` 是 Debian 和 Ubuntu 等基于 Debian 的 Linux 发行版中用于管理软件包的核心命令行工具，用于处理 `.deb` 格式的软件包。它能够自动解决软件包之间的依赖关系，简化了 Linux 系统的软件管理。
 
 目前还没有任何 Linux 发行版官方放出 apt-get 将被停用的消息，至少它还有比 apt 更多、更细化的操作功能。对于低级操作，仍然需要 apt-get。
+
+```shell
+# 清理缓存
+apt-get clean # 删除 /var/cache/apt/archives目录中的所有内容
+
+# 彻底卸载软件
+apt-get --purge remove <package>				# 删除软件及其配置文件
+apt-get autoremove <package>					# 删除没用的依赖包
+dpkg -l |grep ^rc|awk '{print $2}' |sudo xargs dpkg -P		# 清理dpkg的列表中有“rc”状态的软件包
+```
 
 ### apt 命令
 
@@ -321,187 +362,9 @@ yum（ Yellow dog Updater, Modified）是一个在 Fedora 和 RedHat 以及 SUSE
 
 基于 RPM 包管理，能够从指定的服务器自动下载 RPM 包并且安装，可以 **自动处理依赖性关系**，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装。
 
-## 文件操作
+## 服务管理
 
-### more less 命令
-
-Linux more 命令类似 cat ，不过会以一页一页的形式显示，更方便使用者逐页阅读，而最基本的指令就是按空白键（space）就往下一页显示，按 b 键就会往回（back）一页显示，而且还有搜寻字串的功能（与 vi 相似），使用中的说明文件，请按 h 。
-
-- -s 当遇到有连续两行以上的空白行，就代换为一行的空白行
-
-less 与 more 类似，less 可以随意浏览文件，支持翻页和搜索，支持向上翻页和向下翻页。
-
-## 文档编辑
-
-### vi / vim 使用
-
-vi  是几乎所有的 Unix Like 系统都会内建的文书编辑器，而 Vim 是从 vi 发展出来的一个文本编辑器。代码补全、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用。
-
-简单的来说， vi 是老式的字处理器，不过功能已经很齐全了，但是还是有可以进步的地方。 vim 则可以说是程序开发者的一项很好用的工具。
-
-基本上 vi/vim 共分为三种模式，**命令模式（Command Mode）、输入模式（Insert Mode）和命令行模式（Command-Line Mode）**。
-
-![img](assets/vim-vi-workmodel.png)
-
-命令模式：
-
-- `i`：切换到输入模式，在光标当前位置开始输入文本。
-- `x`：删除当前光标所在处的字符。
-- `:`：切换到底线命令模式，以在最底一行输入命令。
-- `a`：进入插入模式，在光标下一个位置开始输入文本。
-- `o`：在当前行的下方插入一个新行，并进入插入模式。
-- `O` ：在当前行的上方插入一个新行，并进入插入模式。
-- `dd`：剪切当前行。
-- `yy`：复制当前行。
-- `p`：粘贴剪贴板内容到光标下方。
-- `P`：粘贴剪贴板内容到光标上方。
-- `u` ：撤销上一次操作。
-- `Ctrl + r` ：重做上一次撤销的操作。
-- `/`：向光标之下寻找一个字符串
-- `?`：向光标之上寻找一个字符串
-
-输入模式：使用 `Esc` 键可以返回到普通模式。
-
-底线命令模式：
-
-- `:w`：保存文件。
-- `:q`：退出 Vim 编辑器。
-- `:wq`：保存文件并退出 Vim 编辑器。
-- `:q!`：强制退出 Vim 编辑器，不保存修改。
-
-键位：
-
-![vi-vim-cheat-sheet-sch](assets/vi-vim-cheat-sheet-sch-17775635295258.gif)
-
-### sed 命令
-
-Linux sed 命令是利用脚本来处理文本文件。sed 可依照脚本的指令来处理、编辑文本文件。
-
-# 环境变量
-
-在大多数 Linux 发行版bash环境中，用户的环境文件通常是 `~/.bashrc` 或 `~/.bash_profile`
-
-bash 在每次启动时都会加载 `.bashrc` 文件的内容
-
-| 加载阶段    | 对应配置文件                  | 说明                       |
-| :---------- | :---------------------------- | :------------------------- |
-| 系统级      | /etc/profile                  | 系统级初始化脚本，最先执行 |
-| 用户级      | ~/.bash_profile 或 ~/.profile | 用户登录时执行             |
-| 交互式 Shell | ~/.bashrc                     | 每次打开终端时执行         |
-
-# Linux 防火墙
-
-防火墙技术根据管理员设定的规则来控制数据包的进出。主要保护内网安全。
-
-两大 Linux 防火墙
-
-- firewalld：CentOS 7 及以后版本的默认防火墙管理工具
-- iptables：传统的 Linux 防火墙管理工具
-
->  iptables 和 firewalld 不是真正的防火墙，是指用来定义防火墙规则功能的“防火墙管理工具/程序”，将定义好的规则交给内核的 netfiler 即网络过滤器来读取，从而实现防火墙的功能。
->
->  在配置防火墙时，不建议两种配置方法结合使用（建议只使用其中的一种）
->
->  ![img](assets/3595090-20250218230217785-1193153724.png)
-
-## iptables
-
-静态防火墙
-
-- 早期的 Linux 默认使用 iptables 防火墙，配置文件在/etc/sysconfig/iptables。主要工作在网络层
-- 该防火墙只能过滤互联网的数据包，无法对内网到内网进行过滤
-- iptables 只有命令模式
-- **iptables 默认允许**，通过添加拒绝来限制
-- iptables 修改规则后刷新才能生效。无法守护进程
-
-基本操作
-
-   ```bash
-# 查看防火墙状态
-service iptables status 
-# 停止防火墙
-service iptables stop 
-# 启动防火墙
-service iptables start 
-# 重启防火墙
-service iptables restart 
-# 永久关闭防火墙
-chkconfig iptables off 
-# 永久关闭后重启
-chkconfig iptables on　　
-   ```
-
- 开启 80 端口
-
-   ```bash
-vim /etc/sysconfig/iptables
-# 加入如下代码
--A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
-保存退出后重启防火墙
-
-service iptables restart
-   ```
-
-## Firewalld 
-
-动态防火墙
-
-特点：
-
-- 取代了 iptabels 防火墙，配置文件在/usr/lib/firewalld 和/etc/firewalld 主要工作在网络层
-- 不仅可以过滤互联网数据包，也可以过滤内网数据包
-- firewalld 支持命令和图形化配置
-- **firewalld 默认为拒绝所有**
-- firewalld 可以动态更新策略，（允许更新策略而不破环现有会话）
-
-
-查看 firewall 服务状态
-
-```bash
-systemctl status firewalld
-# 出现 Active: active (running)切高亮显示则表示是启动状态。
-# 出现 Active: inactive (dead)灰色表示停止，看单词也行。
-```
-
-查看 firewall 的状态
-
-   ```bash
-firewall-cmd --state
-   ```
-
-   3、开启、重启、关闭、firewalld.service 服务
-
-   ```bash
-# 开启
-service firewalld start
-# 重启
-service firewalld restart
-# 关闭
-service firewalld stop
-   ```
-
-   4、查看防火墙规则
-
-   ```bash
-firewall-cmd --list-all
-   ```
-
-   5、查询、开放、关闭端口
-
-   ```bash
-# 查询端口是否开放
-firewall-cmd --query-port=8080/tcp
-# 开放80端口
-firewall-cmd --zone=public --add-port=80/tcp --permanent
-# 移除端口
-firewall-cmd --permanent --remove-port=8080/tcp
-#重启防火墙(修改配置后要重启防火墙)
-firewall-cmd --reload
-   ```
-
-# Linux 服务管理
-
-## service 命令
+### service 命令
 
 `service` 是 Linux 系统中用于管理系统服务的命令行工具。它提供了一种标准化的方式来启动、停止、重启和检查系统服务的状态。
 
@@ -520,7 +383,7 @@ service [服务名] status # 查看服务状态
 service --status-all # 列出所有服务状态
 ```
 
-## systemctl 命令
+### systemctl 命令
 
 systemctl 是 Linux 系统中用于控制 systemd 系统和服务管理器的命令行工具。作为现代 Linux 发行版的核心组件，它取代了传统的 init 系统和 service 命令。
 
@@ -622,9 +485,9 @@ systemctl suspend
 systemctl hibernate
 ```
 
-# Linux 命令大全
+## 网络通讯
 
-## curl 命令
+### curl 命令
 
 curl（Client URL）是一个强大的命令行工具，用于在 Linux/Unix 系统中传输数据。它支持多种协议，包括 HTTP、HTTPS、FTP、SFTP 等，是开发者和系统管理员日常工作中不可或缺的工具。
 
@@ -674,7 +537,301 @@ curl -X POST -d "username=admin&password=123456" https://api.example.com/login
 | `--limit-rate` | 限制传输速度                                            | `curl --limit-rate 100K https://largefile.com`               |
 | `-F`           | 用于 multipart/form-data 类型的表单提交，常用于文件上传 | `curl -F "file=@localfile.txt" https:**//**upload.example.com` |
 
-## crontab 命令
+## 防火墙
+
+防火墙技术根据管理员设定的规则来控制数据包的进出。主要保护内网安全。
+
+两大 Linux 防火墙
+
+- firewalld：CentOS 7 及以后版本的默认防火墙管理工具
+- iptables：传统的 Linux 防火墙管理工具
+
+>  iptables 和 firewalld 不是真正的防火墙，是指用来定义防火墙规则功能的“防火墙管理工具/程序”，将定义好的规则交给内核的 netfiler 即网络过滤器来读取，从而实现防火墙的功能。
+>
+>  在配置防火墙时，不建议两种配置方法结合使用（建议只使用其中的一种）
+>
+>  ![img](assets/3595090-20250218230217785-1193153724.png)
+
+### iptables
+
+静态防火墙
+
+- 早期的 Linux 默认使用 iptables 防火墙，配置文件在/etc/sysconfig/iptables。主要工作在网络层
+- 该防火墙只能过滤互联网的数据包，无法对内网到内网进行过滤
+- iptables 只有命令模式
+- **iptables 默认允许**，通过添加拒绝来限制
+- iptables 修改规则后刷新才能生效。无法守护进程
+
+基本操作
+
+   ```bash
+# 查看防火墙状态
+service iptables status 
+# 停止防火墙
+service iptables stop 
+# 启动防火墙
+service iptables start 
+# 重启防火墙
+service iptables restart 
+# 永久关闭防火墙
+chkconfig iptables off 
+# 永久关闭后重启
+chkconfig iptables on　　
+   ```
+
+ 开启 80 端口
+
+   ```bash
+vim /etc/sysconfig/iptables
+# 加入如下代码
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
+保存退出后重启防火墙
+
+service iptables restart
+   ```
+
+### Firewalld 
+
+动态防火墙
+
+特点：
+
+- 取代了 iptabels 防火墙，配置文件在/usr/lib/firewalld 和/etc/firewalld 主要工作在网络层
+- 不仅可以过滤互联网数据包，也可以过滤内网数据包
+- firewalld 支持命令和图形化配置
+- **firewalld 默认为拒绝所有**
+- firewalld 可以动态更新策略，（允许更新策略而不破环现有会话）
+
+
+查看 firewall 服务状态
+
+```bash
+systemctl status firewalld
+# 出现 Active: active (running)切高亮显示则表示是启动状态。
+# 出现 Active: inactive (dead)灰色表示停止，看单词也行。
+```
+
+查看 firewall 的状态
+
+   ```bash
+firewall-cmd --state
+   ```
+
+   3、开启、重启、关闭、firewalld.service 服务
+
+   ```bash
+# 开启
+service firewalld start
+# 重启
+service firewalld restart
+# 关闭
+service firewalld stop
+   ```
+
+   4、查看防火墙规则
+
+   ```bash
+firewall-cmd --list-all
+   ```
+
+   5、查询、开放、关闭端口
+
+   ```bash
+# 查询端口是否开放
+firewall-cmd --query-port=8080/tcp
+# 开放80端口
+firewall-cmd --zone=public --add-port=80/tcp --permanent
+# 移除端口
+firewall-cmd --permanent --remove-port=8080/tcp
+#重启防火墙(修改配置后要重启防火墙)
+firewall-cmd --reload
+   ```
+
+## 环境变量
+
+环境变量一般指的是在操作系统中用于指定操作系统运行环境的一些参数。
+
+### 环境变量是如何产生
+
+在大多数 Linux 发行版 bash 环境中，用户的环境文件通常是 `~/.bashrc` 或 `~/.bash_profile`。当 bash 进程启动（登录 Shell 加载 `.bash_profile`，交互式非登录 Shell 加载 `.bashrc`），就会根据配置文件生成环境变量表。 
+
+| 加载阶段    | 对应配置文件                  | 说明                       |
+| :---------- | :---------------------------- | :------------------------- |
+| 系统级      | /etc/profile                  | 系统级初始化脚本，最先执行 |
+| 用户级      | ~/.bash_profile 或 ~/.profile | 用户登录时执行             |
+| 交互式 Shell | ~/.bashrc                     | 每次打开终端时执行         |
+
+#### 环境变量——PATH
+
+PATH 环境变量可以用来帮助 shell 找到系统命令。
+
+```shell
+echo $PATH
+```
+
+例如当我们执行： ls -a -l 指令，Shell 本身不知道 ls 存放在哪个目录，会按顺序遍历 PATH 环境变量中所有以冒号分隔的目录去找对应的文件。因此，当我们执行 ls，pwd 等命令时，不再需要输入完整的程序路径，只需要输入指令即可。
+
+```shell
+# 覆盖系统默认的PATH的内容。
+PATH=相关路径 
+# 为PATH添加路径
+PATH=$PATH:相关路径
+```
+
+### 添加和删除环境变量
+
+**临时添加**
+
+```shell
+
+# 1. 添加普通环境变量（如 MY_VAR=值）
+export MY_VAR="hello"
+ 
+# 2. 添加路径到 PATH（比如把你的 test 目录加入 PATH）
+export PATH=$PATH:/home/hds/code/lesson13
+
+# 删除变量
+unset name
+```
+
+**永久添加**
+
+需编辑对应 Shell 的配置文件
+
+```shell
+# 1. 编辑 ~/.bashrc（交互式终端默认加载，最常用）
+vim ~/.bashrc
+
+# 2. 添加普通环境变量
+export MY_VAR="hello"
+export PATH=$PATH:/home/hds/code/lesson13
+ 
+# 3. 使配置生效
+source ~/.bashrc
+```
+
+### env 命令
+
+env 命令主要用于显示和修改环境变量，以及在自定义环境中运行程序。
+
+## 文件操作
+
+### more less 命令
+
+more 命令类似 cat ，不过会以一页一页的形式显示，更方便使用者逐页阅读，而最基本的指令就是按空白键（space）就往下一页显示，按 b 键就会往回（back）一页显示，而且还有搜寻字串的功能（与 vi 相似），使用中的说明文件，请按 h 。
+
+- -s 当遇到有连续两行以上的空白行，就代换为一行的空白行
+
+less 与 more 类似，less 可以随意浏览文件，支持翻页和搜索，支持向上翻页和向下翻页。
+
+### chmod 命令
+
+chmod（change mode）命令是控制用户对文件的权限的命令，它控制文件所有者、所属组和其他用户对文件的访问权限。
+
+只有文件所有者和超级用户可以修改文件或目录的权限。
+
+Linux/Unix 的文件调用权限分为三级 : 文件所有者（Owner）、用户组（Group）、其它用户（Other Users）。
+
+文件或目录的权限位是由 9 个权限位来控制，每三位为一组，它们分别是文件所有者（User）的读、写、执行，用户组（Group）的读、写、执行以及其它用户（Other）的读、写、执行。
+
+![img](assets/file-permissions-rwx.jpg)
+
+```
+chmod [选项] 权限模式 文件...
+chmod [选项] --reference=参考文件 文件...
+```
+
+权限模型的表达方式有两种：符号模式（ugoa +/-/= 权限）和绝对模式（八进制语法）
+
+![img](assets/rwx-standard-unix-permission-bits-17778326185525.png)
+
+常用绝对模式组合:
+
+* 755: rwxr-xr-x
+* 644: rw-r--r--
+* 700: rwx------
+
+若用 `chmod 4755 filename` 可使此程序具有 root 的权限。
+
+```shell
+# 符号模式
+chmod ug+w,o-w file1.txt file2.txt # 设置文件 file1.txt 与 file2.txt 的权限 该文件拥有者，与其所属同一个群体者可写入，但其他以外的人则不可写入 
+
+# 绝对模式
+chmod 777 file
+```
+
+### ln 命令
+
+ln（link files）命令的功能是为某一个文件在另外一个位置建立一个同步的链接。
+
+* 软链接：以路径的形式存在。类似于 Windows 操作系统中的快捷方式。可以跨文件系统。可以对目录进行链接。可以链接不存在的文件。
+* 硬链接：以文件副本的形式存在。但不占用实际空间。不允许给目录创建硬链接。硬链接只有在同一个文件系统中才能创建
+
+```
+ln [参数][源文件或目录][目标文件或目录]
+```
+
+参数：
+
+- --backup [= CONTROL] 备份已存在的目标文件
+- -b 类似 --backup ，但不接受参数
+- -d 允许超级用户制作目录的硬链接
+- -f 强制执行
+- -i 交互模式，文件存在则提示用户是否覆盖
+- -n 把符号链接视为一般目录
+- -s 软链接(符号链接)，默认是硬链接
+- -v 显示详细的处理过程
+
+## 文档编辑
+
+### vi / vim 使用
+
+vi  是几乎所有的 Unix Like 系统都会内建的文书编辑器，而 Vim 是从 vi 发展出来的一个文本编辑器。代码补全、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用。
+
+简单的来说， vi 是老式的字处理器，不过功能已经很齐全了，但是还是有可以进步的地方。 vim 则可以说是程序开发者的一项很好用的工具。
+
+基本上 vi/vim 共分为三种模式，**命令模式（Command Mode）、输入模式（Insert Mode）和命令行模式（Command-Line Mode）**。
+
+![img](assets/vim-vi-workmodel.png)
+
+命令模式：
+
+- `i`：切换到输入模式，在光标当前位置开始输入文本。
+- `x`：删除当前光标所在处的字符。
+- `:`：切换到底线命令模式，以在最底一行输入命令。
+- `a`：进入插入模式，在光标下一个位置开始输入文本。
+- `o`：在当前行的下方插入一个新行，并进入插入模式。
+- `O` ：在当前行的上方插入一个新行，并进入插入模式。
+- `dd`：剪切当前行。
+- `yy`：复制当前行。
+- `p`：粘贴剪贴板内容到光标下方。
+- `P`：粘贴剪贴板内容到光标上方。
+- `u` ：撤销上一次操作。
+- `Ctrl + r` ：重做上一次撤销的操作。
+- `/`：向光标之下寻找一个字符串
+- `?`：向光标之上寻找一个字符串
+
+输入模式：使用 `Esc` 键可以返回到普通模式。
+
+底线命令模式：
+
+- `:w`：保存文件。
+- `:q`：退出 Vim 编辑器。
+- `:wq`：保存文件并退出 Vim 编辑器。
+- `:q!`：强制退出 Vim 编辑器，不保存修改。
+
+键位：
+
+![vi-vim-cheat-sheet-sch](assets/vi-vim-cheat-sheet-sch-17775635295258.gif)
+
+### sed 命令
+
+Linux sed 命令是利用脚本来处理文本文件。sed 可依照脚本的指令来处理、编辑文本文件。
+
+## 定时任务
+
+### crontab 命令
 
 Linux crontab 是 Linux 系统中用于设置周期性被执行的指令的命令。
 
@@ -744,8 +901,9 @@ f1 f2 f3 f4 f5 program
    . ~/.bash_profile
    ```
 
+## 系统管理与设置
 
-## date 命令
+### date 命令
 
 ```shell
 date [OPTION]... [+FORMAT]
@@ -814,23 +972,7 @@ date [OPTION]... [+FORMAT]
 %Z  时区缩写 （如 EDT）
 ```
 
-## df 命令
-
-df（display free disk space） 命令用于显示文件系统的磁盘空间使用情况，包括总容量、已用空间、可用空间和挂载点等信息。
-
-| 参数                          | 说明                                                     |
-| :---------------------------- | :------------------------------------------------------- |
-| **`-a`**, `--all`             | 显示所有文件系统，包括虚拟文件系统（如 `proc`, `sysfs`） |
-| **`-B`**, `--block-size=SIZE` | 指定显示单位（如 `-BK` = KB，`-BM` = MB，`-BG` = GB）          |
-| **`-h`**, `--human-readable`  | 以易读格式显示（自动转换单位：K, M, G, T，基于 1024）    |
-| **`-H`**, `--si`              | 类似 `-h`，但以 1000 为换算单位（符合 SI 标准）          |
-| **`-i`**, `--inodes`          | 显示 inode 使用情况（而非磁盘空间）                      |
-| **`-k`**                      | 以 1KB 为单位显示（默认单位）                            |
-| **`-m`**                      | 以 1MB 为单位显示（部分系统支持）                        |
-| **`-l`**, `--local`           | 仅显示本地文件系统（排除网络文件系统如 NFS）             |
-| **`--total`**                 | 显示总计信息                                             |
-
-## free 命令
+### free 命令
 
 free 命令用于显示内存状态。
 
@@ -977,6 +1119,18 @@ node -v # Should print "v24.13.0".
 # Verify npm version:
 npm -v # Should print "11.6.2".
 
+# 卸载 nvm
+rm -rf ~/.nvm
+# 删除  .~/.bash_profile, and ~/.profile. 的 nvm相关内容
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# 使环境文件生效
+source ~/.<your_shell_profile_file>
+# 重启终端后测试
+nvm --version
+node -v
+npm -v
 ```
 
 ## 扫描硬盘坏道

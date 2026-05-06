@@ -105,6 +105,10 @@ git init [project-name]
 
 # 下载一个项目和它的整个代码历史
 git clone [url]
+
+# 指定分支克隆
+git clone -b <分支名> <仓库URL>
+
 ```
 
 查看.git 文件
@@ -404,6 +408,9 @@ git branch
 
 # 列出所有远程分支
 git branch -r
+
+# 分支重命名
+git branch -M [branch-name]
 
 # 列出所有本地分支和远程分支
 git branch -a
