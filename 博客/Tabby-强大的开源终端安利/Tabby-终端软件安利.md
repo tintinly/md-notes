@@ -1,4 +1,13 @@
-
+---
+title: Tabby-强大的开源终端安利
+titleEn: Tabby - Powerful Open Source Terminal Amway
+date: 2025-10-25
+tags: [软件]
+tagsEn: [Software]
+description: Tabby 是一款无限可定制的跨平台终端应用程序
+descriptionEn: Tabby is an infinitely customizable cross-platform terminal application
+featured: false
+---
 
 安利一个功能强大的开源跨平台终端应用程序——Tabby。	
 

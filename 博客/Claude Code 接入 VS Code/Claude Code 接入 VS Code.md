@@ -1,3 +1,12 @@
+---
+title: Claude Code 接入 VS Code
+titleEn: Claude Code switch VS Code
+date: 2026-01-15
+tags: [智能体工程]
+tagsEn: [Agent Engineering]
+featured: false
+---
+
 让Claude Code 接入 IDE，可以获得类似于 cursor 一般的体验。
 
 安装claude插件
