@@ -1184,7 +1184,7 @@ public class EncryptUtils {
 
 
 
-# 惯用代码
+# 常用代码片段
 
 ## 根目录资源加载
 

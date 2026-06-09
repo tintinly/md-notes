@@ -344,14 +344,15 @@ p.capitalize {text-transform:capitalize;} /*文本转换首字母大写。*/
 
 ### 字体
 
-| 属性         | 描述                                 |
-| :----------- | :----------------------------------- |
-| font         | 在一个声明中设置所有的字体属性       |
-| font-family  | 指定文本的字体系列                   |
-| font-size    | 指定文本的字体大小                   |
-| font-style   | 指定文本的字体样式                   |
-| font-variant | 以小型大写字体或者正常字体显示文本。 |
-| font-weight  | 指定字体的粗细。                     |
+| 属性           | 描述                                                         |
+| :------------- | :----------------------------------------------------------- |
+| font           | 在一个声明中设置所有的字体属性                               |
+| font-family    | 指定文本的字体系列                                           |
+| font-size      | 指定文本的字体大小                                           |
+| font-style     | 指定文本的字体样式                                           |
+| font-variant   | 以小型大写字体或者正常字体显示文本。                         |
+| font-weight    | 指定字体的粗细。                                             |
+| font-synthesis | 当指定的字体家族中缺少粗体、斜体、小型大写字母以及上标和下标字体时，浏览器是否可以合成这些字体样式。 |
 
 ```css
 p{
@@ -382,15 +383,9 @@ ul.img {list-style-image: url('/demo-css/img/icon.ico');} /* 图片列表 */
 
 ![image-20260423222928634](assets/image-20260423222928634.png)
 
-### 边框
+### 语义
 
-| 属性                                  | 描述                                                         |
-| :------------------------------------ | :----------------------------------------------------------- |
-| border [-top/right/bottom/left]       | 简写属性，用于把针对所有/上/右/下/左的属性设置在一个声明。   |
-| border [-top/right/bottom/left]-style | 简写属性，用于设置元素所有/上/右/下/左边框的样式             |
-| border [-top/right/bottom/left]-width | 简写属性，用于为元素的所有/上/右/下/左边框设置宽度           |
-| border [-top/right/bottom/left]-color | 简写属性，用于设置元素的所有/上/右/下/左边框中可见部分的颜色 |
-| border-radius                         | 设置圆角的边框。                                             |
+
 
 ### 尺寸
 
@@ -414,3 +409,209 @@ div {display:inline;} /*使div变成内联元素*/
 span {display:block;} /*使span变成块元素*/
 ```
 
+### 定位
+
+- position 属性：用于指定元素的定位方式。
+  - `static`：默认值，元素按照正常文档流排列，不受 top/right/bottom/left 影响
+  - `relative`：相对自身原始位置进行偏移，不会脱离文档流
+  - `absolute`：相对于最近的已定位祖先元素进行定位（否则相对于 body），脱离文档流
+  - `fixed`：相对于浏览器窗口定位，滚动页面时位置不会改变
+  - `sticky`：在滚动到指定位置前表现为 relative，之后表现为 fixed
+
+> 设置了 `position`（且值不为 `static`）时，元素可以通过 `top`、`right`、`bottom` 和 `left` 属性进行位置调整
+
+### 内容溢出
+
+- Overflow 属性：用于控制内容溢出元素框时显示的方式。
+  - `visible`：默认值。内容不会被修剪，会呈现在元素框之外。
+  - `hidden`：内容会被修剪，并且其余内容是不可见的。
+  - `scroll`：内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。
+  - `auto`：如果内容被修剪，则浏览器会显示滚动条以便查看其余的内容。
+  - `inherit`：规定应该从父元素继承 overflow 属性的值。
+
+## CSS 其他属性
+
+### 选取
+
+`user-select` 属性规定是否能选取元素的文本。
+
+### 光标
+
+`cursor` 属性规定要显示的光标的类型（形状）。
+## 盒子模型
+
+CSS 盒模型本质上是一个盒子，封装周围的 HTML 元素，它包括：边距，边框，填充，和实际内容。
+
+![CSS box-model](assets/box-model.gif)
+
+- `Margin`：边框外的区域，外边距是透明的。
+- `Border`：围绕在内边距和内容外的边框。
+- `Padding`：内容周围的区域，内边距是透明的。
+- `Content`：盒子的内容，显示文本和图像。
+### 边框与轮廓
+
+边框（Border）是用于定义元素边框样式的属性。
+
+| 属性                                 | 描述                                                       |
+| :----------------------------------- | :--------------------------------------------------------- |
+| border [-top/right/bottom/left]       | 简写属性，用于把针对所有/上/右/下/左的属性设置在一个声明。 |
+| border [-top/right/bottom/left]-style | 用于设置元素所有/上/右/下/左边框的样式                     |
+| border [-top/right/bottom/left]-width | 用于为元素的所有/上/右/下/左边框设置宽度                   |
+| border [-top/right/bottom/left]-color | 用于设置元素的所有/上/右/下/左边框中可见部分的颜色         |
+| border-radius                        | 设置圆角的边框。                                           |
+
+轮廓（outline）是绘制于元素周围的一条线，位于边框边缘的外围，可起到突出元素的作用。
+
+| 属性          | 描述                                                       |
+| :------------ | :--------------------------------------------------------- |
+| outline       | 简写属性，用于把针对所有/上/右/下/左的属性设置在一个声明。 |
+| outline-style | 用于设置轮廓的样式                                         |
+| outline-width | 用于设置轮廓的宽度                                         |
+| outline-color | 用于设置轮廓的颜色                                         |
+
+### 外边距与填充
+
+margin（外边距）属性定义元素边框以外的空间。
+
+padding（填充）属性定义元素边框与元素内容之间的空间。
+
+| 属性                            | 描述                                                     |
+| :------------------------------ | :------------------------------------------------------- |
+| margin [-top/right/bottom/left]  | 设置所有/上/右/下/左的外边距，值为像素, pt, em 等或百分比 |
+| padding [-top/right/bottom/left] | 设置所有/上/右/下/左的填充，值为像素, pt, em 等或百分比   |
+
+> padding/margin 属性，可以有一到四个值
+>
+> - 上、右、下、左
+> - 上、左右、下
+> - 上下、左右
+> - 四周
+
+## 网络字体
+
+### 本地加载
+
+本地加载字体是通过将字体文件存储在本地服务器上并从中加载的方式。
+
+1. 下载字体
+
+2. 引用字体
+
+   ```css
+   @font-face {
+       font-family: "myFont";
+       src: url("myFont.ttf");
+   }
+   ```
+
+3. 使用字体
+
+   ```css
+   .line {
+       font-family: 'myFont;
+   }
+   ```
+
+### 远程加载
+
+远程加载字体是通过 CSS 从远程服务器加载字体文件的方式。
+
+```css
+@font-face {
+  font-family: 'Roboto';
+  src: url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+}
+```
+
+## 颜色
+
+### 颜色值
+
+CSS中定义颜色使用十六进制（hex）表示法为红，绿，蓝的颜色值结合。可以是最低值是0（十六进制00）到最高值是255（十六进制FF）
+
+红，绿，蓝值从0到255的结合，给出了总额超过1600多万不同的颜色（256 × 256 ×256）。
+
+<table>
+<tbody><tr>
+<th width="50%">Color</th>
+    <th width="25%">Color HEX</th>
+    <th width="25%">Color RGB</th>
+  </tr>
+<tr>
+<td bgcolor="#000000">&nbsp;</td>
+    <td>#000000</td>
+    <td>rgb(0,0,0)</td>
+  </tr>
+<tr>
+<td bgcolor="#FF0000">&nbsp;</td>
+    <td>#FF0000</td>
+    <td>rgb(255,0,0)</td>
+  </tr>
+<tr>
+<td bgcolor="#00FF00">&nbsp;</td>
+    <td>#00FF00</td>
+    <td>rgb(0,255,0)</td>
+  </tr>
+<tr>
+<td bgcolor="#0000FF">&nbsp;</td>
+    <td>#0000FF</td>
+    <td>rgb(0,0,255)</td>
+  </tr>
+<tr>
+<td bgcolor="#FFFF00">&nbsp;</td>
+    <td>#FFFF00</td>
+    <td>rgb(255,255,0)</td>
+  </tr>
+<tr>
+<td bgcolor="#00FFFF">&nbsp;</td>
+    <td>#00FFFF</td>
+    <td>rgb(0,255,255)</td>
+  </tr>
+<tr>
+<td bgcolor="#FF00FF">&nbsp;</td>
+    <td>#FF00FF</td>
+    <td>rgb(255,0,255)</td>
+  </tr>
+<tr>
+<td bgcolor="#C0C0C0">&nbsp;</td>
+    <td>#C0C0C0</td>
+    <td>rgb(192,192,192)</td>
+  </tr>
+<tr>
+<td bgcolor="#FFFFFF">&nbsp;</td>
+    <td>#FFFFFF</td>
+    <td>rgb(255,255,255)</td>
+  </tr>
+</tbody></table>
+
+### 灰阶
+
+<table class="reference">
+<tbody>
+<tr>
+<th align="left" width="50%">灰阶</th>
+<th align="left" width="20%">HEX</th>
+<th align="left" width="30%">RGB</th>
+</tr>
+<tr>
+<td bgcolor="#404040" width="50%"></td>
+<td width="20%">#404040</td>
+<td width="30%">rgb(64,64,64)</td>
+</tr>
+<tr>
+<td bgcolor="#808080" width="50%"></td>
+<td width="20%">#808080</td>
+<td width="30%">rgb(128,128,128)</td>
+</tr>
+<tr>
+<td bgcolor="#C0C0C0" width="50%"></td>
+<td width="20%">#C0C0C0</td>
+<td width="30%">rgb(192,192,192)</td>
+</tr>
+<tr>
+<td bgcolor="#FFFFFF" width="50%"></td>
+<td width="20%">#FFFFFF</td>
+<td width="30%">rgb(255,255,255)</td>
+</tr>
+</tbody>
+</table>
