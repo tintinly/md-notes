@@ -616,6 +616,12 @@ server {
 
 ![image-20260416162555550](assets/image-20260416162555550.png)
 
+### 重定向后端口丢失问题
+
+nginx有的时候并不像Apache那样智能，对于redirect location的处理尤为惨淡，几乎只能用户手工处理非标准端口的问题。
+
+
+
 ## 应用场景 - 负载均衡
 
 ![image-20260416163314852](assets/image-20260416163314852.png)
@@ -763,8 +769,6 @@ add_header Cache-Control no-store;
 
 ```
 
-
-
 ## nginx 配置高可用集群
 
 ### 准备工作
@@ -908,3 +912,4 @@ worker_cpu_affinity 0000001 00000010 00000100 0000100
 
 * [1] [Nginx 从入门到实践，万字详解！_SHERlocked_93 的博客-NGINX 开源社区](https://www.nginx.org.cn/article/detail/545)
 * [2] [Nginx 七大应用场景（附配置），看看你用过几个？_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1jf421B7R7/?spm_id_from=333.1387.top_right_bar_window_history.content.click&vd_source=648539de92dcdfbe1ca5bd81d6d559d2)
+* [3] [Nginx中处理重定向端口丢失问题 - Aiden郭祥跃 - 博客园](https://www.cnblogs.com/guoxiangyue/p/16522492.html)
