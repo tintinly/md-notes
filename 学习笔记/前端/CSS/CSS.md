@@ -487,6 +487,38 @@ padding（填充）属性定义元素边框与元素内容之间的空间。
 > - 上下、左右
 > - 四周
 
+
+
+## 弹性布局 Flex
+
+盒子模型对于那些特殊布局非常不方便，比如，垂直居中就不容易实现。
+
+Flex 是 Flexible Box 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。
+
+### Flex 容器的属性
+
+| 属性            | 描述                                                       | 值                                                           |
+| :-------------- | :--------------------------------------------------------- | ------------------------------------------------------------ |
+| flex-direction  | 决定主轴的方向（即项目的排列方向）                         | row \| row-reverse\| column \| column-reverse                |
+| flex-wrap       | 轴线被项目占满后的换行方式                                 | nowrap \| wrap \| wrap-reverse                               |
+| flex-flow       | flex-direction 属性和 flex-wrap 属性的简写形式             |                                                              |
+| justify-content | 项目在主轴上的对齐方式                                     | flex-start \| flex-end \| center \| space-between \| space-around |
+| align-items     | 项目在交叉轴上如何对齐                                     | flex-start \| flex-end \| center \| baseline \| stretch      |
+| align-content   | 多根轴线的对齐方式，如果项目只有一根轴线，该属性不起作用。 | flex-start \| flex-end \| center \| space-between \| space-around \| stretch |
+| column-gap      | 列与列之间的间距                                           |                                                              |
+| row-gap         | 行与行之间的间距                                           |                                                              |
+
+### Flex 项目的属性
+
+| 属性        | 描述                                       | 值                                                           |
+| :---------- | :----------------------------------------- | ------------------------------------------------------------ |
+| order       | 定义项目的排列顺序，数值越小，排列越靠前。 | 默认为 0                                                     |
+| flex-grow   | 项目的放大比例                             | 默认为 1                                                     |
+| flex-shrink | 项目的缩小比例                             | 默认为 1                                                     |
+| flex-basis  | 项目占据的主轴空间。                       | 默认为 auto                                                  |
+| flex        | flex-grow, flex-shrink 和 flex-basis的简写 |                                                              |
+| align-self  | 项目独有的对齐方式                         | **auto** \| flex-start \| flex-end \| center \| baseline \| stretch |
+
 ## 网络字体
 
 ### 本地加载
@@ -527,91 +559,91 @@ padding（填充）属性定义元素边框与元素内容之间的空间。
 
 ### 颜色值
 
-CSS中定义颜色使用十六进制（hex）表示法为红，绿，蓝的颜色值结合。可以是最低值是0（十六进制00）到最高值是255（十六进制FF）
+CSS 中定义颜色使用十六进制（hex）表示法为红，绿，蓝的颜色值结合。可以是最低值是 0（十六进制 00）到最高值是 255（十六进制 FF）
 
-红，绿，蓝值从0到255的结合，给出了总额超过1600多万不同的颜色（256 × 256 ×256）。
+红，绿，蓝值从 0 到 255 的结合，给出了总额超过 1600 多万不同的颜色（256 × 256 ×256）。
 
 <table>
-<tbody><tr>
-<th width="50%">Color</th>
-    <th width="25%">Color HEX</th>
-    <th width="25%">Color RGB</th>
+<tbody> <tr>
+<th width="50%"> Color </th>
+    <th width="25%"> Color HEX </th>
+    <th width="25%"> Color RGB </th>
   </tr>
 <tr>
-<td bgcolor="#000000">&nbsp;</td>
-    <td>#000000</td>
-    <td>rgb(0,0,0)</td>
+<td bgcolor="#000000">&nbsp; </td>
+    <td>#000000 </td>
+    <td> rgb(0,0,0)</td>
   </tr>
 <tr>
-<td bgcolor="#FF0000">&nbsp;</td>
-    <td>#FF0000</td>
-    <td>rgb(255,0,0)</td>
+<td bgcolor="#FF0000">&nbsp; </td>
+    <td>#FF0000 </td>
+    <td> rgb(255,0,0)</td>
   </tr>
 <tr>
-<td bgcolor="#00FF00">&nbsp;</td>
-    <td>#00FF00</td>
-    <td>rgb(0,255,0)</td>
+<td bgcolor="#00FF00">&nbsp; </td>
+    <td>#00FF00 </td>
+    <td> rgb(0,255,0)</td>
   </tr>
 <tr>
-<td bgcolor="#0000FF">&nbsp;</td>
-    <td>#0000FF</td>
-    <td>rgb(0,0,255)</td>
+<td bgcolor="#0000FF">&nbsp; </td>
+    <td>#0000FF </td>
+    <td> rgb(0,0,255)</td>
   </tr>
 <tr>
-<td bgcolor="#FFFF00">&nbsp;</td>
-    <td>#FFFF00</td>
-    <td>rgb(255,255,0)</td>
+<td bgcolor="#FFFF00">&nbsp; </td>
+    <td>#FFFF00 </td>
+    <td> rgb(255,255,0)</td>
   </tr>
 <tr>
-<td bgcolor="#00FFFF">&nbsp;</td>
-    <td>#00FFFF</td>
-    <td>rgb(0,255,255)</td>
+<td bgcolor="#00FFFF">&nbsp; </td>
+    <td>#00FFFF </td>
+    <td> rgb(0,255,255)</td>
   </tr>
 <tr>
-<td bgcolor="#FF00FF">&nbsp;</td>
-    <td>#FF00FF</td>
-    <td>rgb(255,0,255)</td>
+<td bgcolor="#FF00FF">&nbsp; </td>
+    <td>#FF00FF </td>
+    <td> rgb(255,0,255)</td>
   </tr>
 <tr>
-<td bgcolor="#C0C0C0">&nbsp;</td>
-    <td>#C0C0C0</td>
-    <td>rgb(192,192,192)</td>
+<td bgcolor="#C0C0C0">&nbsp; </td>
+    <td>#C0C0C0 </td>
+    <td> rgb(192,192,192)</td>
   </tr>
 <tr>
-<td bgcolor="#FFFFFF">&nbsp;</td>
-    <td>#FFFFFF</td>
-    <td>rgb(255,255,255)</td>
+<td bgcolor="#FFFFFF">&nbsp; </td>
+    <td>#FFFFFF </td>
+    <td> rgb(255,255,255)</td>
   </tr>
-</tbody></table>
+</tbody> </table>
 
 ### 灰阶
 
 <table class="reference">
 <tbody>
 <tr>
-<th align="left" width="50%">灰阶</th>
-<th align="left" width="20%">HEX</th>
-<th align="left" width="30%">RGB</th>
+<th align="left" width="50%"> 灰阶 </th>
+<th align="left" width="20%"> HEX </th>
+<th align="left" width="30%"> RGB </th>
 </tr>
 <tr>
-<td bgcolor="#404040" width="50%"></td>
-<td width="20%">#404040</td>
-<td width="30%">rgb(64,64,64)</td>
+<td bgcolor="#404040" width="50%"> </td>
+<td width="20%">#404040 </td>
+<td width="30%"> rgb(64,64,64)</td>
 </tr>
 <tr>
-<td bgcolor="#808080" width="50%"></td>
-<td width="20%">#808080</td>
-<td width="30%">rgb(128,128,128)</td>
+<td bgcolor="#808080" width="50%"> </td>
+<td width="20%">#808080 </td>
+<td width="30%"> rgb(128,128,128)</td>
 </tr>
 <tr>
-<td bgcolor="#C0C0C0" width="50%"></td>
-<td width="20%">#C0C0C0</td>
-<td width="30%">rgb(192,192,192)</td>
+<td bgcolor="#C0C0C0" width="50%"> </td>
+<td width="20%">#C0C0C0 </td>
+<td width="30%"> rgb(192,192,192)</td>
 </tr>
 <tr>
-<td bgcolor="#FFFFFF" width="50%"></td>
-<td width="20%">#FFFFFF</td>
-<td width="30%">rgb(255,255,255)</td>
+<td bgcolor="#FFFFFF" width="50%"> </td>
+<td width="20%">#FFFFFF </td>
+<td width="30%"> rgb(255,255,255)</td>
 </tr>
 </tbody>
 </table>
