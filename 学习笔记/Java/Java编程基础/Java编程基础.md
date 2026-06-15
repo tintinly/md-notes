@@ -625,9 +625,9 @@ public class SerializableDemo implements Serializable {
 
 Java 的内存模型
 
-<img src="assets/image-20220413170400752.png" alt="image-20220413170400752" style="zoom: 50%;" />
+![image-20260615230642390](assets/image-20260615230642390.png)
 
-<img src="assets/image-20220413170440519.png" alt="image-20220413170440519" style="zoom: 50%;" />
+![image-20260615230645855](assets/image-20260615230645855.png)
 
 使用 volatile 后
 

@@ -161,7 +161,7 @@ HTML 元素可以相互嵌套，形成树状结构：
 
 `<head>` 元素包含了所有的头部标签元素。在 `<head>`元素中你可以插入脚本（scripts）, 样式文件（CSS），及各种meta信息。
 
-可以添加在头部区域的元素标签为: `<title>`, `<style>`, `<meta>`, `<link>`, `<script>`, <noscript> 和 `<base>`。
+可以添加在头部区域的元素标签为: `<title>`, `<style>`, `<meta>`, `<link>`, `<script>`, `<noscript>` 和 `<base>`。
 
 ```html
 <html>
@@ -240,8 +240,7 @@ HTML 元素可以相互嵌套，形成树状结构：
 * `title` 属性：鼠标悬停时的文章
 * `Alt` 属性：图片加载失败时显示的提示文本
 
-<img src="assets/tintin1.jpg" alt="failed_text">
-<img src="https://raw.giteeusercontent.com/lytintin/image-bed/raw/master/images/tintin4.jpg" alt="failed_text">
+<img src="https://raw.githubusercontent.com/tintinly/md-notes/refs/heads/main/Markdonw%E6%95%99%E7%A8%8B/assets/markdown.webp" alt="failed_text">
 
 
 ### 列表

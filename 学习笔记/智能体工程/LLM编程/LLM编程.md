@@ -338,7 +338,7 @@ mdc 语法
 
 - @Docs- 访问文档和指南
 
-  <img src="assets/image-20260516194229740.png" alt="image-20260516194229740" style="zoom: 50%;" />
+  ![image-20260615230004853](assets/image-20260615230004853.png)
 
 - @Git- 访问 git 历史记录和更改
 

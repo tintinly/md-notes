@@ -12,7 +12,7 @@
 ​	DBMS(Database Manageement System)：数据库管理系统，又称为数据库软件（产品），用于建立、使用和维护数据库，对数据库进行统一管理和控制。用户通过 DBMS 访问数据库中的数据。
 ​	SQL(structure query language): 结构化查询语言，用于和数据库信的语言
 
-<img src="assets/image-20220507142913365.png" alt="image-20220507142913365" style="zoom:67%;" />
+![image-20260615230250068](assets/image-20260615230250068.png)
 
 ## 1.3 数据库管理系统排名
 
@@ -99,7 +99,7 @@ E-R（entity-relationship，实体-联系）模型中有三个主要概念是：
 
 **自我引用**
 
-<img src="assets/image-20220507164343183.png" alt="image-20220507164343183" style="zoom:67%;" />
+![image-20260615230255077](assets/image-20260615230255077.png)
 
 
 
@@ -322,7 +322,7 @@ DESCRIBE employees;
 DESC employees;
 ```
 
-<img src="assets/image-20220507223952122.png" alt="image-20220507223952122" style="zoom:67%;" />
+![image-20260615230259935](assets/image-20260615230259935.png)
 
 **过滤数据**
 
@@ -503,9 +503,9 @@ LIMIT 20 OFFSET 0 # limit 限制记录数 offset 偏移量
 
 **拓展**
 
-<img src="assets/image-20220508151051725.png" alt="image-20220508151051725" style="zoom:67%;" />
+![image-20260615230304902](assets/image-20260615230304902.png)
 
-<img src="assets/image-20220508151102801.png" alt="image-20220508151102801" style="zoom:67%;" />
+![image-20260615230307756](assets/image-20260615230307756.png)
 
 ## 4.4 多表查询
 
@@ -823,11 +823,11 @@ DBMS 之间的差异性很大，远大于同一个语言不同版本之间的差
 
 ### 4.5.7 MySQL 信息函数
 
-<img src="assets/image-20220508224116289.png" alt="image-20220508224116289" style="zoom:67%;" />
+![image-20260615230313826](assets/image-20260615230313826.png)
 
 ### 4.5.8 其他函数
 
-<img src="assets/image-20220508224143914.png" alt="image-20220508224143914" style="zoom:67%;" />
+![image-20260615230316428](assets/image-20260615230316428.png)
 
 ## 4.6 聚合函数（多行函数）
 
@@ -2851,7 +2851,7 @@ category_id, category, `name`, price, stock,upper_time
 FROM goods;
 ```
 
-<img src="assets/image-20220524144342967.png" alt="image-20220524144342967" style="zoom:67%;" />
+![image-20260615230325252](assets/image-20260615230325252.png)
 
 **RANK()**
 
@@ -2862,7 +2862,7 @@ category_id, category, `name`, price, stock,upper_time
 FROM goods;
 ```
 
-<img src="assets/image-20220524144810800.png" alt="image-20220524144810800" style="zoom:67%;" />
+![image-20260615230328254](assets/image-20260615230328254.png)
 
 **DENSE_RANK()**
 
@@ -2884,7 +2884,7 @@ FROM goods
 window w AS (PARTITION BY category_id ORDER BY price DESC);
 ```
 
-<img src="assets/image-20220524145600410.png" alt="image-20220524145600410" style="zoom:67%;" />
+![image-20260615230332916](assets/image-20260615230332916.png)
 
 **CUME_DIST()**
 
