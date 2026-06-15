@@ -17,17 +17,17 @@ featured: false
 
 为了不影响我的希捷存储盘的休眠状态，这些文件通常都是放在 128GB 固态盘的存储空间中，可以说是十分紧凑了，但我认为工作文件哪有多少，只要注意清理就不会占满的。然而最近使用时发现，同步时出现了很多错误，才知道我给用户分配的 10 GB 空间已经被占满了。
 
-<img src="assets/image-20260524164909946.png" alt="image-20260524164909946" style="zoom:67%;" />
+![image-20260615215800325](assets/image-20260615215800325.png)
 
-<img src="assets/image-20260524165054616.png" alt="image-20260524165054616" style="zoom:67%;" />
+![image-20260615215807203](assets/image-20260615215807203.png)
 
 当我一次又一次的从 5G 到 10G 到 15G 为用户扩大空间，却发现它的胃口倒是越来越大，而我的工作区大小才不到 4GB。
 
-<img src="assets/image-20260524165158766.png" alt="image-20260524165158766" style="zoom:67%;" />
+![image-20260615215815936](assets/image-20260615215815936.png)
 
 原来，工作区里面包含很多构建过的代码项目，因此存在巨量的小文件，每一个小文件都会占用一个基本单位的磁盘空间，导致占用空间与实际大小差别很大。
 
-<img src="assets/image-20260524165534788.png" alt="image-20260524165534788" style="zoom:67%;" />
+![image-20260615215820213](assets/image-20260615215820213.png)
 
 ## 磁盘存储概念 
 
@@ -39,7 +39,7 @@ featured: false
 
 首先我的应用空间是使用了 ext4 格式的文件系统，当我把同样的文件夹放到 btrfs 格式的分区里，它的占用空间就没那么大了
 
-<img src="assets/PixPin_2026-05-24_21-27-00.png" alt="PixPin_2026-05-24_21-27-00" style="zoom:67%;" />
+![image-20260615215825105](assets/image-20260615215825105.png)
 
 实际上两种格式的默认块大小都是 4KB，于是我接着测试它真实的块大小（实际上只需要创建一个小文本文件看看占用空间即可）
 
@@ -81,38 +81,36 @@ tune2fs -l [设备名] | grep -E "Block size"
 
 如今，我才发现我本该为应用空间格式化 btrfs，为主存储空间格式化 ext4，而目前是完全反了。
 
-<img src="assets/image-20260524174139630.png" alt="image-20260524174139630" style="zoom:67%;" />
+![image-20260615215835960](assets/image-20260615215835960.png)
 
 把主存盘的文件系统格式改成 ext4 这是一项大工程，因为我只有一个盘，因此只能等我以后升级设备时再去解决。以下是将我的应用空间文件系统格式改成 Btrfs 的流程：
 
 - 备份应用盘的所有数据（包括个人文件和 Docker 配置等）
 
-  <img src="assets/PixPin_2026-05-24_17-54-36.png" alt="PixPin_2026-05-24_17-54-36" style="zoom: 67%;" />
+  ![image-20260615215839067](assets/image-20260615215839067.png)
 
-  <img src="assets/PixPin_2026-05-24_17-56-28.png" alt="PixPin_2026-05-24_17-56-28" style="zoom: 67%;" />
+  ![image-20260615215843341](assets/image-20260615215843341.png)
 
 - 备份虚拟机
 
-  <img src="assets/PixPin_2026-05-24_17-57-06.png" alt="PixPin_2026-05-24_17-57-06" style="zoom:67%;" />
+  ![image-20260615215846538](assets/image-20260615215846538.png)
 
 - 关闭 docker、卸载所有飞牛应用
 
-  <img src="assets/PixPin_2026-05-24_18-42-57.png" alt="PixPin_2026-05-24_18-42-57" style="zoom: 50%;" />
+  ![image-20260615215849231](assets/image-20260615215849231.png)
 
-  <img src="assets/PixPin_2026-05-24_18-44-38.png" alt="PixPin_2026-05-24_18-44-38" style="zoom: 50%;" />
+  ![image-20260615215851659](assets/image-20260615215851659.png)
 
 - 删除并格式化应用盘，然后将原先的 docker、个人数据、应用还原，完成。
 
-  <img src="assets/PixPin_2026-05-24_18-56-08.png" alt="PixPin_2026-05-24_18-56-08" style="zoom: 50%;" />
+  ![image-20260615215854723](assets/image-20260615215854723.png)
 
-  <img src="assets/PixPin_2026-05-24_18-55-25.png" alt="PixPin_2026-05-24_18-55-25" style="zoom: 50%;" />
+  ![image-20260615215857211](assets/image-20260615215857211.png)
 
 最终效果：在还原了大部分的数据、容器和应用以后，我的固态盘仿佛重获新生。由于我少用了几个容器以及运行时间不长，原先几乎占满 80GB，现在预计只需要占用 50GB 即可。
 
-<img src="assets/image-20260525011126407.png" alt="image-20260525011126407" style="zoom:67%;" />
+![image-20260615215900493](assets/image-20260615215900493.png)
 
-# 参考资料
-
-[^1]: [存储空间由 btrfs 更换成 ext4，世界一下安静了！ - 建议反馈 飞牛私有云论坛 fnOS](https://club.fnnas.com/forum.php?mod=viewthread&tid=63711&highlight=)
-[^2]: [关于存储空间 ext4 格式的簇大小 - 建议反馈 飞牛私有云论坛 fnOS](https://club.fnnas.com/forum.php?mod=viewthread&tid=28494&highlight=)
-[^3]: [SSD(固态硬盘)和HDD（机械硬盘）哪个更适合用btrfs – 心得体会](https://www.dnote.cn/posts/4028)
+- [^1]: [存储空间由 btrfs 更换成 ext4，世界一下安静了！ - 建议反馈 飞牛私有云论坛 fnOS](https://club.fnnas.com/forum.php?mod=viewthread&tid=63711&highlight=)
+- [^2]: [关于存储空间 ext4 格式的簇大小 - 建议反馈 飞牛私有云论坛 fnOS](https://club.fnnas.com/forum.php?mod=viewthread&tid=28494&highlight=)
+- [^3]: [SSD(固态硬盘)和HDD（机械硬盘）哪个更适合用btrfs – 心得体会](https://www.dnote.cn/posts/4028)
