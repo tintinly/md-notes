@@ -257,7 +257,7 @@ navidrome + music-tag-web v1
 
 Docker 安装 CoolerControl 进行温度监控与风扇控制（可联动硬盘控温）
 
-参考链接：[飞牛安装 CoolerControl 进行风扇转速自定义(含传感器驱动安装) - 攻略分享 飞牛私有云论坛 fnOS](https://club.fnnas.com/forum.php?mod=viewthread&tid=32626)
+参考资料：[飞牛安装 CoolerControl 进行风扇转速自定义(含传感器驱动安装) - 攻略分享 飞牛私有云论坛 fnOS](https://club.fnnas.com/forum.php?mod=viewthread&tid=32626)
 
 it87 驱动可以在飞牛应用中心下载安装
 

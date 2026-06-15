@@ -3004,4 +3004,4 @@ public class TransactionManagementConfigurationSelector extends AdviceModeImport
 
 # 参考资料
 
-* [1] [Spring Projects :: Spring Framework - Spring 框架](https://docs.springframework.org.cn/spring-framework/reference/spring-projects.html)
+[Spring Projects :: Spring Framework - Spring 框架](https://docs.springframework.org.cn/spring-framework/reference/spring-projects.html)

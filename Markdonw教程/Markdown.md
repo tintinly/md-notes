@@ -918,7 +918,10 @@ graph TD
 
 # 参考链接
 
-[^1]: [CommonMark - CommonMark 规范](https://commonmark.cn/)
-[^2]: [GitHub Flavored Markdown Spec | GFM](https://gfm.docschina.org/)
-[^3]: [Markdown 教程 | 菜鸟教程](https://www.runoob.com/markdown/md-tutorial.html)
-[^4]: [Markdown教程 — 最简明的Markdown语法入门指南](https://markdown.com.cn/)
+[CommonMark - CommonMark 规范](https://commonmark.cn/)
+
+[GitHub Flavored Markdown Spec | GFM](https://gfm.docschina.org/)
+
+[Markdown 教程 | 菜鸟教程](https://www.runoob.com/markdown/md-tutorial.html)
+
+[Markdown教程 — 最简明的Markdown语法入门指南](https://markdown.com.cn/)

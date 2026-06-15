@@ -331,6 +331,7 @@ Tailwind CSS 是一个 **编译时框架 (Build-Time Framework)**，它的魔法
 
 # 参考资料
 
-[^1]: [1 套封神！Tailwind CSS 全链路教程，实战到源码重塑 CSS 认知_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1rcCbB4EWS?vd_source=648539de92dcdfbe1ca5bd81d6d559d2&spm_id_from=333.788.videopod.sections)
-[^2]: [Tailwind 类名 记个规律大概，然后去文档查Tailwind CSS 文档查阅 Tailwind CSS 是一个实 - 掘金](https://juejin.cn/post/7545774258195775526#heading-7)
+[1 套封神！Tailwind CSS 全链路教程，实战到源码重塑 CSS 认知_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1rcCbB4EWS?vd_source=648539de92dcdfbe1ca5bd81d6d559d2&spm_id_from=333.788.videopod.sections)
+
+[Tailwind 类名 记个规律大概，然后去文档查Tailwind CSS 文档查阅 Tailwind CSS 是一个实 - 掘金](https://juejin.cn/post/7545774258195775526#heading-7)
 

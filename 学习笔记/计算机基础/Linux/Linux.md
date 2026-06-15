@@ -1182,9 +1182,9 @@ $ sudo badblocks -nsv /dev/sda > badsectors.txt
 
 # 参考资料
 
-* [1] [Linux 教程 | 菜鸟教程](https://www.runoob.com/linux/linux-tutorial.html)
+[Linux 教程 | 菜鸟教程](https://www.runoob.com/linux/linux-tutorial.html)
 
-* [2] [Linux 系统目录结构全解析：基础到大神必读！ - 书读百遍, 奇迹自现 - 博客园](https://www.cnblogs.com/it-coder/p/19082023)
+[Linux 系统目录结构全解析：基础到大神必读！ - 书读百遍, 奇迹自现 - 博客园](https://www.cnblogs.com/it-coder/p/19082023)
 
-* [3] [Linux 启动过程详解：面试必备的理论知识 - 知乎](https://zhuanlan.zhihu.com/p/25628298036)
+[Linux 启动过程详解：面试必备的理论知识 - 知乎](https://zhuanlan.zhihu.com/p/25628298036)
 

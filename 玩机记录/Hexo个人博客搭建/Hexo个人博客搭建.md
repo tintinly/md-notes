@@ -456,12 +456,17 @@ language: zh-CN
 
 [Welcome to Google Search Console](https://search.google.com/search-console/welcome)
 
-# 参考链接
+# 参考资料
 
-[^1]: [文档 | Hexo](https://hexo.io/zh-cn/docs/)
-[^2]: [Hexo个人博客搭建及上线全流程 - 知乎](https://zhuanlan.zhihu.com/p/1908161067479183613)
-[^3]: [Hexo各种一键部署方式的体验 | 瓦解的生活记事](https://hin.cool/posts/hexodeployer.html#SFTP一键部署)
-[^4]: [利用 GitHub Actions 自动部署 Hexo 到 GitHub Pages 并通过 WebHook 安全更新服务器 | XuanRan's Blog](https://blog.xuanran.cc/2025/11/08/利用 GitHub Actions 自动部署 Hexo 到 GitHub Pages 并通过 WebHook 安全更新服务器/)
-[^5]: [使用webhook实现hexo的自动部署 | 一亩三分地](https://blog.wuweizhao.com/posts/使用webhook实现hexo的自动部署/)
-[^6]: [github管理项目 使用 webhooks 实现推送，服务器实时自动部署_webhook推送工具-CSDN博客](https://blog.csdn.net/clli_Chain/article/details/120156383)
+[文档 | Hexo](https://hexo.io/zh-cn/docs/)
+
+[Hexo个人博客搭建及上线全流程 - 知乎](https://zhuanlan.zhihu.com/p/1908161067479183613)
+
+[Hexo各种一键部署方式的体验 | 瓦解的生活记事](https://hin.cool/posts/hexodeployer.html#SFTP一键部署)
+
+[利用 GitHub Actions 自动部署 Hexo 到 GitHub Pages 并通过 WebHook 安全更新服务器 | XuanRan's Blog](https://blog.xuanran.cc/2025/11/08/利用 GitHub Actions 自动部署 Hexo 到 GitHub Pages 并通过 WebHook 安全更新服务器/)
+
+[使用webhook实现hexo的自动部署 | 一亩三分地](https://blog.wuweizhao.com/posts/使用webhook实现hexo的自动部署/)
+
+[github管理项目 使用 webhooks 实现推送，服务器实时自动部署_webhook推送工具-CSDN博客](https://blog.csdn.net/clli_Chain/article/details/120156383)
 

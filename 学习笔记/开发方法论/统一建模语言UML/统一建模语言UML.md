@@ -179,7 +179,7 @@ SpringMVC的执行流程：
 
 ![img](assets/v2-c03833961aba1a33ecca2ede680d1efb_1440w.jpg)
 
-# 参考链接
+# 参考资料
 
 [UML科普文，一篇文章掌握14种UML图 - 知乎](https://zhuanlan.zhihu.com/p/520475069)
 

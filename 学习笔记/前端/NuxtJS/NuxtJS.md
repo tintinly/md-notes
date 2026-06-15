@@ -2111,4 +2111,4 @@ docker run -itd --name nuxt-ssg -p 80:80 -v /opt/nuxt-study/.output/public:/usr/
 
 # 参考资料
 
-[^1]:[Vue 开发者为什么要学 Nuxt？从 SSR 到 SEO 做一个完整项目_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV19odDBrEmj)
+[Vue 开发者为什么要学 Nuxt？从 SSR 到 SEO 做一个完整项目_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV19odDBrEmj)

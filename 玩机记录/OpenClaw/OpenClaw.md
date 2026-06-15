@@ -1,3 +1,5 @@
+# OpenClaw
+
 ## 安装
 
 ### 普通安装
@@ -362,5 +364,6 @@ openclaw uninstall
 
 # 参考资料
 
-[^1]: [OpenClaw 容器化部署指南](https://bujic.cc/blogs/OpenClaw 部署指南)
-[^2]: [OpenClaw 多 Agent 协作完整指南 - 知乎](https://zhuanlan.zhihu.com/p/2013557846005032775)
+[OpenClaw 容器化部署指南](https://bujic.cc/blogs/OpenClaw 部署指南)
+
+[OpenClaw 多 Agent 协作完整指南 - 知乎](https://zhuanlan.zhihu.com/p/2013557846005032775)
