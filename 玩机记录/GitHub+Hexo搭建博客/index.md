@@ -781,7 +781,7 @@ valine:
 
 ![img](assets/v2-4ed720c24acbae939eaf72bb236b478b_720w.jpg)
 
-选择你喜欢的类型，打开[小猫](https://link.zhihu.com/?target=http%3A//tholman.com/github-corners/)或者[字](https://link.zhihu.com/?target=https%3A//github.blog/2008-12-19-github-ribbons/)，复制代码添加到themes/next/layout/_layout.swig文件中，放在<div class="headband"></div>后面：
+选择你喜欢的类型，打开[小猫](https://link.zhihu.com/?target=http%3A//tholman.com/github-corners/)或者[字](https://link.zhihu.com/?target=https%3A//github.blog/2008-12-19-github-ribbons/)，复制代码添加到themes/next/layout/_layout.swig文件中，放在`<div class="headband"></div>`后面：
 
 ```text
 <div class="headband"></div>
@@ -842,7 +842,7 @@ npm install hexo-generator-index-pin-top --save
 
 ### （2）设置置顶标志
 
-打开blog/themes/next/layout/_macro目录下的post.swig文件，定位到<div class="post-meta">标签下，插入如下代码：
+打开blog/themes/next/layout/_macro目录下的post.swig文件，定位到`<div class="post-meta">`标签下，插入如下代码：
 
 ```text
 {% if post.top %}

@@ -26,7 +26,7 @@ B2B2C
 
 **mybatis-plus学习**
 
-[MybatisPlus笔记](MybatisPlus.md)
+
 
 # 2 环境搭建
 

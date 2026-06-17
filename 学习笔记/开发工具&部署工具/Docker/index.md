@@ -291,7 +291,7 @@ docker rmi -f 某个XXX镜像名字或ID 强制删除（可能会删除正在使
 
 docker rmi -f $(docker images -qa) 删除全部
 
-面试题：谈谈docker虚悬镜像是什么？ 仓库名、标签都是<none>的镜像，俗称虚悬镜像dangling image
+面试题：谈谈docker虚悬镜像是什么？ 仓库名、标签都是`<none>`的镜像，俗称虚悬镜像dangling image
 
 ![image-20220219235224999](assets/image-20220219235224999.png)
 

@@ -2765,7 +2765,7 @@ public Object postProcessAfterInitialization(Object bean, String beanName) throw
          >    1. 判断当前 bean 是否在 advisedBeans 中（保存了所有需要增强 bean）
          >    2. 判断当前 bean 是否是基础类型的 Advice、Pointcut、Advisor、AopInfrastructureBean 或者是否是切面（@Asspect）
          >    3. 判断是否需要跳过
-         >       1. 获取候选的增强器（切面里面的通知方法）【List <Advisor> candidateAdvisors】
+         >       1. 获取候选的增强器（切面里面的通知方法）`List <Advisor> candidateAdvisors`
          >       2. 判断是否为 AspectJPointcutAdvisor 类型的增强器，否则跳过且通过父类的 shouldSkip 返回 false 进行跳过
          >
          > 2. 创建对象
@@ -2795,16 +2795,15 @@ public Object postProcessAfterInitialization(Object bean, String beanName) throw
 1. CglibAopProxy.intercept(）; 拦截目标方法的执行
 
 2. 根据 ProxyFactory 对象获取将要执行的目标方法拦截器链；
-   List <Object> chain = this.advised.getInterceptorsAndDynamicInterceptionAdvice(method, targetClass);
+   `List <Object> chain = this.advised.getInterceptorsAndDynamicInterceptionAdvice(method, targetClass);`
 
-   1. List <Object>
-      interceptorList 保存所有拦截器 5
+   1. `List <Object> interceptorList` 保存所有拦截器 5
       一个默认的 ExposeInvocationInterceptor 和 4 个增强器；
 
    2. 遍历所有的增强器，将其转为 Interceptor；
       registry.getInterceptors(advisor);
 
-   3. 将增强器转为 List <MethodIntergmptor>;
+   3. 将增强器转为 `List <MethodIntergmptor>`;
       如果是 MethodInterceptor，直接加入到集合中
       如果不是，使用 AdvisorAdapter 将增强器转为 Interceptorl
 

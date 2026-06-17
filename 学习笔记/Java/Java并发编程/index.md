@@ -2906,7 +2906,7 @@ while (!isOnSyncQueue(node)) {
 
 **等待/通知机制**
 
-通过 `condition` 的 `await` 和 `signal/signalAll` 方法就可以实现等待/通知机制，这种机制能够解决最经典的问题就是 [生产者与消费者问题]()。
+通过 `condition` 的 `await` 和 `signal/signalAll` 方法就可以实现等待/通知机制，这种机制能够解决最经典的问题就是 [生产者与消费者问题](#)。
 
 await、signal 和 signalAll 方法就像一个开关，控制着线程 A（等待方）和线程 B（通知方）。它们之间的关系可以用下面这幅图来说明
 
@@ -6148,7 +6148,9 @@ ForkJoinTask 有两个子类：RecursiveAction 和 RecursiveTask。
 
 # 参考文献
 
-* [1] [《深入浅出 Java 多线程》](https://redspider.gitbook.io/concurrent/) 或 [Introduction | 深入浅出 Java 多线程](https://redspider.gitbook.io/concurrent)
-* [2] [线程的发展历史 - kancy - 博客园](https://www.cnblogs.com/kancy/p/10397634.html)
-* [3] [多线程发展史 - 知乎](https://zhuanlan.zhihu.com/p/83525853)
+ [《深入浅出 Java 多线程》](https://redspider.gitbook.io/concurrent/) 或 [Introduction | 深入浅出 Java 多线程](https://redspider.gitbook.io/concurrent)
+
+[线程的发展历史 - kancy - 博客园](https://www.cnblogs.com/kancy/p/10397634.html)
+
+ [多线程发展史 - 知乎](https://zhuanlan.zhihu.com/p/83525853)
 

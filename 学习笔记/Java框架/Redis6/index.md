@@ -414,7 +414,7 @@ Reds列表是简单的字符串列表,按照插入顺序排序。你可以添加
 
 * `lindex<key>< index>`按照索引下标获得元素(从左到右)
 * `llen <key>`获得列表长度
-* `linsert <key> before <vaue> <newvalue>`在<value>的后面插入`< newvalue>`插入值
+* `linsert <key> before <vaue> <newvalue>`在`<value>`的后面插入`< newvalue>`插入值
 * `lrem <key> <n> <vaue>`从左边删除n个vaue从左到右)
 * `lset <key> <index> <vaue>`将列表key下标为 index的值替换成 value.
 
@@ -450,7 +450,7 @@ Reds的string类型的无序集合。它底层其实是个value为**null**的has
 
 * `sadd <key> <value1> <value2>……`将—个或多个 member元素加入到集合key中,已经存在的 member元素将被忽略
 * `smembers<key>`取出该集合的所有值
-* `sismember<key><value>`判断集合<key>是否为含有该< value>值,有1,没有0
+* `sismember<key><value>`判断集合`<key>`是否为含有该`<value>`值,有1,没有0
 * `scard<key>`返回该集合的元素个数。
 * `srem<key><vaue1>< value2>`删除集合中的某个元素。
 * `spop<key>`**随机**从该集合中吐出一个值。
@@ -474,7 +474,7 @@ Java中HashSet的内部实现使用的是HashMap，只不过所有的value都指
 
 string类型的field和value的映射表
 
-hash适合用于存储对象，类似于Java里面的Map<String,Object>
+hash适合用于存储对象，类似于Java里面的`Map<String,Object>`
 
 ### 常用命令
 
@@ -515,7 +515,7 @@ field-aue长度较短且个数较少时,使用 ziplist,则使用 hashtable
 
 ### 数据结构
 
-一方面它等价于Java的数据结构Map<String, Double>
+一方面它等价于Java的数据结构`Map<String, Double>`
 
 一方面它又类似于TreeSet，内部的元素会按照权重score进行排序，可以得到每个元素的名次，还可以通过score的范围来获取元素的列表。
 

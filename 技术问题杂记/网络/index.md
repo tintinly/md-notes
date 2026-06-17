@@ -230,7 +230,7 @@ Access to fetch at 'https://xxx.xxx' from origin 'https://xxx.xxx' has been bloc
 
    1. 服务端配置允许跨域访问（支持 CORS）。例，通过配置 Registry 的 `http.headers` 字段，如果使用 Docker 运行 Registry，可以通过环境变量或配置文件设置。例，SpringBoot 项目，在控制器加上 `CroosOrigin` 注解或者全局加上跨域拦截。
 
-   2. 通过反向代理（[Nginx](../nginx/nginx.md)等）加上 CORS 头；   
+   2. 通过反向代理（Nginx等）加上 CORS 头；   
 
       ```nginx
       http {

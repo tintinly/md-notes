@@ -1595,9 +1595,14 @@ select * from x$user_summary; # 输出原始数据，便于通过程序和工具
 
 ## 参考文献
 
-- [1] [JavaGuide（Java 面试 & 后端通用面试指南） | JavaGuide](https://javaguide.cn/)
-- [2] 《高性能MySQL（第4版）》
-- [3] [数据结构 —— 图解AVL树(平衡二叉树)-CSDN博客](https://blog.csdn.net/xiaojin21cen/article/details/97602146)
-- [4] [B树(B-树) - 来由, 定义, 插入, 构建_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1tJ4m1w7yR/?spm_id_from=333.337.search-card.all.click&vd_source=648539de92dcdfbe1ca5bd81d6d559d2)
-- [5] [MySQL 崩溃恢复, Redo 日志修复 - 阿陶学长 - 博客园](https://www.cnblogs.com/gdjgs/p/19003960)
-- [6] [【MySQL系列】- 浅入Buffer Pool-腾讯云开发者社区-腾讯云](https://cloud.tencent.com/developer/article/2114126?policyId=1003)
+ [JavaGuide（Java 面试 & 后端通用面试指南） | JavaGuide](https://javaguide.cn/)
+
+《高性能MySQL（第4版）》
+
+[数据结构 —— 图解AVL树(平衡二叉树)-CSDN博客](https://blog.csdn.net/xiaojin21cen/article/details/97602146)
+
+[B树(B-树) - 来由, 定义, 插入, 构建_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1tJ4m1w7yR/?spm_id_from=333.337.search-card.all.click&vd_source=648539de92dcdfbe1ca5bd81d6d559d2)
+
+[MySQL 崩溃恢复, Redo 日志修复 - 阿陶学长 - 博客园](https://www.cnblogs.com/gdjgs/p/19003960)
+
+[【MySQL系列】- 浅入Buffer Pool-腾讯云开发者社区-腾讯云](https://cloud.tencent.com/developer/article/2114126?policyId=1003)

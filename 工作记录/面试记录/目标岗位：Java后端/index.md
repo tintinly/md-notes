@@ -1012,10 +1012,12 @@ user.add();
 
 以及
 
-`<servlet-mapping>
+```xml
+<servlet-mapping>
 <servlet-name>weixin</servlet-name>
 <url-pattern>/</url-pattern>
-</servlet-mapping>`
+</servlet-mapping>
+```
 应该不同。
 
 ## Mybatis

@@ -221,8 +221,6 @@ public class HelloController {
 </beans>
 ```
 
-> [将 html 文件作为模板](../Thymeleaf模板引擎/Thymeleaf模板引擎.md#将html文件作为模板)
-
 ## 6、测试 HelloWorld
 
 ### a > 实现对首页的访问

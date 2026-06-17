@@ -7,6 +7,8 @@ tagsEn: [Agent Engineering]
 featured: false
 ---
 
+# Claude Code 接入 IDE
+
 让Claude Code 接入 IDE，可以获得类似于 cursor 一般的体验。
 
 安装claude插件
