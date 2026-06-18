@@ -71,7 +71,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     logo: '/logo.png',
     nav: [
-      { text: '学习笔记', link: '/学习笔记/Java/Java编程基础' },
+      { text: '学习笔记', link: '/学习笔记/' },
       { text: 'Markdown', link: '/Markdown/Markdown基础' },
       { text: 'VitePress', link: '/VitePress' }
     ],
