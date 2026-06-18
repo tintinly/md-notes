@@ -1,6 +1,24 @@
-**用于随时且及时记录一些尚无法分类归档的问题或知识**
+**用于积累书籍、安利、灵感、名言**
+
+**用于随时且及时记录一些尚暂无分类归档的问题或知识**
 
 **用于记录一些由 AI 助手、短视频、短文章产生的零星信息**
+
+# 书籍
+
+## 编程类
+
+### 汇总
+
+[EbookFoundation/free-programming-books: :books: Freely available programming books](https://github.com/EbookFoundation/free-programming-books)
+
+[justjavac/free-programming-books-zh_CN: :books: 免费的计算机编程类中文书籍，欢迎投稿](https://github.com/justjavac/free-programming-books-zh_CN)
+
+### Java多线程
+
+[RedSpider1/concurrent: 这是RedSpider社区成员原创与维护的Java多线程系列文章。](https://github.com/RedSpider1/concurrent)
+
+
 
 # 未分类
 
@@ -463,12 +481,6 @@ Vibe Coding（氛围式编程）是一种革命性的软件开发方法，由 *A
 
 [Diu](https://ddiu.io/)
 
-**签名、名言**
-
-> 往者不可谏，来者犹可追。——《论语·微子》
->
-> The best time to plant a tree was 20 years ago. The second best time is now.
-
 # 英语词汇累积
 
 > 记载词汇多与编程、互联网、计算机相关
@@ -519,3 +531,9 @@ dialog [ˈdaɪəˌlɔɡ]
 [更新指南和版本记录 - Momo](https://momo.motues.top/blog/intro/release/)
 
 ![image-20260607170759854](assets/image-20260607170759854.png)
+
+# 名言
+
+往者不可谏，来者犹可追。——《论语·微子》
+
+The best time to plant a tree was 20 years ago. The second best time is now.
