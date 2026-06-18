@@ -76,7 +76,7 @@ bash -c "$(curl -sSL https://resource.fit2cloud.com/1panel/package/v2/quick_star
 
 ## 自建机场
 
-[自建机场](../自建机场/自建机场.md)
+[自建机场](../自建机场/index.md)
 
 ## 安装 Nginx
 

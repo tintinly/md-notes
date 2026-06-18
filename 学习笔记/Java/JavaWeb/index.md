@@ -1,3 +1,9 @@
+---
+order: 7
+---
+
+
+
 # 技术栈介绍
 
 前端视图基础:
@@ -18,19 +24,19 @@
 
 # HTML
 
-[HTML 参考](../../前端/HTML/HTML.md)
+[HTML 参考](../../前端/HTML/index.md)
 
 # CSS
 
-[CSS 参考](../../前端/CSS/CSS.md)
+[CSS 参考](../../前端/CSS/index.md)
 
 # JavaScript
 
-[JavaScript 参考](../../前端/JavaScript/JavaScript.md)
+[JavaScript 参考](../../前端/JavaScript/index.md)
 
 # XML
 
-[XML 参考](../../前端/XML/XML.md)
+[XML 参考](../../前端/XML/index.md)
 
 # Tomcat
 
@@ -278,7 +284,7 @@ IDEA 根据关联的 Tomcat，创建了一个 Tomcat 副本（类似，`C:/Users
 
 # HTTP 协议
 
-[HTTP 协议参考](../../计算机基础/计算机网络/计算机网络.md#HTTP)
+[HTTP 协议参考](../../计算机基础/计算机网络/index.md#HTTP)
 
 # Servlet
 
@@ -1305,7 +1311,7 @@ druid.password=123456
 
 JDBC 工具类&通用 DAO 基类
 
-[详见](../Java开发经验/Java开发经验.md#Druid)
+[详见](../Java开发经验/index.md#Druid)
 
 ### dao 处理
 
@@ -1404,7 +1410,7 @@ public class BaseController extends HttpServlet {
 
 ### 加密工具类
 
-[详见](../Java开发经验/Java开发经验.md#MessageDigestJava开发经验)
+[详见](../Java开发经验/index.md#MessageDigestJava开发经验)
 
 ### view 页面编写
 
@@ -2285,7 +2291,7 @@ function checkUsername() {
 
 ## ECMAScript6
 
-[ECMAScript6 参考](../../前端/ECMAScript6/ECMAScript6.md)
+[ECMAScript6 参考](../../前端/ECMAScript6/index.md)
 
 ## Node.js 运行环境 
 

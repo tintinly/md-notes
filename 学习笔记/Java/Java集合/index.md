@@ -1,3 +1,7 @@
+---
+order: 1
+---
+
 ## Java 集合概述
 
 ### 重要性
@@ -42,7 +46,7 @@ JUC collections 并发集合框架也是从Map、List、Set、Queue、Collection
 
 ![image](assets/java-thread-x-juc-overview-2.png)
 
-> [Java并发](../Java并发编程/Java并发编程.md)如线程池、锁、原子类等作为前置知识，本文只对并发集合做一些简单总结。
+> [Java并发](../Java并发编程/index.md)如线程池、锁、原子类等作为前置知识，本文只对并发集合做一些简单总结。
 
  ### fail-fast 和 fail-safe 
 

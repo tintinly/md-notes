@@ -1,3 +1,7 @@
+---
+order: 5
+---
+
 # Shell教程
 
 ## Shell是什么

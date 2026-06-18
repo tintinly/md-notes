@@ -1,3 +1,7 @@
+---
+order: 2
+---
+
 ## Java 开发规范
 
 * 阿里巴巴 Java 开发手册
@@ -14,5 +18,5 @@ https://github.com/mysterin/alibaba-java-specification
 
 ## 数据库开发规范
 
-[MySQL 高性能优化规范及建议](../MySQL高级/MySQL高级.md#MySQL 高性能优化规范及建议)
+[MySQL 高性能优化规范及建议](../../数据库/MySQL高级/index.md#MySQL高性能优化规范及建议)
 
