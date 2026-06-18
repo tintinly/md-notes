@@ -1,0 +1,60 @@
+/* var.css */
+:root {
+  --vp-c-brand-1: #ff9456; 
+  --vp-c-brand-2: #ff792c;
+  --vp-c-brand-3: #ff660d;
+}
+
+.dark {
+  --vp-c-brand-1: #fec458;
+  --vp-c-brand-2: #ffb62f;
+  --vp-c-brand-3: #fca70a;
+}
+/* 以前的vp-c-brand已弃用 */
+
+:root {
+  /* hero标题渐变色 */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(
+    120deg,
+    #DDF44F,
+    #FCC45B
+  );
+
+  /*hero logo背景渐变色 */
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    #DDF44F 50%,
+    #FCC45B 50%
+  );
+  --vp-home-hero-image-filter: blur(40px);
+}
+
+/* 也可自行单独修改brand按钮 */
+/* :root {
+  --vp-button-brand-border: #F6CEEC;
+  --vp-button-brand-text: #F6CEEC;
+  --vp-button-brand-bg: #D939CD;
+
+  --vp-button-brand-hover-border: #F6CEEC;
+  --vp-button-brand-hover-text: #fff;
+  --vp-button-brand-hover-bg: #D939CD;
+
+  --vp-button-brand-active-border: #F6CEEC;
+} */
+
+/* 图表居中 */
+.mermaid {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+/* 侧边栏缩进 */
+.group:has([role='button']) .VPSidebarItem.level-0 .items {
+  padding-left: 16px !important;
+  border-left: 1px solid var(--vp-c-divider);
+  border-radius: 2px;
+  transition: background-color 0.25s;
+}

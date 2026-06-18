@@ -1,1 +1,4 @@
-/未被引用的图片
+未被引用的图片
+node_modules
+.vitepress/cache
+.vitepress/dist
