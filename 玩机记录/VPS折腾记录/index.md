@@ -1,3 +1,5 @@
+# VPS 建站指南
+
 ## 需求
 
 以下所写方案皆为需求，但基本都是未成规模、学习测试的用途。
@@ -73,6 +75,25 @@ firewall-cmd --list-all
 ```shell
 bash -c "$(curl -sSL https://resource.fit2cloud.com/1panel/package/v2/quick_start.sh)"
 ```
+
+## 1panel
+
+查看、修改账号信息
+
+```bash
+1pctl user-info # 查看账号信息
+1pctl update password # 修改密码
+```
+
+服务重启
+
+```
+1pctl restart core
+1pctl restart agent
+1pctl restart all
+```
+
+
 
 ## 自建机场
 

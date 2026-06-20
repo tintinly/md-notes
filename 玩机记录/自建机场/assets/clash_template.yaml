@@ -132,11 +132,10 @@ proxies:
   # udp: true
   # tls: true
   # skip-cert-verify: true
-  # tls-hostname: 填写伪装域名
   # network: ws
   # ws-path: /path
-  # ws-headers: #这一行后面不要写东西
-  #   Host: v2ray.com # 填写伪装域名
+  # ws-headers: # 这一行后面不要写东西
+  #   Host: v2ray.com #填你的主机名
 
 # Trojan
 - name: "trojan"
@@ -145,7 +144,7 @@ proxies:
   port: 443
   password: password
   # udp: true
-  # sni: example.com # 填写伪装域名
+  # sni: example.com # aka server name
   alpn:
      - h2
      - http/1.1
@@ -236,7 +235,7 @@ proxy-groups:
     - "trojan"
 
 # 规则
-rules:
+Rule:
 # Unbreak
 # > Google
 - DOMAIN-SUFFIX,googletraveladservices.com,DIRECT

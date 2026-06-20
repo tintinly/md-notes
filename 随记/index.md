@@ -359,18 +359,6 @@ Vibe Coding（氛围式编程）是一种革命性的软件开发方法，由 *A
 
 # 灵感
 
-## 个人建站资料
-
-名称：丁丁 tintinly
-
-域名：tintinly.top
-
-头像：
-
-博客站名：丁丁的小破城 / Shabby Little Tintin Town
-
-
-
 ## 博客建站
 
 **需求**
@@ -392,6 +380,14 @@ Vibe Coding（氛围式编程）是一种革命性的软件开发方法，由 *A
 - 底部：系统稳定运行时长、技术栈、访问量和访客数、备案
 
 - UI ：要求切换页面流畅、现代化的UI风格
+
+**评论管理系统**
+
+[Artalk | 由 Golang 驱动的自托管评论系统](https://artalk.js.org/)
+
+https://twikoo.js.org/
+
+[utterances](https://utteranc.es/)
 
 **参考**
 
@@ -420,6 +416,14 @@ Vibe Coding（氛围式编程）是一种革命性的软件开发方法，由 *A
 [星轨手札 - 德国留学、日本旅行与技术折腾记录](https://yuulog.org/)
 
 [Zyyo](https://zyyo.net/)
+
+[张洪Heo - 分享设计与科技生活](https://blog.zhheo.com/)
+
+[安和鱼 - 生活明朗，万物可爱](https://blog.anheyu.com/)
+
+[Butterfly - A Simple and Card UI Design theme for Hexo](https://butterfly.js.org/)
+
+[Anthony Fu](https://antfu.me/)
 
 **截图**
 
@@ -467,6 +471,16 @@ Vibe Coding（氛围式编程）是一种革命性的软件开发方法，由 *A
 
 ## 个人页建站
 
+**个人资料**
+
+名称：丁丁 tintinly
+
+域名：tintinly.top
+
+头像：
+
+博客站名：丁丁的小破城 / Shabby Little Tintin Town
+
 **参考**
 
 [Motues - 记录生活](https://www.motues.top/)
@@ -480,6 +494,99 @@ Vibe Coding（氛围式编程）是一种革命性的软件开发方法，由 *A
 [Zyyo](https://zyyo.cc/)
 
 [Diu](https://ddiu.io/)
+
+[分享编码与科技 - weizwz](https://weizwz.com/)
+
+## 知识库建站
+
+**参考**
+
+[唯知笔记](https://note.weizwz.com/)
+
+[茂茂物语](https://notes.fe-mm.com/)
+
+## Github 主页
+
+**参考**
+
+[weizwz (weizwz)](https://github.com/weizwz)
+
+[maomao1996 (maomao)](https://github.com/maomao1996)
+
+**教程**
+
+[超详细的 GitHub 个人主页美化教程 - peterjxl - 博客园](https://www.cnblogs.com/PeterJXL/p/18437094)
+
+**优秀案例**
+
+- [awesome-github-profile-readme](https://github.com/abhisheknaiidu/awesome-github-profile-readme)
+- [awesome-github-profiles](https://github.com/EddieHubCommunity/awesome-github-profiles)
+- [beautify-github-profile](https://github.com/rzashakeri/beautify-github-profile)
+
+**展示组件**
+
+[GitHub 统计卡片](https://github.com/anuraghazra/github-readme-stats)
+
+![tintinly's GitHub stats](https://github-readme-stats.vercel.app/api?username=tintinly)
+
+[GitHub 使用语言统计](https://github.com/anuraghazra/github-readme-stats)
+
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=tintinly)
+
+[Metrics 统计信息](https://github.com/lowlighter/metrics)
+
+[GitHub 资料奖杯](https://github.com/ryo-ma/github-profile-trophy)
+
+![trophy](https://github-profile-trophy.vercel.app/?username=ryo-ma)
+
+
+
+
+
+[GitHub 徽章](https://shields.io/)
+
+<img src="https://img.shields.io/badge/-HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" />  <img src="https://img.shields.io/badge/-CSS3-1572B6?style=flat-square&logo=css3" />  <img src="https://img.shields.io/badge/-JavaScript-oringe?style=flat-square&logo=javascript" />
+
+[GitHub 访客徽章](https://visitor-badge.glitch.me/) 或 [komarev.com/ghpvc/?username=tintinly&color=blueviolet&style=flat-square](https://komarev.com/ghpvc/?username=tintinly&color=blueviolet&style=flat-square)
+
+![visitors](https://komarev.com/ghpvc/?username=tintinly&color=blueviolet&style=flat-square)
+
+[GitHub 活动统计图](https://github.com/Ashutosh00710/github-readme-activity-graph/)
+
+![Tintinly's github activity graph](https://github-readme-activity-graph.vercel.app/graph?username=tintinly)
+
+[修仙系列统计卡片](https://github.com/IceEnd/github-immortality)
+
+![Tintinly's GitHub stats](https://github-immortality.vercel.app/api?username=tintinly)
+
+[GitHub 连续打卡](https://github.com/DenverCoder1/github-readme-streak-stats)
+
+![GitHub Streak](https://streak-stats.demolab.com/?user=tintinly)
+
+[社交统计](https://github.com/songquanpeng/stats-cards)：展示你在一些流行的网站的数据，例如知乎，GitHub，B 站，LeetCode，掘金，CSDN，牛客。
+
+![social](https://stats.justsong.cn/api/bilibili?id=406137704&lang=zh-CN)
+
+star 趋势
+
+- [GitHub Star History — Track & Compare Open Source Star Growth](https://www.star-history.com/)
+- [GitHub/Gitlab Star History](https://codetabs.com/github-stars/github-star-history.html)
+
+[GitHub Corners：分享角标](https://tholman.com/github-corners/)
+
+[打字特效](https://github.com/DenverCoder1/readme-typing-svg)
+
+![Typing SVG](https://readme-typing-svg.demolab.com/?lines=First+line+of+text;Second+line+of+text)
+
+贪吃蛇：利用 Github workflow 
+
+[RSS 获取最新文章](https://github.com/gautamkrishnar/blog-post-workflow)：利用 Github workflow 
+
+[Profile 编辑器](https://profilinator.rishav.dev/)
+
+## 状态监控页
+
+[Uptime Kuma - A Fancy Self-Hosted Monitoring Tool](https://uptimekuma.org/)
 
 # 英语词汇累积
 

@@ -1,5 +1,3 @@
-[TOC]
-
 # Spring
 
 ## Spring 框架

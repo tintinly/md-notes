@@ -1,4 +1,10 @@
-/* var.css */
+/* 
+CSS 变量参考 
+https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css 
+vitepress/theme-default/styles/vars.css
+*/
+
+/* 主题色 */
 :root {
   --vp-c-brand-1: #ff9456; 
   --vp-c-brand-2: #ff792c;
@@ -10,7 +16,6 @@
   --vp-c-brand-2: #ffb62f;
   --vp-c-brand-3: #fca70a;
 }
-/* 以前的vp-c-brand已弃用 */
 
 :root {
   /* hero标题渐变色 */
@@ -58,3 +63,16 @@
   border-radius: 2px;
   transition: background-color 0.25s;
 }
+
+/* 图片居中 */
+/* .vp-doc img {
+    margin: 0 auto;
+} */
+
+
+/* pageClass 相关 */
+.about-page-class p img{
+  display: inline;
+  margin: 0 2px;
+}
+

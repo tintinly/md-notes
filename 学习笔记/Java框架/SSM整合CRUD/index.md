@@ -1,5 +1,3 @@
-[TOC]
-
 * SSM-CRUD 
 * ssm:SpringMVC+Spring+MyBatis 
 

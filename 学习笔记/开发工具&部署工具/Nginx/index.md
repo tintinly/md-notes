@@ -1,5 +1,3 @@
-[TOC]
-
 # Nginx
 
 ## nginx 基本概念

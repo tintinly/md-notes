@@ -1,5 +1,3 @@
-[TOC]
-
 # MybatisPlus概述
 
 [MyBatis-Plus (baomidou.com)](https://mp.baomidou.com/)

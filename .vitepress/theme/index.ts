@@ -1,10 +1,15 @@
 import DefaultTheme from 'vitepress/theme'
-import MyComponent from './components/DocsNavgation.vue' //必须是.vue结尾
-import './custom.css'
+import DocsNavgation from './components/DocsNavgation.vue' 
+import ToastNotification from './components/ToastNotification.vue'
+import CustomLayout from './layouts/CustomLayout.vue'
+import './style/custom.css'
 
 export default {
-    ...DefaultTheme,
-    enhanceApp({ app }) {
-        app.component('MyComponent', MyComponent)
-    }
+  extends: DefaultTheme,
+  enhanceApp({ app }) {
+    // 注册自定义全局组件
+    app.component('DocsNavgation', DocsNavgation)
+    app.component('ToastNotification', ToastNotification)
+  },
+  Layout: CustomLayout
 }

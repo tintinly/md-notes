@@ -2,8 +2,6 @@
 
 **VPS（Virtual Private Server，虚拟专用服务器）**，它就像是你租用的一台位于数据中心的电脑，你可以完全控制它，在上面安装操作系统、软件，并进行配置，通常是一台物理机用虚拟化软件（VMware、KVM、Xen）切成多个虚拟机。比起租用云服务器（多台物理机组成集群，统一调度）灵活性较低，但性价比更高。
 
-
-
 VPS 评测来自 [科技 lion 官方网站 - KEJILION](https://kejilion.pro/)，主要考量：**便宜**。
 
 VPS 服务商：[RackNerd - Introducing Infrastructure Stability](https://www.racknerd.com/) 
@@ -48,9 +46,32 @@ bash <(wget -qO- -o- https://github.com/233boy/v2ray/raw/master/install.sh)
 
 ### x-ui
 
+[vaxilu/x-ui: 支持多协议多用户的 xray 面板](https://github.com/vaxilu/x-ui)
+
 ```shell
 bash <(curl -Ls https://raw.githubusercontent.com/FranzKafkaYu/x-ui/956bf85bbac978d56c0e319c5fac2d6db7df9564/install.sh) 0.3.4.4
 ```
+
+使用docker方式安装：默认端口 54321 默认用户密码 admin/admin
+
+```yaml
+version: '3.9'
+services:
+    x-ui:
+        image: 'enwaiax/x-ui:latest'
+        restart: unless-stopped
+        container_name: x-ui
+        volumes:
+            - '$PWD/cert/:/root/cert/'
+            - '$PWD/db/:/etc/x-ui/'
+        networks_mode: host
+        tty: true
+        stdin_open: true
+```
+
+添加入站
+
+![image-20260621034522064](assets/image-20260621034522064.png)
 
 ### Sing-box
 
@@ -60,7 +81,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/FranzKafkaYu/x-ui/956bf85bbac9
 
 ### Clash
 
-点击 https://v2xtls.org/clash_template2.yaml 下载模板配置文件，用编辑器打开，找到 v2ray 配置块，把 server、port、uid 等信息改成你 v2ray 科学上网服务端配置。
+点击 https://v2xtls.org/clash_template.yaml 下载模板配置文件，用编辑器打开，找到 v2ray 配置块，把 server、port、uid 等信息改成你 v2ray 科学上网服务端配置。
 
 [clash_template.yaml](assets/clash_template.yaml)
 
@@ -118,3 +139,7 @@ server {
 # 参考资料
 
 [VPS搭建v2ray科学上网｜自建机场｜附各平台使用教程 - 科技小飞哥](https://www.techxiaofei.com/post/vpn/vpn/#1-windows)
+
+[科学上网：使用X-UI面板快速搭建多协议、多用户代理服务，支持CDN - Look for VPS](https://lookforvps.com/vpstech/x-ui.html)
+
+[从零开始自建节点 | 欢迎来到我的Zone](https://anluzhangcs.github.io/2023/06/16/tool/从零开始自建节点/)

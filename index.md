@@ -3,16 +3,16 @@
 layout: home
 
 hero:
-  name: "丁丁的知识库"
+  name: "丁丁书屋"
   text: "记录个人学习笔记"
   tagline: 往者不可谏，来者犹可追。
   actions:
     - theme: brand
-      text: 开始
-      link: /markdown-examples
+      text: 开始阅读
+      link: /学习笔记/
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: 关于
+      link: /about
   image:
     src: /logo.png
     alt: logo

@@ -7,17 +7,20 @@ import markdownItTaskLists from 'markdown-it-task-lists'
 import { MermaidMarkdown, MermaidPlugin } from 'vitepress-plugin-mermaid';
 import { generateSidebar } from 'vitepress-sidebar';
 
+const cur_year = new Date().getFullYear()
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   srcDir: "",
   
   
-  title: '丁丁的知识库',
+  title: '丁丁书屋',
   description: "记录个人学习笔记",
 
   // 添加站点图标
   head: [
-    ['link', { rel: 'icon', href: '/favicon.ico' }]
+    ['link', { rel: 'icon', href: '/favicon.ico' }],
+    // ['script', { src: './utils/copyToClip.js', type: 'module' }]
   ], 
 
   // 配置 Markdown 插件
@@ -66,14 +69,15 @@ export default defineConfig({
     }*/
   ],
 
-  // 站点&主题配置
+  // 主题配置
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: '/logo.png',
     nav: [
       { text: '学习笔记', link: '/学习笔记/' },
       { text: 'Markdown', link: '/Markdown/Markdown基础' },
-      { text: 'VitePress', link: '/VitePress' }
+      { text: 'VitePress', link: '/VitePress' },
+      { text: '关于', link: '/about' }
     ],
 
     // 侧边栏配置
@@ -132,13 +136,16 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'blog', link: 'https://blog.tintinly.top/' },
       { icon: 'github', link: 'https://github.com/tintinly' }
     ],
 
     footer: {
-      message: '基于 MIT 许可发布',
-      copyright: '<a href="https://example.com">tintin-notes</a> © 2026 by <a href="https://example.com">tintinly</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="display: inline-block; max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="display: inline-block;  max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg" alt="" style="display: inline-block; max-width: 2em;max-height:1em;margin-left: .2em;">'
-    }
-  }
+      // message: 'Copyright © 2020 ~ present tintinly',
+      copyright: `<div style="display: flex; justify-content: space-between "><p>Copyright © 2025-${cur_year} <a href="https://tintinly.top" style="margin: 0 2px;">tintinly</a></p><p>Released under <a href="https://github.com/tintinly/md-notes/blob/main/LICENSE" style="margin: 0 2px;">MIT</a> <a href="https://creativecommons.org/licenses/by-sa/4.0/" style="margin: 0 2px;">CC BY-SA 4.0</a></p></div>`
+    },
+
+    
+  },
+
+  lastUpdated: true
 });
