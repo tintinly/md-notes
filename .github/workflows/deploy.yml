@@ -25,12 +25,14 @@ jobs:
     - run: npm run docs:build
     - run: ls -l
     - name: Deploy to Server
-      uses: appleboy/ssh-action@v1.0.3
+      uses: easingthemes/ssh-deploy@main
       with:
-        host: ${{ secrets.YHY_SSH_HOST }}
-        port: ${{ secrets.YHY_SSH_PORT }}
-        username: ${{ secrets.YHY_SSH_USER }}
-        password: ${{ secrets.YHY_SSH_PWD }}
-        script: |
-          whoami
-          rsync -avz --delete ./.vitepress/dist /opt/1panel/www/sites/notes.tintinly.top/index/
+        REMOTE_HOST: ${{ secrets.YHY_SSH_HOST }}
+        REMOTE_PORT : ${{ secrets.YHY_SSH_PORT }}
+        REMOTE_USER: ${{ secrets.YHY_SSH_USER }}
+        SSH_PRIVATE_KEY: ${{ secrets.YHY_SSH_KEY }}
+        SOURCE: ./.vitepress/dist/
+        TARGET:  ${{ secrets.YHY_MD_NOTES_PATH }}
+        ARGS: "-rlgoDzvc -i --delete"
+        SCRIPT_BEFORE: whoami
+        SCRIPT_AFTER: whoami
