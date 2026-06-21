@@ -81,21 +81,22 @@ export default defineConfig({
 
     // 侧边栏配置
     sidebar: generateSidebar([
+      // {
+      //   // 侧边栏根目录
+      //   documentRootPath: '/',
+      //   // 排除目录
+      //   excludeByGlobPattern: ['assets/**'],
+      //   // 指定一个指向文件夹的链接，导航文件夹中的 index.md
+      //   useFolderLinkFromIndexFile: true,
+      //   // 根据md文件的order进行排序
+      //   sortMenusByFrontmatterOrder: true,
+      //   frontmatterOrderDefaultValue: 99,
+      //   // 排序之后将不是文件夹的放后面
+      //   sortFolderTo: "top",
+      //   // 菜单展开功能
+      //   collapsed: false,
+      // },
       {
-        // 侧边栏根目录
-        documentRootPath: '/',
-        // 排除目录
-        excludeByGlobPattern: ['assets/**'],
-        // 指定一个指向文件夹的链接，导航文件夹中的 index.md
-        useFolderLinkFromIndexFile: true,
-        // 根据md文件的order进行排序
-        sortMenusByFrontmatterOrder: true,
-        frontmatterOrderDefaultValue: 99,
-        // 排序之后将不是文件夹的放后面
-        sortFolderTo: "top",
-        // 菜单展开功能
-        collapsed: false,
-      },{
         documentRootPath: '/',
         excludeByGlobPattern: ['assets/**'],
         scanStartPath: '学习笔记',
@@ -117,6 +118,11 @@ export default defineConfig({
         frontmatterOrderDefaultValue: 99,
         sortFolderTo: "top",
         collapsed: false,
+      },{
+        documentRootPath: '/',
+        excludeByGlobPattern: ['**'],
+        basePath: '/',
+        resolvePath: '/',
       }
     ]),
 

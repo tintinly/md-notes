@@ -4,6 +4,8 @@ order: 3
 
 # vitepress指南
 
+官方文档：[VitePress](https://vitepress.dev/zh/)
+
 ## 站点配置
 
 ### 基础站点信息
@@ -282,7 +284,7 @@ export default defineConfig({
 
 #### 生成侧边栏示例
 
-安装插件 [vitepress-sidebar](https://github.com/jooy2/vitepress-sidebar)
+安装插件 [vitepress-sidebar](https://github.com/jooy2/vitepress-sidebar)，该插件会使 frontmatter 的 `aside` 字段失效
 
 ```bash
 npm i -D vitepress-sidebar
