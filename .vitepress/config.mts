@@ -76,7 +76,6 @@ export default defineConfig({
     nav: [
       { text: '学习笔记', link: '/学习笔记/' },
       { text: 'Markdown', link: '/Markdown/Markdown基础' },
-      { text: 'VitePress', link: '/VitePress' },
       { text: '关于', link: '/about' }
     ],
 
@@ -118,10 +117,6 @@ export default defineConfig({
         frontmatterOrderDefaultValue: 99,
         sortFolderTo: "top",
         collapsed: false,
-      },{
-        documentRootPath: '/',
-        excludeByGlobPattern: ['/**'],
-        scanStartPath: 'VitePress',
       }
     ]),
 

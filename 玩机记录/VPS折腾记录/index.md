@@ -21,7 +21,7 @@ CPU：1 CPU Core
 
 ## 重装 Debian
 
-第一次登录上 VPS 的操作系统为 Ubuntu 24.04，而且可能会有不少预装软件，建议新装一个纯净的 Linux 发行版，如以最小化安装 Ubuntu 20.04/22.04 或 Debian 11/12。其中，Debian将会更加精简
+第一次登录上 VPS 的操作系统为 Ubuntu 24.04，而且可能会有不少预装软件，建议新装一个纯净的 Linux 发行版，如以最小化安装 Ubuntu 20.04/22.04 或 Debian 11/12。其中，Debian 将会更加精简
 
 ## 开启 Swap 区
 
@@ -93,13 +93,20 @@ bash -c "$(curl -sSL https://resource.fit2cloud.com/1panel/package/v2/quick_star
 1pctl restart all
 ```
 
-
-
 ## 自建机场
 
 [自建机场](../自建机场/index.md)
 
-## 安装 Nginx
+## 服务部署
 
-通过 Nginx 可以作简单的文件服务器，使得我能随时获取机场 yaml 配置。
+通过面板 或 Nginx 部署静态页面
 
+通过面板 或 Node.js 部署 SSR 页面
+
+## 搜索引擎优化(SEO)
+
+部署完网站之后，虽然可以直接通过 url 访问我们的网站，但是我们无法通过搜索引擎检索到我们网站的相关内容，所以我们需要进行 网站验证，网站验证主要就是为了让各大搜索引擎收录我们的网站，这样可以让更多的人通过搜索引擎找到我们的网站。
+
+[百度搜索资源平台_共创共享鲜活搜索](https://ziyuan.baidu.com/?castk=LTE%3D)
+
+[Welcome to Google Search Console](https://search.google.com/search-console/welcome)

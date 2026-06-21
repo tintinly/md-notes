@@ -1,4 +1,8 @@
-# vitepress
+---
+order: 3
+---
+
+# vitepress指南
 
 ## 站点配置
 

@@ -18,9 +18,7 @@ pageClass: about-page-class
 
 **关于我 · About Me**
 
-- [个人主页](https://tintinly.top)
 - [博客](https://blog.tintinly.top)
-- [Github](tintinly.top/about)
 
 **联系我 · Contact Me**
 
