@@ -304,7 +304,7 @@ df（display free disk space） 命令用于显示文件系统的磁盘空间使
 
 ### tree 命令
 
-Linux tree命令用于以树状图列出目录的内容。
+Linux tree 命令用于以树状图列出目录的内容。
 
 - `-a` 显示所有文件和目录。
 - `-C` 在文件和目录清单加上色彩，便于区分各种类型。
@@ -1002,6 +1002,263 @@ G = gigas
 T = teras
 ```
 
+## 远程访问
+
+### SSH
+
+ssh 命令用于通过 SSH 协议连接到远程主机，实现远程登录和执行命令，它加密会话中的所有通信，确保数据传输的安全性。
+
+> SSH (Secure Shell) 是一种用于远程登录和其他网络服务之间的加密协议，SSH 提供了一个安全的通信渠道，以保护数据的机密性和完整性。
+
+#### SSH 客户端
+
+本地系统要通常安装有 ssh 客户端，通过终端可以连接远程服务器
+
+客户端命令及参数：
+
+- `ssh [options] [user@]hostname [command]`
+  - `-l user`：指定要登录的用户。
+  - `-p port`：指定连接到远程主机的端口号，默认是 22。
+  - `-i identity_file`：指定身份验证文件（私钥文件）。
+  - `-v`：详细模式，可以显示调试信息。
+  - `-C`：启用压缩。
+  - `-N`：不执行远程命令，只进行端口转发。
+  - `-f`：后台运行。
+  - `-L local_port:remote_host:remote_port`：本地端口转发。
+  - `-R remote_port:local_host:local_port`：远程端口转发。
+  - `-D [bind_address:]port`：动态应用程序级端口转发。
+
+#### SSH 服务端
+
+被远程的系统需要安装服务端
+
+```bash
+# 安装 SSH 服务
+apt install openssh-server -y
+# 启动 SSH 服务
+sudo systemctl start ssh
+# 设置开机自动启动
+sudo systemctl enable ssh
+# 检查服务状态
+sudo systemctl status ssh
+# 备份原始配置文件
+sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
+# 编辑配置文件
+sudo nano /etc/ssh/sshd_config
+```
+
+服务端配置文件  `/etc/sshd_config`
+
+```properties
+#	$OpenBSD: sshd_config,v 1.103 2018/04/09 20:41:22 tj Exp $
+
+# This is the sshd server system-wide configuration file.  See
+# sshd_config(5) for more information.
+
+# This sshd was compiled with PATH=/usr/bin:/bin:/usr/sbin:/sbin
+
+# The strategy used for options in the default sshd_config shipped with
+# OpenSSH is to specify options with their default value where
+# possible, but leave them commented.  Uncommented options override the
+# default value.
+
+Include /etc/ssh/sshd_config.d/*.conf
+
+# 常见配置参数
+
+# 监听端口，可同时指定多个
+Port 22
+
+# 指定使用的地址族 inet (IPv4)  inet6 (IPv6)。
+AddressFamily any
+
+# 指定服务绑定的IP地址
+ListenAddress 0.0.0.0
+ListenAddress ::
+
+#HostKey /etc/ssh/ssh_host_rsa_key
+#HostKey /etc/ssh/ssh_host_ecdsa_key
+#HostKey /etc/ssh/ssh_host_ed25519_key
+
+# Ciphers and keying
+#RekeyLimit default none
+
+# Logging
+#SyslogFacility AUTH
+#LogLevel INFO
+
+# Authentication:
+
+# 成功认证前的登录超时时间
+LoginGraceTime 2m
+#PermitRootLogin prohibit-password
+#StrictModes yes
+# 单次连接允许的最大认证尝试次数
+MaxAuthTries 6
+#MaxSessions 10
+
+
+# 指定存储用户公钥的文件 默认 ~/.ssh/authorized_keys 可以指定多个
+#AuthorizedKeysFile	.ssh/authorized_keys .ssh/authorized_keys2
+
+#AuthorizedPrincipalsFile none
+
+#AuthorizedKeysCommand none
+#AuthorizedKeysCommandUser nobody
+
+# For this to work you will also need host keys in /etc/ssh/ssh_known_hosts
+#HostbasedAuthentication no
+# Change to yes if you don't trust ~/.ssh/known_hosts for
+# HostbasedAuthentication
+#IgnoreUserKnownHosts no
+# Don't read the user's ~/.rhosts and ~/.shosts files
+#IgnoreRhosts yes
+
+# 是否允许空密码用户登录
+PermitEmptyPasswords no
+
+# Change to yes to enable challenge-response passwords (beware issues with
+# some PAM modules and threads)
+ChallengeResponseAuthentication no
+
+# Kerberos options
+#KerberosAuthentication no
+#KerberosOrLocalPasswd yes
+#KerberosTicketCleanup yes
+#KerberosGetAFSToken no
+
+# GSSAPI options
+#GSSAPIAuthentication no
+#GSSAPICleanupCredentials yes
+#GSSAPIStrictAcceptorCheck yes
+#GSSAPIKeyExchange no
+
+# Set this to 'yes' to enable PAM authentication, account processing,
+# and session processing. If this is enabled, PAM authentication will
+# be allowed through the ChallengeResponseAuthentication and
+# PAM authentication via ChallengeResponseAuthentication may bypass
+# the setting of "PermitRootLogin without-password".
+# If you just want the PAM account and session checks to run without
+# and ChallengeResponseAuthentication to 'no'.
+UsePAM yes
+
+#AllowAgentForwarding yes
+#AllowTcpForwarding yes
+GatewayPorts no
+X11Forwarding yes
+#X11DisplayOffset 10
+#X11UseLocalhost yes
+#PermitTTY yes
+PrintMotd no
+#PrintLastLog yes
+#TCPKeepAlive yes
+#PermitUserEnvironment no
+#Compression delayed
+#ClientAliveInterval 0
+#ClientAliveCountMax 3
+#UseDNS no
+#PidFile /var/run/sshd.pid
+#MaxStartups 10:30:100
+#PermitTunnel no
+#ChrootDirectory none
+#VersionAddendum none
+
+# no default banner path
+#Banner none
+
+# Allow client to pass locale environment variables
+AcceptEnv LANG LC_*
+
+# override default of no subsystems
+Subsystem sftp	/usr/lib/openssh/sftp-server
+
+# Example of overriding settings on a per-user basis
+#Match User anoncvs
+#	X11Forwarding no
+#	AllowTcpForwarding no
+#	PermitTTY no
+#	ForceCommand cvs server
+
+# 是否开启 DNS 解析验证。SSH 连接会变慢
+UseDNS no
+# 是否允许 root 用户登录 
+# yes 允许 no 禁止  
+# prohibit-password/without-password 只允许密钥登录，禁止密码登录  
+# forced-commands-only 仅允许执行特定命令。
+PermitRootLogin yes 
+# 是否允许密码认证
+PasswordAuthentication yes 
+# 是否允许密钥认证
+PubkeyAuthentication yes 
+
+```
+
+#### 密码认证与 SSH 密钥对
+
+为了使用密钥认证实现免密登录
+
+在任意机器中生成 SSH 密钥对，得到公钥文件（例 `id_rsa.pub`） 和私钥文件 （例 `id_rsa`）
+
+```bash
+ssh -V # 查看版本 使用不同的命令
+# openssh（SSH）： ssh-keygen   或者   ssh-keygen -t rsa
+# SSH2 ： ssh-keygen2 -t rsa
+
+ssh-keygen -t rsa -b 2048
+```
+
+确保服务器允许密钥认证
+
+```bash
+sudo vim /etc/ssh/sshd_config # 修改ssh配置文件
+
+# vim↓↓↓↓
+RSAAuthentication yes 
+PubkeyAuthentication yes 
+AuthorizedKeysFile .ssh/authorized_keys
+# vim↑↑↑↑
+
+# 重启 SSH 服务
+service sshd restart
+```
+
+将公钥复制到服务端的 `AuthorizedKeysFile` 指定的文件中，该文件用于存储允许通过 SSH 访问特定用户帐户的公钥 ，默认为 `~/.ssh/authorized_keys` 文件。
+
+```bash
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+# 或
+ssh-copy-id -i ~/.ssh/id_rsa.pub remote-user@remote-server
+```
+
+客户端得到私钥，尝试通过 SSH 登录到服务器
+
+```
+ssh -i ~/.ssh/id_rsa remote-user@remote-server
+```
+
+服务端将检查 `authorized_keys` 文件中是否存在客户端提供的私钥匹配的公钥。如果匹配成功，则允许登录。
+
+#### 启用/禁用 root 登录
+
+生产环境建议：如果需要长时间以 root 身份操作，使用 sudo -i 或 sudo su，而不是启用 root 登录
+
+```bash
+# 使用sudo权限设置root密码
+sudo passwd root
+
+# 设置root密码后，修改SSH配置允许root登录
+sudo nano /etc/ssh/sshd_config
+
+# vim↓↓↓↓
+PermitRootLogin yes
+# 或者
+PermitRootLogin prohibit-password  # 推荐，只允许密钥登录
+# vim↑↑↑↑
+
+# 重启SSH服务
+sudo systemctl restart ssh
+```
+
 # Linux 常用综合操作
 
 ## 查看 Linux 内核信息
@@ -1010,80 +1267,6 @@ T = teras
 cat /proc/version # 内核与发行版信息
 uname -a # 内核与发行版信息
 cat /etc/*-release # 查看发行版信息
-```
-
-
-
-## 安装 SSH 服务
-
-```shell
-# 更新软件包列表
-sudo apt update
-
-# 安装OpenSSH服务器
-sudo apt install openssh-server
-
-# 启动SSH服务
-sudo systemctl start ssh
-
-# 设置开机自动启动
-sudo systemctl enable ssh
-
-# 检查服务状态
-sudo systemctl status ssh
-
-# 备份原始配置文件
-sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
-
-# 编辑配置文件
-sudo nano /etc/ssh/sshd_config
-```
-
-### 免密登录 SSH 连接
-
-```shell
-ssh -V # 查看版本 使用不同的命令
-# openssh（SSH）： ssh-keygen   或者   ssh-keygen -t rsa
-# SSH2 ： ssh-keygen2 -t rsa
-
-# 当前主机
-ssh-keygen # 创建公钥和密钥。
-# 接着 把本地主机的公钥复制到远程主机的authorized_keys文件上。
-
-# 远程主机
-mv .ssh/id_rsa.pub .ssh/authorized_keys
-chmod 600 .ssh/authorized_keys
-chmod 700 .ssh
-sudo vim /etc/ssh/sshd_config # 修改ssh配置文件
-# vim↓↓↓↓
-RSAAuthentication yes 
-PubkeyAuthentication yes 
-AuthorizedKeysFile .ssh/authorized_keys
-# vim↑↑↑↑
-
-
-# 重启 SSH 服务
-service sshd restart
-```
-
-## 启用/禁用 root 登录
-
-```shell
-# 使用sudo权限设置root密码
-sudo passwd root
-
-# 设置root密码后，修改SSH配置允许root登录
-sudo nano /etc/ssh/sshd_config
-
-PermitRootLogin yes
-# 或者
-PermitRootLogin prohibit-password  # 推荐，只允许密钥登录
-
-# 重启SSH服务
-sudo systemctl restart ssh
-
-# 推荐
-如果需要长时间以root身份操作，使用sudo -i或sudo su
 ```
 
 ## 设置代理
