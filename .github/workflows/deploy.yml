@@ -33,5 +33,4 @@ jobs:
         password: ${{ secrets.YHY_SSH_PWD }}
         script: |
           whoami
-          ls -al
           rsync -avz --delete ./.vitepress/dist /opt/1panel/www/sites/notes.tintinly.top/index/
