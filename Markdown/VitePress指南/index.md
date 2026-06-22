@@ -2,7 +2,7 @@
 order: 3
 ---
 
-# vitepress指南
+# vitepress 指南
 
 官方文档：[VitePress](https://vitepress.dev/zh/)
 
@@ -628,6 +628,52 @@ export default {
 ```
 
 > vitepress 构建检测出来存在死链接 `./index` 表示存在形如 `(xxx)[]` 的空链接
+
+### 生成 sitemap
+
+2026 年该功能暂时还是实验性功能，启用 `sitemap.xml` 文件生成，配置如下
+
+要在 sitemap.xml 中包含 `<lastmod>` 标签，可以搭配启用 lastUpdated 选项。
+
+VitePress 的 sitemap 由 [sitemap](https://www.npmjs.com/package/sitemap) 模块提供支持。可以将该模块支持的选项传递给配置文件中的 sitemap 选项
+
+```ts
+export default {
+  // lastUpdated: true,
+  sitemap: {
+    hostname: 'https://example.com',
+  	lastmodDateOnly: false // sitemap 选项
+  }
+}
+```
+
+可以以使用 `sitemap.transformItems` 钩子来追加或修改 sitemap。
+
+```ts
+export default {
+  sitemap: {
+    hostname: 'https://example.com',
+    transformItems: (items) => {
+      // 添加新项目或修改/筛选现有选项
+      items.push({
+        url: '/extra-page',
+        changefreq: 'monthly',
+        priority: 0.8
+      })
+      return items
+    }
+  }
+}
+```
+
+启用 sitemap 生成后，VitePress 将在构建时在输出目录的根目录中生成 `sitemap.xml` 文件。
+
+生成 sitemap 后，可以将其提交给搜索引擎以改善你的网站的 SEO，例如
+
+- [站点管理_站长工具_百度搜索资源平台](https://ziyuan.baidu.com/site/index)
+-  [Google Search Console](https://search.google.com/search-console)
+- [Bing Webmaster Tools](https://www.bing.com/webmasters)
+- [Yandex Webmaster](https://webmaster.yandex.com/)
 
 ## 常见问题
 

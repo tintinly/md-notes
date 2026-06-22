@@ -20,6 +20,10 @@ export default defineConfig({
   // 添加站点图标
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }],
+    ['meta', { name: 'baidu-site-verification', content: 'codeva-eTJcjCfaWZ' }],
+    ['meta', { name: 'msvalidate.01', content: '7820515C64220B7C5050CC11F5BAA89C' }],
+    ['meta', { name: 'yandex-verification', content: '15698f8119876e26' }],
+    ['meta', { name: 'google-site-verification', content: 'BtnQ0qHU5bwVWyAfqXqNnv3qnRYvwvbu4bjka20IIMc' }],
     // ['script', { src: './utils/copyToClip.js', type: 'module' }]
   ], 
 
@@ -148,5 +152,9 @@ export default defineConfig({
     
   },
 
-  lastUpdated: true
+  lastUpdated: true,
+
+  sitemap: {
+    hostname: 'https://notes.tintinly.top'
+  }
 });

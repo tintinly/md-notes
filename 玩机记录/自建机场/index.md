@@ -48,6 +48,8 @@ bash <(wget -qO- -o- https://github.com/233boy/v2ray/raw/master/install.sh)
 
 [vaxilu/x-ui: 支持多协议多用户的 xray 面板](https://github.com/vaxilu/x-ui)
 
+脚本一键安装
+
 ```shell
 bash <(curl -Ls https://raw.githubusercontent.com/FranzKafkaYu/x-ui/956bf85bbac978d56c0e319c5fac2d6db7df9564/install.sh) 0.3.4.4
 ```

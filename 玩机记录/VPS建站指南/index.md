@@ -107,6 +107,24 @@ bash -c "$(curl -sSL https://resource.fit2cloud.com/1panel/package/v2/quick_star
 
 部署完网站之后，虽然可以直接通过 url 访问我们的网站，但是我们无法通过搜索引擎检索到我们网站的相关内容，所以我们需要进行 网站验证，网站验证主要就是为了让各大搜索引擎收录我们的网站，这样可以让更多的人通过搜索引擎找到我们的网站。
 
-[百度搜索资源平台_共创共享鲜活搜索](https://ziyuan.baidu.com/?castk=LTE%3D)
+### 百度搜索
 
-[Welcome to Google Search Console](https://search.google.com/search-console/welcome)
+控制台：[百度搜索资源平台_共创共享鲜活搜索](https://ziyuan.baidu.com/?castk=LTE%3D)
+
+教程：[自学呀 - 网站建设|网站SEO|关键词排名优化|一站式服务](https://www.zixueya.com/)
+
+1. 登录：访问官网进入平台首页，右上角登录。（若无账号需先注册）
+2. 添加网站：点击【用户中心】-【站点管理】-【添加网站】，输入你的网站域名。
+3. 所有权验证：
+
+### 谷歌搜索
+
+控制台：[Welcome to Google Search Console](https://search.google.com/search-console/welcome)
+
+教程：
+
+[google search console 终极教程 - 知乎](https://zhuanlan.zhihu.com/p/150718629)
+
+[谷歌SEO教程：手把手教你做SEO优化 2025 - 知乎](https://zhuanlan.zhihu.com/p/1931270570923788163)
+
+[谷歌SEO服务 | Google优化代运营公司- 鸭老师SEO](https://www.ylsseo.com/)
