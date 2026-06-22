@@ -26,9 +26,7 @@ function buildNavData(): NavItem[] {
   const catMap = new Map<string, Set<string>>()
 
   for (const p of allPages) {
-    // 跳过自身 (./index.md)
     const parts = p.replace('./', '').replace('/index.md', '').split('/')
-
     const cat = parts[0]
     
     // 跳过隐藏目录和特殊目录
