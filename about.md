@@ -13,9 +13,9 @@ pageClass: about-page-class
 
  <Badge type="tip" text="tintinly" />
 
-> 悟已往之不谏，知来者之可追
+> 悟已往之不谏，知来者之可追。
 > 
-> <p align="right">——《归去来兮辞》· 陶渊明 </p>
+> <p align="right">——陶渊明《归去来兮辞》  </p>
 
 ### 关于我 · About Me
 
