@@ -511,7 +511,7 @@ gitGraph
    commit
 ```
 
-# 参考链接
+## 参考资料
 
 [Markdown 增强](https://vuepress-theme-hope.github.io/v1/md-enhance/zh/)
 

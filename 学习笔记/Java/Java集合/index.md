@@ -1171,7 +1171,7 @@ final V putVal(K key, V value, boolean onlyIfAbsent) {
 }
 ```
 
-### 参考文献
+## 参考资料
 
 [【Java 进阶】万字详解集合框架：从原理到源码，彻底搞懂 List、Set、Map-腾讯云开发者社区-腾讯云](https://cloud.tencent.com/developer/article/2615493)
 

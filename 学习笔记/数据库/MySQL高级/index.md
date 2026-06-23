@@ -1593,7 +1593,7 @@ select * from x$user_summary; # 输出原始数据，便于通过程序和工具
 
 > 应该启用Performance Schema，按需动态地启用插桩和消费者表，通过它们提供的数据可以解决可能存在的任何问题——查询性能、锁定、磁盘I/O、错误等。充分利用sys schema是解决常见问题的捷径。这样做将为你提供一种可以直接从MySQL中测量性能的方法。——《MySQL高性能》
 
-## 参考文献
+## 参考资料
 
  [JavaGuide（Java 面试 & 后端通用面试指南） | JavaGuide](https://javaguide.cn/)
 

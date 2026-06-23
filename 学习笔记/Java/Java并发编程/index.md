@@ -6148,7 +6148,7 @@ ForkJoinTask 有两个子类：RecursiveAction 和 RecursiveTask。
 * 异步：生产者执行完任务后只需要 put，消费者获取任务只需要 get ，异步的形式支持高并发，将一个耗时的流程拆成生产和消费两个阶段。
 * 支持分布式：生产者和消费者通过队列进行通讯，所以不需要运行在同一台机器上，在分布式环境中可以通过 redis 的 list 作为队列。
 
-# 参考文献
+# 参考资料
 
  [《深入浅出 Java 多线程》](https://redspider.gitbook.io/concurrent/) 或 [Introduction | 深入浅出 Java 多线程](https://redspider.gitbook.io/concurrent)
 

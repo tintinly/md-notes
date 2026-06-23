@@ -202,9 +202,7 @@ TypeScript 是由 Microsoft 开发的开源编程语言，TypeScript 是 JavaScr
 
 其他优势：现代化的、新颖的设计样式支持、编辑器集成提供良好的开发体验、官方 UI 组件库提供示例选择。
 
-
-
-# 参考资料
+## 参考资料
 
 [【Nuxt.js】初识与搭建（一） - 知乎](https://zhuanlan.zhihu.com/p/1917360256545163174)
 

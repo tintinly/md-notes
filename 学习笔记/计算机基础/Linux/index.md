@@ -1365,9 +1365,7 @@ $ sudo badblocks -nsv /dev/sda > badsectors.txt
 
 ![image-20260107231142388](assets/image-20260107231142388.png)
 
-
-
-# 参考资料
+## 参考资料
 
 [Linux 教程 | 菜鸟教程](https://www.runoob.com/linux/linux-tutorial.html)
 

@@ -456,7 +456,7 @@ language: zh-CN
 
 [Welcome to Google Search Console](https://search.google.com/search-console/welcome)
 
-# 参考资料
+## 参考资料
 
 [文档 | Hexo](https://hexo.io/zh-cn/docs/)
 

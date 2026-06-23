@@ -138,7 +138,7 @@ server {
 
 ![image-20260504014220140](assets/image-20260504014220140.png)
 
-# 参考资料
+## 参考资料
 
 [VPS搭建v2ray科学上网｜自建机场｜附各平台使用教程 - 科技小飞哥](https://www.techxiaofei.com/post/vpn/vpn/#1-windows)
 

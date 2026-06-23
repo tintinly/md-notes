@@ -362,7 +362,7 @@ OpenClaw 的 Heartbeat 机制会显著消耗 Token。
 openclaw uninstall
 ```
 
-# 参考资料
+## 参考资料
 
 [OpenClaw 容器化部署指南](https://bujic.cc/blogs/OpenClaw 部署指南)
 

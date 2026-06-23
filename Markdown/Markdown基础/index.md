@@ -839,7 +839,7 @@ Markdown 不能直接插入特殊符号，但可以复制粘贴，或者使用 H
 | !    | 感叹号                                                       |
 | \|   | 竖线 （在表格中显示竖线，详见 [竖线转义](#竖线转义)）         |
 
-# 参考链接
+## 参考资料
 
 [CommonMark - CommonMark 规范](https://commonmark.cn/)
 

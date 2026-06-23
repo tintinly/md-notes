@@ -906,7 +906,7 @@ worker_cpu_affinity 0000001 00000010 00000100 0000100
 
 2, 而如果是 HTTP 作 为反向代理来说，最大并发数量应该是 worker_connections *  worker_processes/4
 
-# 参考资料
+## 参考资料
 
 [Nginx 从入门到实践，万字详解！_SHERlocked_93 的博客-NGINX 开源社区](https://www.nginx.org.cn/article/detail/545)
 

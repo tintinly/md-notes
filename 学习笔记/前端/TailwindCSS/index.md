@@ -329,7 +329,7 @@ Tailwind CSS 是一个 **编译时框架 (Build-Time Framework)**，它的魔法
    - 最后，它将 CSS 声明用修饰符对应的伪类或媒体查询包裹起来。
 6. 注入/打包：引擎将所有生成好的 CSS 规则聚合成一个单一的 CSS 文件，然后 Vite 将这个文件通过 HMR 注入到开发中的页面，或在生产构建时将其打包。
 
-# 参考资料
+## 参考资料
 
 [1 套封神！Tailwind CSS 全链路教程，实战到源码重塑 CSS 认知_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1rcCbB4EWS?vd_source=648539de92dcdfbe1ca5bd81d6d559d2&spm_id_from=333.788.videopod.sections)
 

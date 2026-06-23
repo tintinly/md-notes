@@ -4788,7 +4788,7 @@ DAO 模式主要包含三个核心部分：
 
    
 
-# 参考资料
+## 参考资料
 
 [♥ 设计模式知识体系详解 ♥ | Java 全栈知识体系](https://www.pdai.tech/md/dev-spec/pattern/1_overview.html)
 

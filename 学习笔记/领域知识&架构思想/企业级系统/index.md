@@ -121,7 +121,7 @@ LIMS系统（Laboratory Information Management System，实验室信息管理系
 
 典型厂家：元宇、松虎、赛印、博什兰、白码、牵翼云。
 
-# 参考资料
+## 参考资料
 
 [一文扫盲 OA、CRM、ERP、MES、HRM、SCM、WMS、KMS 等 B 端系统_erp oa crm saas cms-CSDN 博客](https://blog.csdn.net/u012562943/article/details/131234732)
 

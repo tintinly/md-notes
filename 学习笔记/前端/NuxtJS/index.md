@@ -2109,6 +2109,6 @@ docker run -itd --name nuxt-ssg -p 80:80 -v /opt/nuxt-study/.output/public:/usr/
 | `example.com/admin` | 后台静态资源目录 | 纯 Vue/Vite (SPA)            |
 | `example.com/api`   | 后端真实 API     | Java / Python / Go / Node.js |
 
-# 参考资料
+## 参考资料
 
 [Vue 开发者为什么要学 Nuxt？从 SSR 到 SEO 做一个完整项目_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV19odDBrEmj)

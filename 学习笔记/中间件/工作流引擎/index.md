@@ -102,6 +102,6 @@ BPMN2.0相对于BPMN1.0最大的区别就是定义、规范了流程引擎的执
 
 ![img](assets/v2-d1d2769a122c2e9e88fdea04e905d0b5_1440w.webp)
 
-# 参考资料
+## 参考资料
 
 [BPMN（业务流程建模符号）入门到掌握，这一篇就够了](https://www.zhihu.com/tardis/zm/art/365967273?source_id=1005)
