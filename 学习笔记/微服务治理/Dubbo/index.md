@@ -1,73 +1,16 @@
-# 1 基础知识
+# 基础知识
 
-## 1.1 分布式基础理论
+## dubbo 概述
 
-###　1.1.1 什么是分布式系统
-
-《分布式系统原理与范型》定义：
-
-“分布式系统是若干独立计算机的集合，这些计算机对于用户来说就像单个相关系统”
-
-分布式系统（distributed system）是建立在网络之上的软件系统。
-
-随着互联网的发展，网站应用的规模不断扩大，常规的垂直应用架构已无法应对，分布式服务架构以及流动计算架构势在必行，亟需**一个治理系统**确保架构有条不紊的演进。
-
-### 1.1.2 应用架构演变
-
-![image-20211210144041865](assets/image-20211210144041865.png)
-
-* 单一应用架构
-
-  当网站流量很小时，只需一个应用，将所有功能都部署在一起，以减少部署节点和成本。此时，用于简化增删改查工作量的数据访问框架(ORM)是关键。
-
-  优点：简单易用,小型系统
-
-  缺点：不利于性能拓展,不利于升级维护,不利于协同开发
-
-* 垂直应用架构
-
-  当访问量逐渐增大，单一应用增加机器带来的加速度越来越小，将应用拆成互不相干的几个应用，以提升效率。此时，用于加速前端页面开发的Web框架(MVC)是关键。
-
-  优点：一定程度上解决单一应用框架的缺点
-
-  缺点：公用模块无法重复利用，开发性的浪费;界面与业务逻辑未分离;大量应用之间需要交互。
-
-* 分布式服务架构
-
-  当垂直应用越来越多，应用之间交互不可避免，将核心业务抽取出来，作为独立的服务，逐渐形成稳定的服务中心，使前端应用能更快速的响应多变的市场需求。此时，用于提高业务复用及整合的**分布式服务框架**(RPC）【远程过程调用】是关键。
-
-  ![image-20211210144708799](assets/image-20211210144708799.png)
-
-* 流动计算架构
-
-  当服务越来越多，容量的评估，小服务资源的浪费等问题逐渐显现，此时需增加一个调度中心基于访问压力实时管理集群容量，提高集群利用率。此时，用于**提高机器利用率的资源调度和治理中心**(SOA)[ Service Oriented Architecture]是
-
-  ![image-20211210145214172](assets/image-20211210145214172.png)
-
-### 1.1.3 RPC
-
-RPC【Remote Procedure Call】是指远程过程调用，是一种进程间通信方式，他是一种**技术的思想**，而不是规范。它允许程序调用另一个地址空间（通常是共享网络的另一台机器上）的过程或函数，而不用程序员显式编码这个远程调用的细节。即程序员无论是调用本地的还是远程的函数，本质上编写的调用代码基本相同。
-
-![image-20211210145449891](assets/image-20211210145449891.png)
-
-**RPC两个核心模块：通讯，序列化。**
-
-RPC框架有很多如：
-dubbo、gRPC、、Thrift、HSF（HighSpeedServiceFramework）。
-
-
-
-## 1.2 dubbo核心概念
-
-### 1.2.1 简介
+### 简介
 
 [Apache Dubbo](https://dubbo.apache.org/zh/)
 
-Apache Dubbo (incubating) |ˈdʌbəʊ| 是一款高性能、轻量级的开源Java RPC框架，它提供了三大核心能力：面向接口的远程方法调用，智能容错和负载均衡，以及服务自动注册和发现。
+Apache Dubbo (incubating) |ˈdʌbəʊ| 是一款高性能、轻量级的开源 Java RPC 框架，它提供了三大核心能力：面向接口的远程方法调用，智能容错和负载均衡，以及服务自动注册和发现。
 
-### 1.2.2 特性
+### 特性
 
-* 面向接口代理的高性能RPC调用
+* 面向接口代理的高性能 RPC 调用
 
 提供高性能的基于代理的远程调用能力，服务以接口为粒度，为开发者屏蔽远程调用底层细节。
 
@@ -89,7 +32,7 @@ Apache Dubbo (incubating) |ˈdʌbəʊ| 是一款高性能、轻量级的开源Ja
 
 * 可视化的服务治理与运维
 
-### 1.2.3 设计架构
+### 设计架构
 
 ![image-20211210155924190](assets/image-20211210155924190.png)
 
@@ -98,39 +41,44 @@ Apache Dubbo (incubating) |ˈdʌbəʊ| 是一款高性能、轻量级的开源Ja
 * 注册中心（Registry）：注册中心返回服务提供者地址列表给消费者，如果有变更，注册中心将基于长连接推送变更数据给消费者
 * 监控中心（Monitor）：服务消费者和提供者，在内存中累计调用次数和调用时间，定时每分钟发送一次统计数据到监控中心
 
+### 与 SpringCloud 的区别
 
+- 定位：SpringCloud 定位为微服务架构下的一站式解决方案；Dubbo 是 SOA 时代的产物，它的关注点主要在于服务的调用和治理
+- 生态环境：Spring 平台，具备更加完善的生态体系；而 Dubbo 一开始只是做 RPC 远程调用，生态相对匮乏，现在逐渐丰富起来。
+- HTTP 调用方式不同：SpringCloud 是采用 Http 协议做远程调用，接口一般是 Rest 风格，比较灵活；Dubbo 是采用 Dubbo 协议，接口一般是 Java 的 Service 接口，格式固定。但调用时采用 Netty 的 NIO 方式，性能较好。
+- 组件差异：例如 SpringCloud 注册中心一般用 Eureka，而 Dubbo 用的是 Zookeeper
 
-## 1.3 dubbo环境搭建
+## dubbo 环境搭建
 
-### 1.3.1 安装注册中心【windows】-安装zookeeper
+### 安装注册中心【windows】-安装 zookeeper
 
-### 1.3.2　安装监控中心 【windows】-安装dubbo-admin管理控制台
+### 安装监控中心 【windows】-安装 dubbo-admin 管理控制台
 
-dubbo本身并不是一个服务软件。它其实就是一个jar包能够帮你的java程序连接到zookeeper，并利用zookeeper消费、提供服务。所以你不用在Linux上启动什么dubbo服务。
+dubbo 本身并不是一个服务软件。它其实就是一个 jar 包能够帮你的 java 程序连接到 zookeeper，并利用 zookeeper 消费、提供服务。所以你不用在 Linux 上启动什么 dubbo 服务。
 
-但是为了让用户更好的管理监控众多的dubbo服务，官方提供了一个可视化的监控程序，不过这个监控即使不装也不影响使用。
+但是为了让用户更好的管理监控众多的 dubbo 服务，官方提供了一个可视化的监控程序，不过这个监控即使不装也不影响使用。
 
-1. 下载dubbo-admin
+1. 下载 dubbo-admin
 
 https://github.com/apache/incubator-dubbo-ops
 
-2. 进入目录，修改dubbo-admin配置
+2. 进入目录，修改 dubbo-admin 配置
 
-修改 src\main\resources\application.properties 指定zookeeper地址
+修改 src\main\resources\application.properties 指定 zookeeper 地址
 
-3. 打包dubbo-admin
+3. 打包 dubbo-admin
 
-mvn clean package -Dmaven.test.skip=true 
+mvn clean package -Dmaven.test.skip = true 
 
-4. 运行dubbo-admin
+4. 运行 dubbo-admin
 
 java -jar dubbo-admin-0.0.1-SNAPSHOT.jar
 
-默认使用root/root 登陆
+默认使用 root/root 登陆
 
 ![image-20211211132129841](assets/image-20211211132129841.png)
 
-## 1.4 dubbo-helloworld
+## dubbo 入门
 
 ### 需求
 
@@ -140,9 +88,9 @@ java -jar dubbo-admin-0.0.1-SNAPSHOT.jar
 
 ![image-20211211154224081](assets/image-20211211154224081.png)
 
-现在这样是无法进行调用的。我们gmall-order-web引入了gmall-interface，但是interface的实现是gmall-user，我们并没有引入，而且实际他可能还在别的服务器中。
+现在这样是无法进行调用的。我们 gmall-order-web 引入了 gmall-interface，但是 interface 的实现是 gmall-user，我们并没有引入，而且实际他可能还在别的服务器中。
 
-### 使用dubbo改造
+### 使用 dubbo 改造
 
 1. 将服务提供者注册到注册中心（暴露服务）
 
@@ -280,33 +228,33 @@ public class OrderController {
 
 
 
-## 1.5 监控中心
+## 监控中心
 
-### 1.5.1 dubbo-dmain
+### dubbo-dmain
 
 图形化的服务管理页面；安装时需要指定注册中心地址，即可从注册中心中获取到所有的提供者/消费者进行配置管理
 
 ![image-20211211182610534](assets/image-20211211182610534.png)
 
-### 1.5.2 dubbo-monitor-simple
+### dubbo-monitor-simple
 
 简单的监控中心；
 
-1. 下载dubbo-ops
+1. 下载 dubbo-ops
 
 2. 修改配置指定注册中心地址
 
 进入 dubbo-monitor-simple\src\main\resources\conf
 
-修改 dubbo.properties文件
+修改 dubbo.properties 文件
 
 ​          ![image-20211211184002639](assets/image-20211211184002639.png)
 
-3. 打包maven工程
+3. 打包 maven 工程
 
-4. 解压 tar.gz 文件，并运行start.bat
+4. 解压 tar.gz 文件，并运行 start.bat
 
-5. 启动访问8080
+5. 启动访问 8080
 
    ![image-20211211184132238](assets/image-20211211184132238.png)
 
@@ -318,9 +266,9 @@ public class OrderController {
 <!--    <dubbo:monitor address="127.0.0.1:7070"/>-->
 ```
 
-## 1.6 整合springboot
+## 整合 springboot
 
-1. 引入spring-boot-starter以及dubbo和curator的依赖
+1. 引入 spring-boot-starter 以及 dubbo 和 curator 的依赖
 
 ```xml
 <dependency>
@@ -332,7 +280,7 @@ public class OrderController {
 
 ![image-20211211202727927](assets/image-20211211202727927.png)
 
-2. 配置application.properties
+2. 配置 application.properties
 
    提供者配置：
 
@@ -369,9 +317,9 @@ public class OrderController {
    dubbo.scan.base-package=com.tintin.gmall
    ```
 
-3. dubbo注解
+3. dubbo 注解
    @Service、@Reference
-   【如果没有在配置中写dubbo.scan.base-package,还需要使用@EnableDubbo注解】
+   【如果没有在配置中写 dubbo.scan.base-package, 还需要使用@EnableDubbo 注解】
 
 ```java
 @com.alibaba.dubbo.config.annotation.Service//暴露服务
@@ -386,45 +334,43 @@ public class OrderServiceImpl implements OrderService {
 	UserService userService;
 ```
 
-# 2 dubbo配置
+## dubbo 配置
 
-## 2.1 配置原则
+### 配置原则
 
 ![image-20211212201047892](assets/image-20211212201047892.png)
 
 JVM 启动 -D 参数优先，这样可以使用户在部署和启动时进行参数重写，比如在启动时需改变协议的端口。
 
-XML 次之，如果在 XML 中有配置，则 dubbo.properties 中的相应配置项无效。(与springboot整合是,即为application.properties)
+XML 次之，如果在 XML 中有配置，则 dubbo.properties 中的相应配置项无效。(与 springboot 整合是, 即为 application.properties)
 
 Properties 最后，相当于缺省值，只有 XML 没有配置时，dubbo.properties 的相应配置项才会生效，通常用于共享公共配置，比如应用名。
 
-dubbo推荐在Provider上尽量多配置Consumer端属性：
+dubbo 推荐在 Provider 上尽量多配置 Consumer 端属性：
 
 1. 作服务的提供者，比服务使用方更清楚服务性能参数，如调用的超时时间，合理的重试次数，等等
 
-2. 在Provider配置后，Consumer不配置则会使用Provider的配置值，即Provider配置可以作为Consumer的缺省值。否则，Consumer会使用Consumer端的全局设置，这对于Provider不可控的，并且往往是不合理的
+2. 在 Provider 配置后，Consumer 不配置则会使用 Provider 的配置值，即 Provider 配置可以作为 Consumer 的缺省值。否则，Consumer 会使用 Consumer 端的全局设置，这对于 Provider 不可控的，并且往往是不合理的
 
-## 2.2 配置覆盖原则
+### 配置覆盖原则
 
-以timeout为例，显示了酌的查找顺序，其它 retries, loadbalance, actives 等类似：
+以 timeout 为例，显示了酌的查找顺序，其它 retries, loadbalance, actives 等类似：
 方法级优先，接口级次之，全局配置再次之。
 如果级别一样，则消费方优先，提供方次之。
 其中，服务提供方配置，通过 URL 经由注册中心传递给消费方。
 
 ![dubbo-config-override](assets/dubbo-config-override.jpg)
 
-## 2.3 配置消费者/提供者统一规则
+### 配置消费者/提供者统一规则
 
 ```xml
 <!--check启动时检查提供者是否存在，true报错，false忽略-->
     <dubbo:consumer check="false"/>
 ```
 
+### 重试次数
 
-
-## 2.4 重试次数
-
-失败自动切换，当出现失败，重试其它服务器，但重试会带来更长延迟。可通过 retries="2" 来设置重试次数(不含第一次)。
+失败自动切换，当出现失败，重试其它服务器，但重试会带来更长延迟。可通过 retries = "2" 来设置重试次数(不含第一次)。
 
 ![image-20211213121238202](assets/image-20211213121238202.png)
 
@@ -440,11 +386,11 @@ dubbo推荐在Provider上尽量多配置Consumer端属性：
 
 ```
 
-## 2.5 超时时间
+### 超时时间
 
 由于网络或服务端不可靠，会导致调用出现一种不确定的中间状态（超时）。为了避免超时导致客户端资源（线程）挂起耗尽，必须设置超时时间。
 
-Dubbo消费端
+Dubbo 消费端
 
 ```xml
 全局超时配置
@@ -456,9 +402,9 @@ Dubbo消费端
 </dubbo:reference>
 ```
 
-Dubbo服务端
+Dubbo 服务端
 
-  
+ 
 
 ```xml
 全局超时配置
@@ -471,7 +417,7 @@ Dubbo服务端
 
 ```
 
-## 2.6 版本号
+### 版本号
 
 当一个接口实现，出现不兼容升级时，可以用版本号过渡，版本号不同的服务相互间不引用。
 
@@ -501,7 +447,7 @@ Dubbo服务端
 
 ```
 
-## 2.7 本地存根
+### 本地存根
 
 在 Dubbo 中利用本地存根在客户端执行部分逻辑
 
@@ -535,7 +481,7 @@ public class UserServiceStub implements UserService {
 
 ```
 
-## 2.8 整合springboot
+### 整合 springboot
 
 导入配置文件方式
 
@@ -600,13 +546,11 @@ public class DubboProviderConfig {
 }
 ```
 
+## dubbo 高可用
 
+### zookeeper 宕机与 dubbo 直连
 
-# 3 高可用
-
-## 3.1 zookeeper宕机与dubbo直连
-
-现象：zookeeper注册中心宕机，还可以消费dubbo暴露的服务。
+现象：zookeeper 注册中心宕机，还可以消费 dubbo 暴露的服务。
 
 原因：健壮性
 
@@ -619,7 +563,7 @@ public class DubboProviderConfig {
 
 高可用：通过设计，减少系统不能提供服务的时间；
 
-dubbo直连
+dubbo 直连
 
 ![image-20211212203940739](assets/image-20211212203940739.png)
 
@@ -628,31 +572,31 @@ dubbo直连
 	UserService userService;
 ```
 
-## 3.2 集群下dubbo负载均衡配置
+### 集群下 dubbo 负载均衡配置
 
 在集群负载均衡时，Dubbo 提供了多种均衡策略，缺省为 random 随机调用。
 
 负载均衡策略
 
-* Random LoadBalance随机，按权重设置随机概率。
+* Random LoadBalance 随机，按权重设置随机概率。
 
 在一个截面上碰撞的概率高，但调用量越大分布越均匀，而且按概率使用权重后也比较均匀，有利于动态调整提供者权重。
 
 ![image-20211212204836588](assets/image-20211212204836588.png)
 
-* RoundRobin LoadBalance轮循，按公约后的权重设置轮循比率。
+* RoundRobin LoadBalance 轮循，按公约后的权重设置轮循比率。
 
 存在慢的提供者累积请求的问题，比如：第二台机器很慢，但没挂，当请求调到第二台时就卡在那，久而久之，所有请求都卡在调到第二台上。
 
 ![image-20211212205011395](assets/image-20211212205011395.png)
 
-* LeastActive LoadBalance最少活跃调用数，相同活跃数的随机，活跃数指调用前后计数差。
+* LeastActive LoadBalance 最少活跃调用数，相同活跃数的随机，活跃数指调用前后计数差。
 
 使慢的提供者收到更少请求，因为越慢的提供者的调用前后计数差会越大。
 
 ![image-20211212205055291](assets/image-20211212205055291.png)
 
-* ConsistentHash LoadBalance一致性 Hash，相同参数的请求总是发到同一提供者。
+* ConsistentHash LoadBalance 一致性 Hash，相同参数的请求总是发到同一提供者。
 
 当某一台提供者挂时，原本发往该提供者的请求，基于虚拟节点，平摊到其它提供者，不会引起剧烈变动。算法参见：http://en.wikipedia.org/wiki/Consistent_hashing
 缺省只对第一个参数 Hash，如果要修改，请配置 <dubbo:parameter key="hash.arguments" value="0,1" />
@@ -667,9 +611,9 @@ dubbo直连
 	UserService userService;
 ```
 
-## 3.3 整合hystrix，服务熔断与降级处理
+### 整合 hystrix，服务熔断与降级处理
 
-### 3.3.1 服务降级
+#### 服务降级
 
 **当服务器压力剧增的情况下，根据实际业务情况及流量，对一些服务和页面有策略的不处理或换种简单的方式处理，从而释放服务器资源以保证核心交易正常运作或高效运作。**
 
@@ -688,17 +632,17 @@ registry.register(URL.valueOf("override://0.0.0.0/com.foo.BarService?category=co
 
 其中：
 
-* 屏蔽 mock=force:return+null 表示消费方对该服务的方法调用都直接返回 null 值，不发起远程调用。用来屏蔽不重要服务不可用时对调用方的影响。
+* 屏蔽 mock = force: return+null 表示消费方对该服务的方法调用都直接返回 null 值，不发起远程调用。用来屏蔽不重要服务不可用时对调用方的影响。
 
-*  容错 还可以改为 mock=fail:return+null 表示消费方对该服务的方法调用在失败后，再返回 null 值，不抛异常。用来容忍不重要服务不稳定时对调用方的影响。
+*  容错 还可以改为 mock = fail: return+null 表示消费方对该服务的方法调用在失败后，再返回 null 值，不抛异常。用来容忍不重要服务不稳定时对调用方的影响。
 
-### 3.3.2 集群容错
+#### 集群容错
 
 在集群调用失败时，Dubbo 提供了多种容错方案，缺省为 failover 重试。
 
 **Failover Cluster**
 
-失败自动切换，当出现失败，重试其它服务器。通常用于读操作，但重试会带来更长延迟。可通过 retries="2" 来设置重试次数(不含第一次)。
+失败自动切换，当出现失败，重试其它服务器。通常用于读操作，但重试会带来更长延迟。可通过 retries = "2" 来设置重试次数(不含第一次)。
 
 ```xml
 重试次数配置如下：
@@ -732,7 +676,7 @@ registry.register(URL.valueOf("override://0.0.0.0/com.foo.BarService?category=co
 
 **Forking Cluster**
 
-并行调用多个服务器，只要一个成功即返回。通常用于实时性要求较高的读操作，但需要浪费更多服务资源。可通过 forks="2" 来设置最大并行数。
+并行调用多个服务器，只要一个成功即返回。通常用于实时性要求较高的读操作，但需要浪费更多服务资源。可通过 forks = "2" 来设置最大并行数。
 
 **Broadcast Cluster**
 
@@ -748,12 +692,12 @@ registry.register(URL.valueOf("override://0.0.0.0/com.foo.BarService?category=co
 <dubbo:reference cluster="failsafe" />
 ```
 
-### 3.3.3 整合hystrix
+#### 整合 hystrix
 
-Hystrix 旨在通过控制那些访问远程系统、服务和第三方库的节点，从而对延迟和故障提供更强大的容错能力。Hystrix具备拥有回退机制和断路器功能的线程和信号隔离，请求缓存和请求打包，以及监控和配置等功能
+Hystrix 旨在通过控制那些访问远程系统、服务和第三方库的节点，从而对延迟和故障提供更强大的容错能力。Hystrix 具备拥有回退机制和断路器功能的线程和信号隔离，请求缓存和请求打包，以及监控和配置等功能
 
-1. 配置spring-cloud-starter-netflix-hystrix
-   spring boot官方提供了对hystrix的集成，直接在pom.xml里加入依赖：
+1. 配置 spring-cloud-starter-netflix-hystrix
+   spring boot 官方提供了对 hystrix 的集成，直接在 pom.xml 里加入依赖：
 
    ```xml
            <dependency>
@@ -763,7 +707,7 @@ Hystrix 旨在通过控制那些访问远程系统、服务和第三方库的节
            </dependency>
    ```
 
-然后在Application类上增加@EnableHystrix来启用hystrix starter：
+然后在 Application 类上增加@EnableHystrix 来启用 hystrix starter：
 
 ```java
 @SpringBootApplication
@@ -773,8 +717,8 @@ public class ProviderApplication {
 
 
 
-2. 配置Provider端
-   在Dubbo的Provider上增加@HystrixCommand配置，这样子调用就会经过Hystrix代理。
+2. 配置 Provider 端
+   在 Dubbo 的 Provider 上增加@HystrixCommand 配置，这样子调用就会经过 Hystrix 代理。
 
    ```java
    @Service(version = "1.0.0")
@@ -793,8 +737,8 @@ public class ProviderApplication {
 
    
 
-3、配置Consumer端
-对于Consumer端，则可以增加一层method调用，并在method上配置@HystrixCommand。当调用出错时，会走到fallbackMethod = "reliable"的调用里。
+3、配置 Consumer 端
+对于 Consumer 端，则可以增加一层 method 调用，并在 method 上配置@HystrixCommand。当调用出错时，会走到 fallbackMethod = "reliable" 的调用里。
 
 ```java
 @Reference(version = "1.0.0")
@@ -809,29 +753,27 @@ public String reliable(String name) {
 }
 ```
 
+## dubbo 原理
 
-
-# 4 dubbo原理
-
-## 4.1 RPC原理
+### RPC 原理
 
 ![image-20211214164412399](assets/image-20211214164412399.png)
 
-一次完整的RPC调用流程（同步调用，异步另说）如下： 
+一次完整的 RPC 调用流程（同步调用，异步另说）如下： 
 1）服务消费方（client）调用以本地调用方式调用服务； 
-2）client stub接收到调用后负责将方法、参数等组装成能够进行网络传输的消息体； 
-3）client stub找到服务地址，并将消息发送到服务端； 
-4）server stub收到消息后进行解码； 
-5）server stub根据解码结果调用本地的服务； 
-6）本地服务执行并将结果返回给server stub； 
-7）server stub将返回结果打包成消息并发送至消费方； 
-8）client stub接收到消息，并进行解码； 
+2）client stub 接收到调用后负责将方法、参数等组装成能够进行网络传输的消息体； 
+3）client stub 找到服务地址，并将消息发送到服务端； 
+4）server stub 收到消息后进行解码； 
+5）server stub 根据解码结果调用本地的服务； 
+6）本地服务执行并将结果返回给 server stub； 
+7）server stub 将返回结果打包成消息并发送至消费方； 
+8）client stub 接收到消息，并进行解码； 
 9）服务消费方得到最终结果。
-RPC框架的目标就是要2~8这些步骤都封装起来，这些细节对用户来说是透明的，不可见的。
+RPC 框架的目标就是要 2~8 这些步骤都封装起来，这些细节对用户来说是透明的，不可见的。
 
-## 4.2 netty通信原理
+### netty 通信原理
 
-Netty是一个异步事件驱动的网络应用程序框架， 用于快速开发可维护的高性能协议服务器和客户端。它极大地简化并简化了TCP和UDP套接字服务器等网络编程。
+Netty 是一个异步事件驱动的网络应用程序框架， 用于快速开发可维护的高性能协议服务器和客户端。它极大地简化并简化了 TCP 和 UDP 套接字服务器等网络编程。
 
 BIO：(Blocking IO)
 
@@ -841,17 +783,15 @@ NIO (Non-Blocking IO)
 
 ![image-20211214165144476](assets/image-20211214165144476.png)
 
-Selector 一般称 为**选择器** ，也可以翻译为 **多路复用器，**
+Selector 一般称 为 **选择器** ，也可以翻译为 **多路复用器，**
 
 Connect（连接就绪）、Accept（接受就绪）、Read（读就绪）、Write（写就绪）
 
-Netty基本原理：
+Netty 基本原理：
 
 ![image-20211214165122178](assets/image-20211214165122178.png)
 
-## 4.3 dubbo原理
-
-### 4.3.1 框架设计
+### dubbo 框架设计
 
 ![image-20211214165553318](assets/image-20211214165553318.png)
 
@@ -865,18 +805,22 @@ Netty基本原理：
 * transport 网络传输层：抽象 mina 和 netty 为统一接口，以 Message 为中心，扩展接口为 Channel, Transporter, Client, Server, Code
 * serialize 数据序列化层：可复用的一些工具，扩展接口为 Serialization, ObjectInput, ObjectOutput, ThreadPool
 
-### 4.3.2 启动解析、加载配置信息
+### dubbo 启动解析、加载配置信息
 
 ![image-20211214204446559](assets/image-20211214204446559.png)
 
-### 4.3.3 服务暴露
+### dubbo 服务暴露
 
 ![image-20211214204743246](assets/image-20211214204743246.png)
 
-### 4.3.4 服务引用
+### dubbo 服务引用
 
 ![image-20211214204553052](assets/image-20211214204553052.png)
 
-### 4.3.5 服务调用
+### dubbo 服务调用
 
 ![image-20211214204620629](assets/image-20211214204620629.png)
+
+## 参考资料
+
+[SpringCloud 与 Dubbo 的区别(全面详解)深入浅出_dubbo 和 spring cloud 区别-CSDN 博客](https://blog.csdn.net/huangtenglong/article/details/131144602)

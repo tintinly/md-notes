@@ -73,6 +73,7 @@ vitepress/theme-default/styles/vars.css
 /* pageClass 相关 */
 .about-page-class p img{
   display: inline;
-  margin: 0 2px;
+  margin: 0 6px;
 }
+
 

@@ -254,7 +254,7 @@ binlog（归档日志）保证了MySQL集群架构数据的一致性。
 
 ## 参考文章
 
-[面向对象的七大设计原则 - 详解 - yfceshi - 博客园](https://www.cnblogs.com/yfceshi/p/19024842#一、开闭原则（The Open-Closed Principle ，OCP）)
+[面向对象的七大设计原则 - 详解 - yfceshi - 博客园](https://www.cnblogs.com/yfceshi/p/19024842)
 
 [JAVA七大设计原则总结(详解篇)_java架构设计原则-CSDN博客](https://blog.csdn.net/little__SuperMan/article/details/104596393)
 

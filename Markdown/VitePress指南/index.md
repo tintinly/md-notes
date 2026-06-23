@@ -675,3 +675,15 @@ export default {
 问题：Element is missing end tag.
 
 解决方法：使用正则表达式 `<[a-zA-Z][a-zA-Z0-9]*[^>]*>` 搜索，逐个排查。
+
+## 参考网站与资料
+
+[使用 VitePress 打造个人前端导航网站 | 茂茂物语](https://notes.fe-mm.com/daily-notes/issue-38#使用-vitepress-打造个人前端导航网站)
+
+[VitePress简介 | 卡比~ & My Blog](https://huyipu.github.io/VitePress/快速上手/VitePress简介.html)
+
+[VitePress快速上手 | 卡卡罗特](https://blog.share888.top/note/front-end/vitePress/01-vitePress安装.html)
+
+[VitePress美化 | SWKende](https://swkende.github.io/swkende-doc/01_VitePress/02_VitePress美化.html#五彩纸屑)
+
+[正心全栈编程-文档站](https://docs.zhengxinonly.com/)

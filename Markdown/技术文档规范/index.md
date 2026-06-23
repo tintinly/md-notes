@@ -70,7 +70,6 @@ order: 2
 ## Markdown
 
 - 避免死链接（如 `[xxx](invalid-url)`）、空链接（如 `[xxx]()`）
-- 中英文、罗马数字混用时，使用空格分隔（盘古之白）
 - 为文档添加 YAML 格式的前言，包含常用的字段如（title、date、tags、category、order）
 
 ## 参考资料
