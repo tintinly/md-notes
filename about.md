@@ -76,4 +76,4 @@ pageClass: about-page-class
 
 在建立页面路由、知识导航的过程中，我也对很多编程技术有了全面性、系统性的认知，多多少少是强化记忆，加深对知识的理解，同时在未来做笔记的时候肯定会更加注重技术的体系化梳理。
 
-项目基于 `VitePress` 静态页面生成，借鉴了许多人的搭建方式，总结了一则 [VitePress 指南](Markdown/Vitepress指南/index.md) 可供参考。
+项目基于 `VitePress` 静态页面生成，借鉴了许多人的搭建方式，总结了一则 [VitePress 指南](./Markdown/VitePress指南/index.md) 可供参考。
