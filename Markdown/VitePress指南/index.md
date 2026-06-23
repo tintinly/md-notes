@@ -668,13 +668,6 @@ export default {
 
 启用 sitemap 生成后，VitePress 将在构建时在输出目录的根目录中生成 `sitemap.xml` 文件。
 
-生成 sitemap 后，可以将其提交给搜索引擎以改善你的网站的 SEO，例如
-
-- [站点管理_站长工具_百度搜索资源平台](https://ziyuan.baidu.com/site/index)
--  [Google Search Console](https://search.google.com/search-console)
-- [Bing Webmaster Tools](https://www.bing.com/webmasters)
-- [Yandex Webmaster](https://webmaster.yandex.com/)
-
 ## 常见问题
 
 ### 解析文章的标签未闭合

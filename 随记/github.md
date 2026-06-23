@@ -1,33 +1,22 @@
 ## >_ Hi there, I'm tintinly 👋
 
 <div align="center">
-		<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&color=CE49F7&center=true&vCenter=true&width=435&separator=%3C&lines=Backend+developer.%3CSystem.out.println(%22Hello+World!%22);" alt="Typing SVG" />
+	<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&duration=3500&pause=1000&color=EC717F&center=true&vCenter=true&repeat=false&width=435&separator=%3C&lines=A+full-time+backend+developer%3CSystem.out.println(Hello+World!);%3C%E7%BA%B7%E7%B9%81%E4%B8%96%E7%95%8C%EF%BC%8C%E4%B8%BA%E5%86%85%E5%BF%83%E7%9A%84%E8%A1%A8%E8%BE%BE%E7%95%99%E4%B8%80%E6%89%87%E6%95%9E%E5%BC%80%E7%9A%84%E7%AA%97" alt="Typing SVG" />
 </div>
 
----
-
-### About Me
-
-<p align="center" style="color: #C747F7; font-size: 22px;">
-	纷繁世界，为内心的表达留一扇敞开的窗。
+<p align="center">
+	<samp >
+	    <a href="https://tintinly.top/">主&nbsp&nbsp页</a></td><td> .
+	    <a href="https://blog.tintinly.top/">博&nbsp&nbsp客</a> .
+	    <a href="https://notes.tintinly.top/">笔&nbsp&nbsp记</a>
+	</samp>
 </p>
 
 
 
-```diff
-- red
-+ green
-! orange
-# gray
-```
+<img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWNibnJhaGI5Z3FhYzE4bHUwazc3cWpmbm0xM2o3d2p5cWxvdDQweSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/p3jODc8SCg6H5VwSdJ/giphy.gif" width="260" align="right" alt="">
 
-总有一些事情能让我停止焦虑，在绿道上步履不停一整天不累，在球场上奔跑扮演曼彻斯特的德布劳内，直到下雨天点起一盏灯写一些无所谓的代码，但晚上不一定睡得着，如果顺利，梦里希望是在王菲的天空中徜徉。我们总在接收大量的无用信息，不要忘记找到能够输出自我的渠道。
-
-- [主页](https://tintinly.top/)
-- [博客](https://blog.tintinly.top/)
-- [笔记](https://notes.tintinly.top/)
-
-### Frontend 
+#### Frontend 
 
 <div align="left"> 
 <a href="https://www.w3schools.com/css/" target="_blank"><code><img width="32" alt="css" src="https://api.iconify.design/material-icon-theme/css.svg"></code></a>
@@ -38,19 +27,18 @@
 <a href="https://nodejs.org/" target="_blank"><code><img width="32" alt="nodejs" src="https://api.iconify.design/material-icon-theme/nodejs.svg"></code></a> 
 </div>
 
-### Backend
+#### Backend
 
 <div align="left">  
-<a href="https://github.com/" target="_blank"><code><img width="26" alt="java" src="https://api.iconify.design/logos/java.svg"></code></a> 
-<a href="https://www.java.com/" target="_blank"><code><img width="26" alt="spring" src="https://api.iconify.design/devicon/spring.svg"></code></a> 
-<a href="https://docs.spring.io/spring-framework/docs/3.0.x/reference/expressions.html#:~:text=The%20Spring%20Expression%20Language%20(SpEL,and%20basic%20string%20templating%20functionality." target="_blank"><code><img width="32" alt="vue" src="https://api.iconify.design/material-icon-theme/vue.svg"></code></a> 
-<a href="https://vuejs.org/" target="_blank"><code><img width="40" alt="mysql" src="https://api.iconify.design/logos/mysql.svg"></code></a> 
-<a href="https://www.mysql.com/" target="_blank"><code><img width="32" alt="redis" src="https://api.iconify.design/logos/redis.svg"></code></a> 
-<a href="https://redis.io/" target="_blank"><code><img width="32" alt="git" src="https://api.iconify.design/material-icon-theme/git.svg"></code></a> 
+<a href="https://www.java.com/" target="_blank"><code><img width="26" alt="java" src="https://api.iconify.design/logos/java.svg"></code></a> 
+<a href="https://spring.io/" target="_blank"><code><img width="26" alt="spring" src="https://api.iconify.design/devicon/spring.svg"></code></a> 
+<a href="https://vuejs.org/" target="_blank"><code><img width="32" alt="vue" src="https://api.iconify.design/material-icon-theme/vue.svg"></code></a> 
+<a href="https://www.mysql.com/" target="_blank"><code><img width="40" alt="mysql" src="https://api.iconify.design/logos/mysql.svg"></code></a> 
+<a href="https://redis.io/" target="_blank"><code><img width="32" alt="redis" src="https://api.iconify.design/logos/redis.svg"></code></a> 
+<a href="https://git-scm.com/" target="_blank"><code><img width="32" alt="git" src="https://api.iconify.design/material-icon-theme/git.svg"></code></a> 
 </div>
 
-
-### DevOps 
+#### DevOps 
 
 <div align="left"> 
 <a href="https://www.linux.org/" target="_blank"><code><img width="32" alt="linux" src="https://api.iconify.design/logos/linux-tux.svg"></code></a> 
@@ -59,24 +47,22 @@
 <a href="https://www.nginx.com/" target="_blank"><code><img width="32" alt="nginx" src="https://api.iconify.design/material-icon-theme/nginx.svg"></code></a> 
 </div>
 
-### Connect with me
+#### Connect with me
 
 <div>
-    <a href="https://github.com/tintinly" target="_blank"><img src="https://img.shields.io/badge/github-24292e?&style=for-the-badge&logo=github&logoColor=white" alt=github /></a>
-    <a href="https://space.bilibili.com/372204786" target="_blank"><img src="https://img.shields.io/badge/bilibili-fe70a0?&style=for-the-badge&logo=bilibili&logoColor=white" alt=youtube /></a>
-    <!--<a href="https://www.facebook.com/tintinliuye" target="_blank"><img src="https://img.shields.io/badge/facebook-2889e7?&style=for-the-badge&logo=facebook&logoColor=white" alt=facebook /></a>-->
-    <!--<a href="https://instagram.com/tintinliuye" target="_blank"><img src="https://img.shields.io/badge/instagram-D300C5?&style=for-the-badge&logo=instagram&logoColor=white" alt=instagram /></a>-->
-    <a href="https://twitter.com/TintinMrLiu" target="_blank"> <img src="https://img.shields.io/badge/twitter-000000?&style=for-the-badge&logo=x&logoColor=white" alt=twitter /></a>
-    <a href="https://www.youtube.com/@丁丁-i2b" target="_blank"><img src="https://img.shields.io/badge/youtube-FF0033?&style=for-the-badge&logo=youtube&logoColor=white" alt=youtube /></a>
+    <a href="https://github.com/tintinly" target="_blank"><img src="https://img.shields.io/badge/github-24292e?&style=for-the-badge&logo=github&logoColor=white" alt=github style="margin: 2px"/></a>
+    <a href="https://space.bilibili.com/406137704" target="_blank"><img src="https://img.shields.io/badge/bilibili-fe70a0?&style=for-the-badge&logo=bilibili&logoColor=white" alt=youtube style="margin: 2px"/></a>
+    <!--<a href="https://www.facebook.com/tintinliuye" target="_blank"><img src="https://img.shields.io/badge/facebook-2889e7?&style=for-the-badge&logo=facebook&logoColor=white" alt=facebook style="margin: 4px"/></a>-->
+    <!--<a href="https://instagram.com/tintinliuye" target="_blank"><img src="https://img.shields.io/badge/instagram-D300C5?&style=for-the-badge&logo=instagram&logoColor=white" alt=instagram style="margin: 4px"/></a>-->
+    <a href="https://twitter.com/TintinMrLiu" target="_blank"> <img src="https://img.shields.io/badge/twitter-000000?&style=for-the-badge&logo=x&logoColor=white" alt=twitter style="margin: 2px"/></a>
+    <a href="https://www.youtube.com/@丁丁-i2b" target="_blank"><img src="https://img.shields.io/badge/youtube-FF0033?&style=for-the-badge&logo=youtube&logoColor=white" alt=youtube style="margin: 2px"/></a>
 </div>
 
+#### Github Stats
 
-### Github Stats
+<div align="center"><img src="https://github-readme-activity-graph.vercel.app/graph?username=tintinly&theme=github" align="center" /></div> 
 
-<div align="center"><img src="https://github-readme-activity-graph.vercel.app/graph?username=tintinly&theme=vue" align="center" /></div> 
-
-### Recent Posts
+#### Recent Posts
 
 <!-- BLOG-POST-LIST:START -->  
-If things goes well, this section should automatically be replaced by a list of your blog posts after you commit your readme file. 
 <!-- BLOG-POST-LIST:END -->  

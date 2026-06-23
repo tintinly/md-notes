@@ -1,0 +1,3 @@
+User-agent: *
+
+Sitemap: https://notes.tintinly.top/sitemap.xml

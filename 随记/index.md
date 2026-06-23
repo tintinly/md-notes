@@ -489,8 +489,6 @@ https://twikoo.js.org/
 
 [Andy Hsu — Full Stack Developer](https://nn.ci/)
 
-[xhofe (Andy Hsu)](https://github.com/Xhofe)
-
 [Zyyo](https://zyyo.cc/)
 
 [Diu](https://ddiu.io/)
@@ -512,6 +510,8 @@ https://twikoo.js.org/
 [weizwz (weizwz)](https://github.com/weizwz)
 
 [maomao1996 (maomao)](https://github.com/maomao1996)
+
+[xhofe (Andy Hsu)](https://github.com/Xhofe)
 
 **教程**
 
