@@ -1,9 +1,5 @@
 # VPS 建站指南
 
-## 需求
-
-以下所写方案皆为需求，但基本都是未成规模、学习测试的用途。
-
 ## VPS 服务商
 
 VPS 优惠/评测/推荐：[科技 lion 官方网站 - KEJILION](https://kejilion.pro/)
@@ -57,24 +53,46 @@ firewall-cmd --state
 firewall-cmd --list-all
 ```
 
+## 服务器管理
 
+### 一体式
 
-## 安装服务面板
+直接安装一体化的面板，适合新手入门，几乎包揽服务器所有模块，网站配置、运行环境、容器管理、数据库、防火墙、监控、终端等等，使用一体化面板管理服务器、网站和应用基本可以摆脱命令行。
 
-（可选）使用服务器控制面板能使搭建服务器平台简单许多，环境一键部署集成环境，不需要额外拼凑环境包。
-
-| 面板名称 | 一句话描述                   | 资源占用 (内存@空载) | 核心亮点                                          |
-| :------- | :--------------------------- | :------------------- | :------------------------------------------------ |
-| Cockpit  | 官方血统的 "轻量级系统仪表盘" | 极低 (约 50 MB)       | Linux 官方支持，主要用于系统层管理，非建站专用    |
-| 1Panel   | 现代化的 Docker 容器管理面板 | 中等 (约 129 MB)      | 现代化界面、开源免费、主打容器化应用管理          |
-| 耗子面板 | "轻量党" 的宝藏选择           | 低 (约 70 MB)         | Go 语言开发，极致低占用，对系统修改极少，永久免费 |
-| 宝塔面板 | 功能全面的 "老牌瑞士军刀"     | 较高 (约 280 MB)      | 功能最全面，生态最成熟，一键部署对新手的体验极佳  |
+常见的 Linux 运维管理一体化面板有：宝塔面板、1Panel、aaPanel
 
 1Panel 安装脚本
 
 ```shell
 bash -c "$(curl -sSL https://resource.fit2cloud.com/1panel/package/v2/quick_start.sh)"
 ```
+
+### 组合式
+
+如果不喜欢这类糅合了所有管理功能的面板，看起来十分的臃肿，用的不熟练容易找不到配置的位置。可以组合使用不同层面上的 web 管理工具，例如有些面板只专注于 Linux 系统管理，有些面板只做类 Nginx 的 HTTP 服务器可视化，有些面板是做 docker 容器的可视化编排和管理，这很好地体现了“单一职责”的理念。如果说你追求轻量级、视觉清新的管理方案可以采用这种方式。
+
+以下是我的方案：Cockpit + nginx-ui + Portainer
+
+安装 Cockpit，访问默认端口 9090，输入系统用户密码
+
+```bash
+apt install cockpit -y
+
+# 启动服务
+systemctl start cockpit
+# 验证服务状态
+sudo systemctl status cockpit
+# 验证服务自启动
+sudo systemctl is-enabled cockpit
+```
+
+安装 nginx-ui
+
+```bash
+bash -c "$(curl -L https://cloud.nginxui.com/install.sh)" @ install -r https://cloud.nginxui.com/
+```
+
+
 
 ## 1panel
 
@@ -92,6 +110,18 @@ bash -c "$(curl -sSL https://resource.fit2cloud.com/1panel/package/v2/quick_star
 1pctl restart agent
 1pctl restart all
 ```
+
+完全卸载
+
+```
+1pctl uninstall
+
+sudo rm -rf /usr/local/bin/1panel
+sudo rm -f /etc/systemd/system/1panel.service
+sudo systemctl daemon-reload
+```
+
+
 
 ## 自建机场
 
@@ -111,7 +141,7 @@ bash -c "$(curl -sSL https://resource.fit2cloud.com/1panel/package/v2/quick_star
 
 控制台：[百度搜索资源平台_共创共享鲜活搜索](https://ziyuan.baidu.com/?castk=LTE%3D)
 
-教程：[自学呀 - 网站建设|网站SEO|关键词排名优化|一站式服务](https://www.zixueya.com/)
+教程：[自学呀 - 网站建设|网站 SEO|关键词排名优化|一站式服务](https://www.zixueya.com/)
 
 1. 登录：访问官网进入平台首页，右上角登录。（若无账号需先注册）
 2. 添加网站：点击【用户中心】-【站点管理】-【添加网站】，输入你的网站域名。
@@ -125,6 +155,6 @@ bash -c "$(curl -sSL https://resource.fit2cloud.com/1panel/package/v2/quick_star
 
 [google search console 终极教程 - 知乎](https://zhuanlan.zhihu.com/p/150718629)
 
-[谷歌SEO教程：手把手教你做SEO优化 2025 - 知乎](https://zhuanlan.zhihu.com/p/1931270570923788163)
+[谷歌 SEO 教程：手把手教你做 SEO 优化 2025 - 知乎](https://zhuanlan.zhihu.com/p/1931270570923788163)
 
-[谷歌SEO服务 | Google优化代运营公司- 鸭老师SEO](https://www.ylsseo.com/)
+[谷歌 SEO 服务 | Google 优化代运营公司- 鸭老师 SEO](https://www.ylsseo.com/)
